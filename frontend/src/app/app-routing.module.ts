@@ -8,7 +8,6 @@ const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
   {path: 'about', component: AboutComponent},
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
