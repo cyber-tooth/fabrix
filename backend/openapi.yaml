@@ -1,16 +1,23 @@
 openapi: 3.0.0
 info:
-  title: Node.js Sign-up and Verification API
-  description: Node.js + MySQL - API with email sign-up, verification, authentication and forgot password
+  title: Fabrix API
+  description: fabrix API...
   version: 1.0.0
-
+tags:
+  - name: authentification
+    description: bearer authentification
+  - name: users
+    description: Informationen about users
+  - name: pets
+    description: Informationen about pets
 servers:
   - url: http://localhost:4000
     description: Local development server
 
 paths:
-  /accounts/authenticate:
+  /api/v1/auth/login:
     post:
+      tags: [authentification]
       summary: Authenticate account credentials and return a JWT token and a cookie with a refresh token
       description: Accounts must be verified before authenticating.
       operationId: authenticate
@@ -81,8 +88,9 @@ paths:
                   message:
                     type: string
                     example: "Email or password is incorrect"
-  /accounts/refresh-token:
+  /api/v1/auth/refresh-token:
     post:
+      tags: [authentification]
       summary: Use a refresh token to generate a new JWT token and a new refresh token
       description: The refresh token is sent and returned via cookies.
       operationId: refreshToken
@@ -144,8 +152,9 @@ paths:
                   message:
                     type: string
                     example: "Invalid token"
-  /accounts/revoke-token:
+  /api/v1/auth/revoke-token:
     post:
+      tags: [authentification]
       summary: Revoke a refresh token
       description: Admin users can revoke the tokens of any account, regular users can only revoke their own tokens.
       operationId: revokeToken
@@ -190,10 +199,11 @@ paths:
                     example: "Invalid token"
         "401":
           $ref: "#/components/responses/UnauthorizedError"
-  /accounts/register:
+  /api/v1/auth/register:
     post:
+      tags: [authentification]
       summary: Register a new user account and send a verification email
-      description: The first account registered in the system is assigned the `Admin` role, other accounts are assigned the `User` role.
+      description: The first account registered in the system is assigned the `Admin` role, other authentication are assigned the `User` role.
       operationId: register
       requestBody:
         required: true
@@ -241,8 +251,9 @@ paths:
                   message:
                     type: string
                     example: "Registration successful, please check your email for verification instructions"
-  /accounts/verify-email:
+  /api/v1/auth/verify-email:
     post:
+      tags: [authentification]
       summary: Verify a new account with a verification token received by email after registration
       operationId: verifyEmail
       requestBody:
@@ -278,8 +289,9 @@ paths:
                   message:
                     type: string
                     example: "Verification failed"
-  /accounts/forgot-password:
+  /api/v1/auth/forgot-password:
     post:
+      tags: [authentification]
       summary: Submit email address to reset the password on an account
       operationId: forgotPassword
       requestBody:
@@ -305,9 +317,10 @@ paths:
                   message:
                     type: string
                     example: "Please check your email for password reset instructions"
-  /accounts/validate-reset-token:
+  /api/v1/auth/validate-reset-token:
     post:
-      summary: Validate the reset password token received by email after submitting to the /accounts/forgot-password route
+      tags: [authentification]
+      summary: Validate the reset password token received by email after submitting to the /authentication/forgot-password route
       operationId: validateResetToken
       requestBody:
         required: true
@@ -342,8 +355,9 @@ paths:
                   message:
                     type: string
                     example: "Invalid token"
-  /accounts/reset-password:
+  /api/v1/auth/reset-password:
     post:
+      tags: [authentification]
       summary: Reset the password for an account
       operationId: resetPassword
       requestBody:
@@ -387,16 +401,17 @@ paths:
                   message:
                     type: string
                     example: "Invalid token"
-  /accounts:
+  /api/v1/users:
     get:
-      summary: Get a list of all accounts
+      tags: [users]
+      summary: Get a list of all authentication
       description: Restricted to admin users.
       operationId: getAllAccounts
       security:
         - bearerAuth: []
       responses:
         "200":
-          description: An array of all accounts
+          description: An array of all authentication
           content:
             application/json:
               schema:
@@ -431,6 +446,7 @@ paths:
         "401":
           $ref: "#/components/responses/UnauthorizedError"
     post:
+      tags: [users]
       summary: Create a new account
       description: Restricted to admin users.
       operationId: createAccount
@@ -474,7 +490,7 @@ paths:
                 - role
       responses:
         "200":
-          description: Account created successfully, verification is not required for accounts created with this endpoint. The details of the new account are returned.
+          description: Account created successfully, verification is not required for authentication created with this endpoint. The details of the new account are returned.
           content:
             application/json:
               schema:
@@ -513,7 +529,7 @@ paths:
                     example: "Email 'jason@example.com' is already registered"
         "401":
           $ref: "#/components/responses/UnauthorizedError"
-  /accounts/{id}:
+  /api/v1/users/{id}:
     parameters:
       - in: path
         name: id
@@ -523,6 +539,7 @@ paths:
         schema:
           type: string
     get:
+      tags: [users]
       summary: Get a single account by id
       description: Admin users can access any account, regular users are restricted to their own account.
       operationId: getAccountById
@@ -565,6 +582,7 @@ paths:
         "401":
           $ref: "#/components/responses/UnauthorizedError"
     put:
+      tags: [users]
       summary: Update an account
       description: Admin users can update any account including role, regular users are restricted to their own account and cannot update role.
       operationId: updateAccount
@@ -635,6 +653,7 @@ paths:
         "401":
           $ref: "#/components/responses/UnauthorizedError"
     delete:
+      tags: [users]
       summary: Delete an account
       description: Admin users can delete any account, regular users are restricted to their own account.
       operationId: deleteAccount
@@ -643,6 +662,150 @@ paths:
       responses:
         "200":
           description: Account deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Account deleted successfully"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+  /api/v1/pets:
+    get:
+      tags: [pets]
+      summary: Get a list of all authentication
+      description: Restricted to admin users.
+      operationId: getAllPets
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: An array of all authentication
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pet'
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+    post:
+      tags: [pets]
+      summary: Create a new account
+      description: Restricted to admin users.
+      operationId: createPets
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/pet'
+      responses:
+        "200":
+          description: Account created successfully, verification is not required for authentication created with this endpoint. The details of the new account are returned.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "5eb12e197e06a76ccdefc121"
+                  title:
+                    type: string
+                    example: "Mr"
+                  firstName:
+                    type: string
+                    example: "Jason"
+                  lastName:
+                    type: string
+                    example: "Watmore"
+                  email:
+                    type: string
+                    example: "jason@example.com"
+                  role:
+                    type: string
+                    example: "Admin"
+                  created:
+                    type: string
+                    example: "2020-05-05T09:12:57.848Z"
+        "400":
+          description: Email is already registered
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Email 'jason@example.com' is already registered"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+  /api/v1/pets/{id}:
+    parameters:
+      - in: path
+        name: id
+        description: Account id
+        required: true
+        example: "5eb12e197e06a76ccdefc121"
+        schema:
+          type: string
+    get:
+      tags: [users]
+      summary: Get a single account by id
+      description: Admin users can access any account, regular users are restricted to their own account.
+      operationId: getPetById
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Details of the specified account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pet'
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+    put:
+      tags: [users]
+      summary: Update an account
+      description: Admin users can update any account including role, regular users are restricted to their own account and cannot update role.
+      operationId: updatePet
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/pet'
+      responses:
+        "200":
+          description: Account updated successfully. The details of the updated account are returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pet'
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+    delete:
+      tags: [users]
+      summary: Delete an account
+      description: Admin users can delete any account, regular users are restricted to their own account.
+      operationId: deletePet
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Pet deleted successfully
           content:
             application/json:
               schema:
@@ -683,3 +846,11 @@ components:
               message:
                 type: string
                 example: "Not Found"
+  schemas:
+    pet:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string

@@ -1,14 +1,14 @@
-const config = require('config.json');
+const config = require('../config.json');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const crypto = require("crypto");
 const { Op } = require('sequelize');
-const sendEmail = require('../_helpers/send-email.js');
-const db = require('../_helpers/db.js');
-const Role = require('../_helpers/role.js');
+const sendEmail = require('../helpers/send-email.js');
+const db = require('../helpers/db.js');
+const Role = require('../helpers/role.js');
 
 module.exports = {
-    authenticate,
+    login,
     refreshToken,
     revokeToken,
     register,
@@ -23,7 +23,7 @@ module.exports = {
     delete: _delete
 };
 
-async function authenticate({ email, password, ipAddress }) {
+async function login({ email, password, ipAddress }) {
     const account = await db.Account.scope('withHash').findOne({ where: { email } });
 
     if (!account || !account.isVerified || !(await bcrypt.compare(password, account.passwordHash))) {
@@ -249,11 +249,11 @@ function basicDetails(account) {
 async function sendVerificationEmail(account, origin) {
     let message;
     if (origin) {
-        const verifyUrl = `${origin}/account/verify-email?token=${account.verificationToken}`;
+        const verifyUrl = `${origin}/auth/verify-email?token=${account.verificationToken}`;
         message = `<p>Please click the below link to verify your email address:</p>
                    <p><a href="${verifyUrl}">${verifyUrl}</a></p>`;
     } else {
-        message = `<p>Please use the below token to verify your email address with the <code>/account/verify-email</code> api route:</p>
+        message = `<p>Please use the below token to verify your email address with the <code>/auth/verify-email</code> api route:</p>
                    <p><code>${account.verificationToken}</code></p>`;
     }
 
@@ -286,7 +286,7 @@ async function sendAlreadyRegisteredEmail(email, origin) {
 async function sendPasswordResetEmail(account, origin) {
     let message;
     if (origin) {
-        const resetUrl = `${origin}/account/reset-password?token=${account.resetToken}`;
+        const resetUrl = `${origin}/auth/reset-password?token=${account.resetToken}`;
         message = `<p>Please click the below link to reset your password, the link will be valid for 1 day:</p>
                    <p><a href="${resetUrl}">${resetUrl}</a></p>`;
     } else {

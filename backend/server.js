@@ -3,25 +3,30 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+var router = require('./routes/routes');
 const cors = require('cors');
-const errorHandler = require('_middleware/error-handler.js');
+const errorHandler = require('security/error-handler.js');
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
 // allow cors requests from any origin and with credentials
-app.use(cors({ origin: (origin, callback) => callback(null, true), credentials: true }));
-
-// api routes
-app.use('/accounts', require('accounts/accounts.controller.js'));
+app.use(cors({
+    origin: (origin, callback) => callback(null, true),
+    credentials: true
+}));
 
 // swagger docs route
-app.use('/api-docs', require('_helpers/swagger.js'));
+app.use('/api-docs', require('helpers/swagger.js'));
 
 // global error handler
 app.use(errorHandler);
 
+// include the routers
+router(app);
 // start server
 const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 4000;
 app.listen(port, () => console.log('Server listening on port ' + port));
