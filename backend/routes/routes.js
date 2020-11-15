@@ -28,6 +28,9 @@ module.exports = function (app) {
     // User routes
     apiRoutes.use('/v1/users', userRoutes);
 
+    // User routes
+    apiRoutes.use('/v1/pets', petRoutes);
+
     //swagger ui
     apiRoutes.use('/', swaggerRoutes);
 
