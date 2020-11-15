@@ -45,3 +45,4 @@ Thumbs.db
 \.npmrc
 
 logs/server\.log
+config.json

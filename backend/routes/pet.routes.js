@@ -5,7 +5,8 @@ const Role = require('../helpers/role.js');
 var router = express.Router();
 
 // Pet Routes
-router.get('/', petController.getAll);
+//TODO Check the access level admin, user
+router.get('/',authorize(Role.Admin), petController.getAll);
 router.get('/:id', petController.getById);
 router.post('/', petController.create);
 router.put('/:id', petController.update);

@@ -250,6 +250,7 @@ async function sendVerificationEmail(account, origin) {
     let message;
     if (origin) {
         const verifyUrl = `${origin}/auth/verify-email?token=${account.verificationToken}`;
+        http://fabrix/auth/verify-email?token
         message = `<p>Please click the below link to verify your email address:</p>
                    <p><a href="${verifyUrl}">${verifyUrl}</a></p>`;
     } else {

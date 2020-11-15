@@ -1,16 +1,14 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import {NavigationBarComponent} from "./navigation-bar/navigation-bar.component";
-import { ListeComponent } from './liste/liste.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { AboutComponent } from './about/about.component';
-import { TasksComponent } from './tasks/tasks.component';
-import { RegisterComponent } from './register/register.component';
-import { FooterComponent } from './footer/footer.component';
-import { LoginComponent } from './login/login.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {
+  NavigationBarComponent, ListeComponent, DashboardComponent, AboutComponent, TasksComponent,
+  RegisterComponent, FooterComponent, LoginComponent
+} from './components/index';
+
+import {AuthenticationService, UserService} from './services/index';
 
 @NgModule({
   declarations: [
@@ -28,7 +26,11 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    AuthenticationService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

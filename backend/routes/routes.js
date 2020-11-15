@@ -6,7 +6,7 @@ var accountController = require('../authentication/accounts.controller');
 
 var userRoutes = require('../routes/user.routes');
 var petRoutes = require('../routes/pet.routes');
-
+var swaggerRoutes = require('../routes/swagger.routes');
 module.exports = function (app) {
 
     var apiRoutes = express.Router(),
@@ -28,11 +28,13 @@ module.exports = function (app) {
     // User routes
     apiRoutes.use('/v1/users', userRoutes);
 
-    // Pet routes
-    apiRoutes.use('/v1/pets', petRoutes);
+    //swagger ui
+    apiRoutes.use('/', swaggerRoutes);
 
     //static
     apiRoutes.use('/public/', express.static(path.join(__dirname, '../public')));
+
+
     // Set up routes
     app.use('/api', apiRoutes);
 };

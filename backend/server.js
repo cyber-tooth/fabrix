@@ -19,9 +19,6 @@ app.use(cors({
     credentials: true
 }));
 
-// swagger docs route
-app.use('/api-docs', require('helpers/swagger.js'));
-
 // global error handler
 app.use(errorHandler);
 
