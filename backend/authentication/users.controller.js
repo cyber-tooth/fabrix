@@ -1,6 +1,6 @@
 const Joi = require('joi');
 const validateRequest = require('../security/validate-request.js');
-const accountService = require('./account.service');
+const accountService = require('./users.service');
 
 exports.authenticateSchema = function (req, res, next) {
     const schema = Joi.object({
@@ -23,10 +23,10 @@ exports.login = function (req, res, next) {
     })
         .then(({
                    refreshToken,
-                   ...account
+                   ...user
                }) => {
             setTokenCookie(res, refreshToken);
-            res.json(account);
+            res.json(user);
         })
         .catch(next => {
             return res.status(400).json({
@@ -44,10 +44,10 @@ exports.refreshToken = function (req, res, next) {
     })
         .then(({
                    refreshToken,
-                   ...account
+                   ...user
                }) => {
             setTokenCookie(res, refreshToken);
-            res.json(account);
+            res.json(user);
         })
         .catch(next => {
             return res.status(400).json({
@@ -198,7 +198,7 @@ exports.resetPassword = function (req, res, next) {
 
 exports.getAll = function (req, res, next) {
     accountService.getAll()
-        .then(accounts => res.json(accounts))
+        .then(users => res.json(users))
         .catch(next => {
             return res.status(400).json({
                 error: next
@@ -207,7 +207,7 @@ exports.getAll = function (req, res, next) {
 };
 
 exports.getById = function (req, res, next) {
-    // users can get their own account and admins can get any account
+    // users can get their own user and admins can get any user
     if (Number(req.params.id) !== req.user.id && req.user.role !== Role.Admin) {
         return res.status(401).json({
             message: 'Unauthorized'
@@ -215,7 +215,7 @@ exports.getById = function (req, res, next) {
     }
 
     accountService.getById(req.params.id)
-        .then(account => account ? res.json(account) : res.sendStatus(404))
+        .then(user => user ? res.json(user) : res.sendStatus(404))
         .catch(next => {
             return res.status(400).json({
                 error: next
@@ -238,7 +238,7 @@ exports.createSchema = function (req, res, next) {
 
 exports.create = function (req, res, next) {
     accountService.create(req.body)
-        .then(account => res.json(account))
+        .then(user => res.json(user))
         .catch(next => {
             return res.status(400).json({
                 error: next
@@ -266,7 +266,7 @@ exports.updateSchema = function (req, res, next) {
 };
 
 exports.update = function (req, res, next) {
-    // users can update their own account and admins can update any account
+    // users can update their own user and admins can update any user
     if (Number(req.params.id) !== req.user.id && req.user.role !== Role.Admin) {
         return res.status(401).json({
             message: 'Unauthorized'
@@ -274,7 +274,7 @@ exports.update = function (req, res, next) {
     }
 
     accountService.update(req.params.id, req.body)
-        .then(account => res.json(account))
+        .then(user => res.json(user))
         .catch(next => {
             return res.status(400).json({
                 error: next
@@ -283,7 +283,7 @@ exports.update = function (req, res, next) {
 };
 
 exports._delete = function (req, res, next) {
-    // users can delete their own account and admins can delete any account
+    // users can delete their own user and admins can delete any user
     if (Number(req.params.id) !== req.user.id && req.user.role !== Role.Admin) {
         return res.status(401).json({
             message: 'Unauthorized'
@@ -292,7 +292,7 @@ exports._delete = function (req, res, next) {
 
     accountService.delete(req.params.id)
         .then(() => res.json({
-            message: 'Account deleted successfully'
+            message: 'User deleted successfully'
         }))
         .catch(next => {
             return res.status(400).json({

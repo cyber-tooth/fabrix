@@ -6,3 +6,6 @@ export * from './login/login.component';
 export * from './navigation-bar/navigation-bar.component';
 export * from './register/register.component';
 export * from './tasks/tasks.component';
+export * from './confirmation/confirmation.component';
+export * from './forgot/forgot.component';
+export * from './reset/reset.component';

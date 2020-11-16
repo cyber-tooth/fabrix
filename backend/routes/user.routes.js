@@ -1,5 +1,5 @@
 var express = require('express');
-var accountController = require('../authentication/accounts.controller');
+var accountController = require('../authentication/users.controller');
 var authorize = require('../security/authorize.js');
 const Role = require('../helpers/role.js');
 var router = express.Router();

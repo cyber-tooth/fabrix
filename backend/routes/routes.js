@@ -2,7 +2,7 @@ var express = require('express');
 var authorize = require('../security/authorize.js');
 var Role = require('../helpers/role.js');
 var path = require('path');
-var accountController = require('../authentication/accounts.controller');
+var accountController = require('../authentication/users.controller');
 
 var userRoutes = require('../routes/user.routes');
 var petRoutes = require('../routes/pet.routes');

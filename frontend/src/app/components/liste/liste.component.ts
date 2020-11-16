@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'htw-liste',
+  selector: 'app-liste',
   templateUrl: './liste.component.html',
   styleUrls: ['./liste.component.css']
 })

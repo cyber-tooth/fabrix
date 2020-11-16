@@ -5,10 +5,17 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {
   NavigationBarComponent, ListeComponent, DashboardComponent, AboutComponent, TasksComponent,
-  RegisterComponent, FooterComponent, LoginComponent
+  RegisterComponent, FooterComponent, LoginComponent, ForgotComponent, ResetComponent, ConfirmationComponent
 } from './components/index';
 
 import {AuthenticationService, UserService} from './services/index';
+import { HttpClientModule} from "@angular/common/http";
+import {JwtModule} from "@auth0/angular-jwt";
+import { HomeComponent } from './components/home/home.component';
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -20,11 +27,24 @@ import {AuthenticationService, UserService} from './services/index';
     NavigationBarComponent,
     RegisterComponent,
     FooterComponent,
-    LoginComponent
+    LoginComponent,
+    ConfirmationComponent,
+    ForgotComponent,
+    ResetComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserModule,
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ['localhost', 'htwhost.com'],
+        disallowedRoutes: ['example.com/examplebadroute/']
+      }
+    }),
   ],
   providers: [
     AuthenticationService,
@@ -32,5 +52,6 @@ import {AuthenticationService, UserService} from './services/index';
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }
