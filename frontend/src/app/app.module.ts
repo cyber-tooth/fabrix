@@ -1,16 +1,21 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import {NavigationBarComponent} from "./navigation-bar/navigation-bar.component";
-import { ListeComponent } from './liste/liste.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { AboutComponent } from './about/about.component';
-import { TasksComponent } from './tasks/tasks.component';
-import { RegisterComponent } from './register/register.component';
-import { FooterComponent } from './footer/footer.component';
-import { LoginComponent } from './login/login.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {
+  NavigationBarComponent, ListeComponent, DashboardComponent, AboutComponent, TasksComponent,
+  RegisterComponent, FooterComponent, LoginComponent, ForgotComponent, ResetComponent, ConfirmationComponent
+} from './components/index';
+
+import {AuthenticationService, UserService} from './services/index';
+import { HttpClientModule} from "@angular/common/http";
+import {JwtModule} from "@auth0/angular-jwt";
+import { HomeComponent } from './components/home/home.component';
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -22,13 +27,31 @@ import { LoginComponent } from './login/login.component';
     NavigationBarComponent,
     RegisterComponent,
     FooterComponent,
-    LoginComponent
+    LoginComponent,
+    ConfirmationComponent,
+    ForgotComponent,
+    ResetComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserModule,
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ['localhost', 'htwhost.com'],
+        disallowedRoutes: ['example.com/examplebadroute/']
+      }
+    }),
   ],
-  providers: [],
+  providers: [
+    AuthenticationService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {
+}

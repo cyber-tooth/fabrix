@@ -1,0 +1,30 @@
+version: '3'
+services: 
+  backend:
+    container_name: fabrix-backend
+    image: fabrix-backend
+    build:
+      context: backend/
+    ports:
+      - 5000:4000
+    depends_on:
+      - mysql
+  frontend:
+    container_name: fabrix-frontend
+    image: fabrix-frontend
+    build:
+      context: frontend/
+    ports:
+      - 80:80
+    depends_on:
+      - backend
+  mysql:
+    container_name: mysql
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'fabrix'
+      MYSQL_ROOT_HOST: '%'
+    ports:
+    - 3306:3306
