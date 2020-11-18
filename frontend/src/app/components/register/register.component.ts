@@ -9,6 +9,8 @@ import {User} from "../../models";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  text = 'Enter a secure password: at least 6 characters, including upper-case and lower-case letters and numbers.';
+  hidden = true;
 
   constructor(
     private userService: UserService,

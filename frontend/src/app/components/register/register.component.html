@@ -13,11 +13,12 @@
       <div class="fields">
         <div class="field">
           <label>Password</label>
-          <input type="password" placeholder="min. 6 characters, one capital letter & one number">
+          <input type="password" (click)="hidden=!hidden">
+          <p [hidden]="hidden">{{text}}</p>
         </div>
         <div class="field">
           <label>Confirm Password</label>
-          <input type="password">
+          <input type="password" (click)="hidden=!hidden">
         </div>
       </div>
     </div>
