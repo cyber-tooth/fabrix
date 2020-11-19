@@ -1,32 +1,36 @@
-<div class="reg-form">
-  <div class="ui equal width form">
-    <div class="fields">
-      <div class="field">
-        <label>E-mail</label>
-        <input type="email" placeholder="joe@schmoe.com">
-      </div>
-      <div class="field">
-        <label>Password</label>
-        <input type="password">
-      </div>
-    </div>
+<form class="form-flex" [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
+  <div class="text-center mb-4">
+    <img class="mb-4" src="assets/img/bootstrap-solid.png" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Welcome Back</h1>
+    <p>Enter you account details below</p>
   </div>
 
-  <div class="ui form success">
-    <div class="ui success message">
-      <div class="header">Form Completed</div>
-      <p>You're signed up.</p>
-    </div>
-    <div class="ui error message">
-     <div class="header">Action Forbidden</div>
-      <p>You can only sign up for an user once with a given e-mail address.</p>
-   </div>
-    <div class="ui warning message">
-      <div class="header">Could you check something!</div>
-      <ul class="list">
-        <li>That e-mail has been subscribed, but you have not yet clicked the verification link in your e-mail.</li>
-      </ul>
-    </div>
-  <div class="ui submit button">Submit</div>
-</div>
-</div>
+  <div class="form-group">
+      <input formControlName="email" type="email" placeholder="email"
+             name="email" id="email" class="form-control"
+             aria-required="true" required>
+      <app-validation-msg [display]="isLoginFieldValid('email')" msg="Enter your email"></app-validation-msg>
+  </div>
+
+  <div class="form-group">
+    <input formControlName="password" type="password" placeholder="password"
+           name="password" id="password" class="form-control" aria-required="true"
+           required>
+    <app-validation-msg [display]="isLoginFieldValid('password')" msg="Enter your password"></app-validation-msg>
+    <div><small><a routerLink="['/forgot']">Forgot Password?</a>
+    </small></div>
+  </div>
+
+  <div class="checkbox mb-3">
+    <label>
+      <input type="checkbox" value="remember-me"> Remember me
+    </label>
+  </div>
+  <button class="btn btn-lg btn-dark btn-block" type="submit">Log in</button>
+  <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2018</p>
+  <div class="col-lg" *ngFor="let alert of alerts">
+    <alert [type]="alert.type"  (onClosed)="onCloseNotification(alert)">{{
+      alert.msg }}</alert>
+  </div>
+</form>
+

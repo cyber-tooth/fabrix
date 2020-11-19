@@ -4,14 +4,20 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {
-  NavigationBarComponent, ListeComponent, DashboardComponent, AboutComponent, TasksComponent,
+  HeaderComponent, ListeComponent, DashboardComponent, AboutComponent, TasksComponent,
   RegisterComponent, FooterComponent, LoginComponent, ForgotComponent, ResetComponent, ConfirmationComponent
 } from './components/index';
 
-import {AuthenticationService, UserService} from './services/index';
+import {AuthenticationService, AuthorisationService, UserService} from './services/index';
 import { HttpClientModule} from "@angular/common/http";
 import {JwtModule} from "@auth0/angular-jwt";
 import { HomeComponent } from './components/home/home.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {AlertModule} from "ngx-bootstrap/alert";
+import {ValidationMsgComponent} from "./components/validation/validation-msg.component";
+import { MailSentComponent } from './components/mail-sent/mail-sent.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { ImpressumComponent } from './components/impressum/impressum.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -24,14 +30,18 @@ export function tokenGetter() {
     DashboardComponent,
     AboutComponent,
     TasksComponent,
-    NavigationBarComponent,
+    HeaderComponent,
     RegisterComponent,
     FooterComponent,
     LoginComponent,
     ConfirmationComponent,
     ForgotComponent,
     ResetComponent,
-    HomeComponent
+    HomeComponent,
+    ValidationMsgComponent,
+    MailSentComponent,
+    ContactComponent,
+    ImpressumComponent
   ],
   imports: [
     BrowserModule,
@@ -45,9 +55,12 @@ export function tokenGetter() {
         disallowedRoutes: ['example.com/examplebadroute/']
       }
     }),
+    ReactiveFormsModule,
+    AlertModule.forRoot(),
   ],
   providers: [
     AuthenticationService,
+    AuthorisationService,
     UserService
   ],
   bootstrap: [AppComponent]

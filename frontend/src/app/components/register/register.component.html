@@ -1,47 +1,61 @@
-<div class="reg-form">
-    <div class="ui equal width form">
-      <div class="fields">
-        <div class="field">
-          <label>First name</label>
-          <input type="text" placeholder="First Name">
-        </div>
-        <div class="field">
-          <label>Last name</label>
-          <input type="text" placeholder="Last Name">
-        </div>
-      </div>
-      <div class="fields">
-        <div class="field">
-          <label>Password</label>
-          <input type="password" (click)="hidden=!hidden">
-          <p [hidden]="hidden">{{text}}</p>
-        </div>
-        <div class="field">
-          <label>Confirm Password</label>
-          <input type="password" (click)="hidden=!hidden">
-        </div>
-      </div>
-    </div>
+<form class="form-flex" [formGroup]="registerForm" (ngSubmit)="register()" novalidate>
+  <div class="text-center mb-4">
+    <img class="mb-4" src="assets/img/bootstrap-solid.png" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Welcome Back</h1>
+    <p>Enter you account details below</p>
+  </div>
 
-    <div class="ui form success">
-      <div class="field">
-        <label>E-Mail</label>
-        <input type="email" placeholder="example@hotmail.com">
-      </div>
-      <div class="ui success message">
-        <div class="header">Form Completed</div>
-        <p>You're signed up.</p>
-      </div>
-      <div class="ui error message">
-        <div class="header">Action Forbidden</div>
-        <p>You can only sign up for an user once with a given e-mail address.</p>
-      </div>
-      <div class="ui warning message">
-        <div class="header">Could you check something!</div>
-        <ul class="list">
-          <li>That e-mail has been subscribed, but you have not yet clicked the verification link in your e-mail.</li>
-        </ul>
-      </div>
-      <div class="ui submit button">Submit</div>
-    </div>
-</div>
+  <div class="form-group">
+    <select class="form-control" id="title" formControlName="title" placeholder="Title">
+      <option value="" disabled>Choose your title</option>
+      <option *ngFor="let title of titles" [ngValue]="title">{{title}}</option>
+    </select>
+    <app-validation-msg [display]="isRegisterFieldValid('title')"  msg="Select your title">
+    </app-validation-msg>
+  </div>
+
+  <div class="form-group">
+    <input formControlName="firstName" type="text" placeholder="first name"
+           name="email" id="firstName" class="form-control"
+           aria-required="true" required>
+    <app-validation-msg [display]="isRegisterFieldValid('firstName')" msg="Enter your first name"></app-validation-msg>
+  </div>
+
+  <div class="form-group">
+    <input formControlName="lastName" type="text" placeholder="last name"
+           name="email" id="lastName" class="form-control"
+           aria-required="true" required>
+    <app-validation-msg [display]="isRegisterFieldValid('lastName')" msg="Enter your last name"></app-validation-msg>
+  </div>
+
+  <div class="form-group">
+    <input formControlName="email" type="email" placeholder="email"
+           name="email" id="email" class="form-control"
+           aria-required="true" required>
+    <app-validation-msg [display]="isRegisterFieldValid('email')" msg="Enter your email"></app-validation-msg>
+  </div>
+
+
+  <div class="form-group">
+    <input formControlName="password" type="password" placeholder="password"
+           name="password" id="password" class="form-control" aria-required="true"
+           required>
+    <app-validation-msg [display]="isRegisterFieldValid('password')" msg="Enter your password"></app-validation-msg>
+  </div>
+
+  <div class="form-group">
+    <input formControlName="confirmPassword" type="password" placeholder="confirm password"
+           name="confirmPassword" id="confirmPassword" class="form-control" aria-required="true"
+           required>
+    <app-validation-msg [display]="isRegisterFieldValid('confirmPassword')"
+                        msg="Confirm your password"></app-validation-msg>
+  </div>
+
+  <button class="btn btn-lg btn-dark btn-block" type="submit">Sign in</button>
+  <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2018</p>
+  <div class="col-lg" *ngFor="let alert of alerts">
+    <alert [type]="alert.type" (onClosed)="onCloseNotification(alert)">{{
+      alert.msg }}</alert>
+  </div>
+</form>
+
