@@ -271,10 +271,13 @@ async function sendVerificationEmail(user, origin) {
 
     await sendEmail({
         to: user.email,
-        subject: 'Sign-up Verification API - Verify Email',
-        html: `<h4>Verify Email</h4>
-               <p>Thanks for registering!</p>
-               ${message}`
+        subject: 'Verify your Email for Filfabs',
+        html: `<h4>Verify Email for Filfabs</h4>
+               <p>Thanks for your registering!</p>
+               ${message}
+                <p><br>
+                   Kind regards, <br>
+                   your Filfabs-Team </p>`
     });
 }
 
@@ -288,7 +291,7 @@ async function sendAlreadyRegisteredEmail(email, origin) {
 
     await sendEmail({
         to: email,
-        subject: 'Sign-up Verification API - Email Already Registered',
+        subject: 'Your Email is already Registered',
         html: `<h4>Email Already Registered</h4>
                <p>Your email <strong>${email}</strong> is already registered.</p>
                ${message}`
