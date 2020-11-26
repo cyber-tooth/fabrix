@@ -1,17 +1,16 @@
 <form class="form-flex" [formGroup]="registerForm" (ngSubmit)="register()" novalidate>
-  <div class="text-center mb-4">
-    <img class="mb-4" src="assets/img/bootstrap-solid.png" alt="" width="72" height="72">
-    <h1 class="h3 mb-3 font-weight-normal">Welcome Back</h1>
-    <p>Enter you account details below</p>
-  </div>
+    <div class="py-3 text-left">
+      <h3>No user account yet?</h3>
+    </div>
+    <div class="text-left mb-4">
+      <p>With this account you can ...</p>
+    </div>
 
   <div class="form-group">
-    <select class="form-control" id="title" formControlName="title" placeholder="Title">
-      <option value="" disabled>Choose your title</option>
-      <option *ngFor="let title of titles" [ngValue]="title">{{title}}</option>
-    </select>
-    <app-validation-msg [display]="isRegisterFieldValid('title')"  msg="Select your title">
-    </app-validation-msg>
+    <input formControlName="firmName" type="text" placeholder="firm name"
+           name="email" id="firmName" class="form-control"
+           aria-required="true" required>
+    <app-validation-msg [display]="isRegisterFieldValid('firmenname')" msg="Enter your firm name"></app-validation-msg>
   </div>
 
   <div class="form-group">
@@ -51,6 +50,7 @@
                         msg="Confirm your password"></app-validation-msg>
   </div>
 
+
   <button class="btn btn-lg btn-dark btn-block" type="submit">Sign in</button>
   <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2018</p>
   <div class="col-lg" *ngFor="let alert of alerts">
@@ -58,4 +58,6 @@
       alert.msg }}</alert>
   </div>
 </form>
+
+
 
