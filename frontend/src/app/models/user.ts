@@ -1,8 +1,8 @@
 export class User {
   id: string;
-  title: string;
   firstName: string;
   lastName: string;
+  firmenname: string;
   email: string;
   password: string;
   confirmPassword: string
@@ -10,10 +10,10 @@ export class User {
   role: User.RoleEnum;
 
 
-  constructor(title: string, firstName: string, lastName: string, email: string, password: string, confirmPassword: string, acceptTerms: boolean) {
-    this.title = title;
+  constructor( firstName: string, lastName: string, firmenname: string, email: string, password: string, confirmPassword: string, acceptTerms: boolean) {
     this.firstName = firstName;
     this.lastName = lastName;
+    this.firmenname = firmenname;
     this.email = email;
     this.password = password;
     this.confirmPassword = confirmPassword;
@@ -26,5 +26,6 @@ export namespace User {
   export enum RoleEnum {
     admin = <any>'admin',
     user = <any>'user',
+    superAdmin = <any>'superAdmin',
   }
 }

@@ -20,7 +20,6 @@ export class RegisterComponent implements OnInit {
 
   // notification
   public alerts: any[] = [];
-  public titles: any[] = ['Mr', 'Mrs', 'Ms', 'Miss'];
 
   constructor(
     private form: FormBuilder,
@@ -32,11 +31,11 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.registerForm =
       this.form.group({
-          title: [''],
           email: [null, [Validators.required, Validators.email]],
           acceptTerms: [true],
           firstName: [null, [<any>Validators.required]],
           lastName: [null, [<any>Validators.required]],
+          firmenname: [null],
           password: [
             null,
             Validators.compose([

@@ -4,6 +4,7 @@ import {AuthenticationService} from '../services/authentication.service';
 import {User} from "../models";
 import RoleEnum = User.RoleEnum;
 
+//Für den SuperAdmin, nicht den Admin!
 @Injectable()
 export class AuthGuardAdmin implements CanActivate {
 
@@ -14,7 +15,7 @@ export class AuthGuardAdmin implements CanActivate {
     if (localStorage.getItem('currentUser')) {
       const currentUser = JSON.parse(localStorage.getItem('currentUser'));
       const role = currentUser.role;
-      if (role === RoleEnum.admin) {
+      if (role === RoleEnum.superAdmin) {
         return true;
       } else {
         // not logged in so redirect to login page with the return url

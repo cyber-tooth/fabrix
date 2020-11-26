@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const validateRequest = require('../security/validate-request.js');
 const accountService = require('./users.service');
+const Role = require("../helpers/role");
 
 exports.authenticateSchema = function (req, res, next) {
     const schema = Joi.object({
@@ -73,7 +74,7 @@ exports.revokeToken = function (req, res, next) {
     });
 
     // users can revoke their own tokens and admins can revoke any tokens
-    if (!req.user.ownsToken(token) && req.user.role !== Role.Admin) {
+    if (!req.user.ownsToken(token) && req.user.role !== Role.SuperAdmin) {
         return res.status(401).json({
             message: 'Unauthorized'
         });
@@ -95,9 +96,9 @@ exports.revokeToken = function (req, res, next) {
 
 exports.registerSchema = function (req, res, next) {
     const schema = Joi.object({
-        title: Joi.string().required(),
         firstName: Joi.string().required(),
         lastName: Joi.string().required(),
+        firmenname: Joi.string(),
         email: Joi.string().email().required(),
         password: Joi.string().min(6).required(),
         confirmPassword: Joi.string().valid(Joi.ref('password')).required(),
@@ -208,7 +209,7 @@ exports.getAll = function (req, res, next) {
 
 exports.getById = function (req, res, next) {
     // users can get their own user and admins can get any user
-    if (Number(req.params.id) !== req.user.id && req.user.role !== Role.Admin) {
+    if (Number(req.params.id) !== req.user.id && req.user.role !== Role.SuperAdmin) {
         return res.status(401).json({
             message: 'Unauthorized'
         });
@@ -225,13 +226,13 @@ exports.getById = function (req, res, next) {
 
 exports.createSchema = function (req, res, next) {
     const schema = Joi.object({
-        title: Joi.string().required(),
         firstName: Joi.string().required(),
         lastName: Joi.string().required(),
+        firmenname: Joi.string(),
         email: Joi.string().email().required(),
         password: Joi.string().min(6).required(),
         confirmPassword: Joi.string().valid(Joi.ref('password')).required(),
-        role: Joi.string().valid(Role.Admin, Role.User).required()
+        role: Joi.string().valid(Role.SuperAdmin, Role.user).required()
     });
     validateRequest(req, next, schema);
 };
@@ -248,17 +249,17 @@ exports.create = function (req, res, next) {
 
 exports.updateSchema = function (req, res, next) {
     const schemaRules = {
-        title: Joi.string().empty(''),
         firstName: Joi.string().empty(''),
         lastName: Joi.string().empty(''),
+        firmenname: Joi.string().empty(''),
         email: Joi.string().email().empty(''),
         password: Joi.string().min(6).empty(''),
         confirmPassword: Joi.string().valid(Joi.ref('password')).empty('')
     };
 
     // only admins can update role
-    if (req.user.role === Role.Admin) {
-        schemaRules.role = Joi.string().valid(Role.Admin, Role.User).empty('');
+    if (req.user.role === Role.SuperAdmin) {
+        schemaRules.role = Joi.string().valid(Role.SuperAdmin, Role.user).empty('');
     }
 
     const schema = Joi.object(schemaRules).with('password', 'confirmPassword');
@@ -267,7 +268,7 @@ exports.updateSchema = function (req, res, next) {
 
 exports.update = function (req, res, next) {
     // users can update their own user and admins can update any user
-    if (Number(req.params.id) !== req.user.id && req.user.role !== Role.Admin) {
+    if (Number(req.params.id) !== req.user.id && req.user.role !== Role.SuperAdmin) {
         return res.status(401).json({
             message: 'Unauthorized'
         });
@@ -284,7 +285,7 @@ exports.update = function (req, res, next) {
 
 exports._delete = function (req, res, next) {
     // users can delete their own user and admins can delete any user
-    if (Number(req.params.id) !== req.user.id && req.user.role !== Role.Admin) {
+    if (Number(req.params.id) !== req.user.id && req.user.role !== Role.SuperAdmin) {
         return res.status(401).json({
             message: 'Unauthorized'
         });

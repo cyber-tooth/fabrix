@@ -13,7 +13,7 @@ export class AuthGuardUser implements CanActivate {
     if (localStorage.getItem('currentUser')) {
       const currentUser = JSON.parse(localStorage.getItem('currentUser'));
       const role = currentUser.role;
-      if (role === RoleEnum.user ||  role === RoleEnum.admin ) {
+      if (role === RoleEnum.user ||  role === RoleEnum.superAdmin ) {
         return true;
       } else {
         // not logged in so redirect to login page with the return url

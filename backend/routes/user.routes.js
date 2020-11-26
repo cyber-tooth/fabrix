@@ -5,7 +5,7 @@ const Role = require('../helpers/role.js');
 var router = express.Router();
 
 // User Routes
-router.get('/', authorize(), accountController.getAll);
+router.get('/', authorize(Role.SuperAdmin), accountController.getAll);
 router.get('/:id', authorize(), accountController.getById);
 router.post('/', authorize(), accountController.createSchema, accountController.create);
 router.put('/:id', authorize(), accountController.updateSchema, accountController.update);
