@@ -5,11 +5,10 @@ const Role = require('../helpers/role.js');
 var router = express.Router();
 
 // Stoff Routes
-//TODO Check the access level admin, user
-router.get('/',authorize(Role.admin), stoffController.getAll);
+router.get('/', stoffController.getAll);
 router.get('/:id', stoffController.getById);
-router.post('/', authorize(Role.user, Role.admin), stoffController.create);
-router.put('/:id',authorize(Role.admin, Role.user), stoffController.update);
-router.delete('/:id',authorize(Role.admin), stoffController.delete);
+router.post('/', authorize(Role.admin, Role.SuperAdmin), stoffController.create);
+router.put('/:id',authorize(Role.SuperAdmin, Role.admin), stoffController.update);
+router.delete('/:id',authorize(Role.SuperAdmin), stoffController.delete);
 
 module.exports = router;

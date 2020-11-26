@@ -5,10 +5,10 @@ const Role = require('../helpers/role.js');
 var router = express.Router();
 
 // User Routes
-router.get('/', authorize(Role.admin), accountController.getAll);
+router.get('/', authorize(), accountController.getAll);
 router.get('/:id', authorize(), accountController.getById);
-router.post('/', authorize(Role.admin), accountController.createSchema, accountController.create);
+router.post('/', authorize(), accountController.createSchema, accountController.create);
 router.put('/:id', authorize(), accountController.updateSchema, accountController.update);
-router.delete('/:id', authorize(), accountController._delete);
+router.delete('/:id', authorize(Role.SuperAdmin), accountController._delete);
 
 module.exports = router;

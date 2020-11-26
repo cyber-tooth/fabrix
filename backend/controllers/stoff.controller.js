@@ -1,4 +1,4 @@
-const petService = require('../services/stoffe.service');
+const stoffeService = require('../services/stoffe.service');
 
 exports.getAll = function (req, res, next) {
     stoffeService.getAll()

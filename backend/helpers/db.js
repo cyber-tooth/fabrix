@@ -34,7 +34,7 @@ async function initialize() {
     // init models and add them to the exported db object
     db.User = require('../authentication/users.model')(sequelize);
     db.Pet = require('../models/pet.model')(sequelize);
-    db.Stoffe = require('../models/stoff.model')(sequelize),
+    db.Stoffe = require('../models/stoff.model')(sequelize);
     db.RefreshToken = require('../authentication/refresh-token.model')(sequelize);
 
     // define relationships
