@@ -45,3 +45,7 @@ Thumbs.db
 \.npmrc
 
 logs/server\.log
+
+frontend/package-lock.json
+
+backend/package-lock.json

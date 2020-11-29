@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 var router = require('./routes/routes');
 const cors = require('cors');
-const errorHandler = require('security/error-handler.js');
+const errorHandler = require('./security/error-handler.js');
 
 app.use(bodyParser.urlencoded({
     extended: false
