@@ -18,6 +18,7 @@ import {ValidationMsgComponent} from "./components/validation/validation-msg.com
 import { MailSentComponent } from './components/mail-sent/mail-sent.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ImpressumComponent } from './components/impressum/impressum.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -45,6 +46,7 @@ export function tokenGetter() {
   ],
   imports: [
     BrowserModule,
+    FontAwesomeModule,
     AppRoutingModule,
     BrowserModule,
     HttpClientModule,

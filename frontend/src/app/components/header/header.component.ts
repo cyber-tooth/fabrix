@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {AuthenticationService, AuthorisationService} from "../../services";
+import {faUser} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,7 @@ import {AuthenticationService, AuthorisationService} from "../../services";
 
 export class HeaderComponent {
 
+  faUserIcon = faUser;
 
   constructor(private authenticationService: AuthenticationService,
               private authorisationService: AuthorisationService) {

@@ -9,7 +9,7 @@
     <a class="p-2 text-dark" routerLink="/contact" href="#">Contact</a>
     <a class="p-2 text-dark" routerLink="/impressum" href="#">Impressum</a>
     <span *ngIf="!isLoggedIn()">
-          <a class="p-2 text-dark" routerLink="/login">Login</a>
+          <a class="p-2 text-dark" routerLink="/login"><fa-icon [icon]="faUserIcon"></fa-icon> Login</a>
     </span>
   </nav>
   <span *ngIf="!isLoggedIn()">
