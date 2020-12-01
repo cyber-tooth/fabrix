@@ -7,7 +7,9 @@ import {
   HeaderComponent, ListeComponent, DashboardComponent, AboutComponent, TasksComponent,
   RegisterComponent, FooterComponent, LoginComponent, ForgotComponent, ResetComponent, ConfirmationComponent
 } from './components/index';
-
+import {
+  BsDropdownModule,
+} from 'ngx-bootstrap/dropdown';
 import {AuthenticationService, AuthorisationService, UserService} from './services/index';
 import { HttpClientModule} from "@angular/common/http";
 import {JwtModule} from "@auth0/angular-jwt";
@@ -19,6 +21,8 @@ import { MailSentComponent } from './components/mail-sent/mail-sent.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ImpressumComponent } from './components/impressum/impressum.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MaterialComponent } from './components/material/material.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -42,7 +46,8 @@ export function tokenGetter() {
     ValidationMsgComponent,
     MailSentComponent,
     ContactComponent,
-    ImpressumComponent
+    ImpressumComponent,
+    MaterialComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +64,8 @@ export function tokenGetter() {
     }),
     ReactiveFormsModule,
     AlertModule.forRoot(),
+    BrowserAnimationsModule,
+    BsDropdownModule.forRoot()
   ],
   providers: [
     AuthenticationService,

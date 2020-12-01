@@ -13,6 +13,7 @@ import {HomeComponent} from "./components/home/home.component";
 import {MailSentComponent} from "./components/mail-sent/mail-sent.component";
 import {ContactComponent} from "./components/contact/contact.component";
 import {ImpressumComponent} from "./components/impressum/impressum.component";
+import {MaterialComponent} from "./components/material/material.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -27,6 +28,7 @@ const routes: Routes = [
   {path: 'reset-password/:token', component: ResetComponent},
   {path: 'forgot-password', component: ForgotComponent},
   {path: 'mail-sent', component: MailSentComponent},
+  {path: 'material', component: MaterialComponent},
 ];
 
 @NgModule({
