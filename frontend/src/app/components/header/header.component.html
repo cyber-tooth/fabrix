@@ -5,11 +5,9 @@
       <span>Hello, {{getFirstName()}}</span>
     </span>
     <a class="p-2 text-dark" *ngIf="hasAccess(['user','admin'])" routerLink="/dashboard">Dashboard</a>
-    <a class="p-2 text-dark" routerLink="/about">About us</a>
-    <a class="p-2 text-dark" routerLink="/contact" href="#">Contact</a>
-    <a class="p-2 text-dark" routerLink="/impressum" href="#">Impressum</a>
+
     <span *ngIf="!isLoggedIn()">
-          <a class="p-2 text-dark" routerLink="/login"><fa-icon [icon]="faUserIcon"></fa-icon> Login</a>
+          <a class="p-2 text-dark" routerLink="/login"><fa-icon [icon]="faUserIcon"></fa-icon> </a>
     </span>
   </nav>
   <span *ngIf="!isLoggedIn()">
