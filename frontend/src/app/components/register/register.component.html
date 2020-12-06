@@ -8,12 +8,11 @@
 
  <div class="form-group">
     <input formControlName="firmenname" type="text" placeholder="firm name (optional)"
-           name="email" id="firmenname" class="form-control"
-           aria-required="true" required>
+           name="email" id="firmenname" class="form-control">
     <app-validation-msg [display]="isRegisterFieldValid('firmenname')" msg="Enter your firm name"></app-validation-msg>
   </div>
 
-  <div class="form-group">
+  <div class="form-group md-form">
     <input formControlName="firstName" type="text" placeholder="first name"
            name="email" id="firstName" class="form-control"
            aria-required="true" required>
@@ -31,14 +30,19 @@
     <input formControlName="email" type="email" placeholder="email"
            name="email" id="email" class="form-control"
            aria-required="true" required>
+    <div class="validator-message" *ngIf="registerForm.get('email').hasError('email')">Email must be a valid email address</div>
     <app-validation-msg [display]="isRegisterFieldValid('email')" msg="Enter your email"></app-validation-msg>
   </div>
-
 
   <div class="form-group">
     <input formControlName="password" type="password" placeholder="password"
            name="password" id="password" class="form-control" aria-required="true"
            required>
+    <div class="validator-message" *ngIf="registerForm.get('password').hasError('hasNumber')">A number</div>
+    <div class="validator-message" *ngIf="registerForm.get('password').hasError('hasCapitalCase')">An uppercase letter</div>
+    <div class="validator-message" *ngIf="registerForm.get('password').hasError('hasSmallCase')">A lowercase letter</div>
+    <div class="validator-message" *ngIf="registerForm.get('password').hasError('hasSpecialCharacters')">A special character</div>
+    <div class="validator-message" *ngIf="registerForm.get('password').hasError('minLength(8)')">A minimum of 8 characters</div>
     <app-validation-msg [display]="isRegisterFieldValid('password')" msg="Enter your password"></app-validation-msg>
   </div>
 
@@ -46,10 +50,9 @@
     <input formControlName="confirmPassword" type="password" placeholder="confirm password"
            name="confirmPassword" id="confirmPassword" class="form-control" aria-required="true"
            required>
-    <app-validation-msg [display]="isRegisterFieldValid('confirmPassword')"
-                        msg="Confirm your password"></app-validation-msg>
+    <div class="validator-message" *ngIf="registerForm.get('confirmPassword').hasError('validator')">The passwords do not match.</div>
+    <app-validation-msg [display]="isRegisterFieldValid('confirmPassword')" msg="Confirm your password"></app-validation-msg>
   </div>
-
 
   <button class="btn btn-lg btn-dark btn-block" type="submit">Sign in</button>
   <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2018</p>

@@ -228,8 +228,8 @@ exports.createSchema = function (req, res, next) {
     const schema = Joi.object({
         firstName: Joi.string().required(),
         lastName: Joi.string().required(),
-        firmenname: Joi.string(),
-        email: Joi.string().email().required(),
+        firmenname: Joi.string().empty(''),
+        email: Joi.string(),
         password: Joi.string().min(6).required(),
         confirmPassword: Joi.string().valid(Joi.ref('password')).required(),
         role: Joi.string().valid(Role.SuperAdmin, Role.user).required()

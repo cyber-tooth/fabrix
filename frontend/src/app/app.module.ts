@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -23,6 +24,9 @@ import { ImpressumComponent } from './components/impressum/impressum.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MaterialComponent } from './components/material/material.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ManageUsersComponent } from './components/manage-users/manage-users.component';
+import { EditMaterialComponent } from './components/edit-material/edit-material.component';
+import { SuperAdminComponent } from './components/super-admin/super-admin.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -47,7 +51,11 @@ export function tokenGetter() {
     MailSentComponent,
     ContactComponent,
     ImpressumComponent,
-    MaterialComponent
+    MaterialComponent,
+    ManageUsersComponent,
+
+    EditMaterialComponent,
+    SuperAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +63,7 @@ export function tokenGetter() {
     AppRoutingModule,
     BrowserModule,
     HttpClientModule,
+    NgbModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
