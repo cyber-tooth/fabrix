@@ -10,11 +10,12 @@ import {
 import {
   BsDropdownModule,
 } from 'ngx-bootstrap/dropdown';
+import { NgxBootstrapMultiselectModule } from 'ngx-bootstrap-multiselect';
 import {AuthenticationService, AuthorisationService, UserService} from './services/index';
 import { HttpClientModule} from "@angular/common/http";
 import {JwtModule} from "@auth0/angular-jwt";
 import { HomeComponent } from './components/home/home.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AlertModule} from "ngx-bootstrap/alert";
 import {ValidationMsgComponent} from "./components/validation/validation-msg.component";
 import { MailSentComponent } from './components/mail-sent/mail-sent.component';
@@ -52,6 +53,7 @@ export function tokenGetter() {
   imports: [
     BrowserModule,
     FontAwesomeModule,
+    NgxBootstrapMultiselectModule,
     AppRoutingModule,
     BrowserModule,
     HttpClientModule,
@@ -65,7 +67,8 @@ export function tokenGetter() {
     ReactiveFormsModule,
     AlertModule.forRoot(),
     BrowserAnimationsModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    FormsModule
   ],
   providers: [
     AuthenticationService,

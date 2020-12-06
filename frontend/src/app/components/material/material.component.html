@@ -3,73 +3,105 @@
     <!-- start filter section-->
     <div class="col-4">
       <h3>Filter</h3>
+      <div>
+        <ngx-bootstrap-multiselect [options]="myOptions" [texts]="myTexts" [settings]="mySettings" [(ngModel)]="optionsModel"></ngx-bootstrap-multiselect>
+      </div>
       <div class="btn-group mb-4" dropdown [autoClose]="true" container="body">
         <button id="button-nested1" dropdownToggle type="button" class="btn btn-dark dropdown-toggle"
                 aria-controls="dropdown-nested1">
-          This dropdown has nested submenu <span class="caret"></span>
+          Material composition <span class="caret"></span>
         </button>
         <ul id="dropdown-nested1" *dropdownMenu class="dropdown-menu"
             role="menu" aria-labelledby="button-nested1">
-          <li role="menuitem"><a class="dropdown-item" >Action</a></li>
 
-          <li role="menuitem" dropdown triggers="mouseover" placement="right" container="body">
+          <li role="menuitem" dropdown [autoClose]="true" triggers="mouseover" placement="right" container="body">
             <a dropdownToggle class="dropdown-item dropdown-toggle"
-               (click)="false">Hover me for nested dropdown <span class="caret"></span></a>
+               (click)="false">Natural Fibre <span class="caret"></span></a>
             <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li role="menuitem"><a class="dropdown-item" >Action</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Action1</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Action2</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Alpaca</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Casein</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Cashmere</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Cotton</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Fur</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Hemp</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Jute</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Leather</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Linen</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Lyocell</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Modal</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Mohair</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Ramie</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Silk</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Soy</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Viscose</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Wool (sheep)</a></li>
             </ul>
           </li>
 
-          <li role="menuitem" dropdown triggers="mouseover" placement="right" container="body">
+          <li role="menuitem" dropdown [autoClose]="true" triggers="mouseover" placement="right" container="body">
             <a dropdownToggle class="dropdown-item dropdown-toggle"
-               (click)="false">Hover me for nested dropdown <span class="caret"></span></a>
+               (click)="false">Synthetic fibre <span class="caret"></span></a>
             <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li role="menuitem"><a class="dropdown-item" >Action</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Action1</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Action2</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Elastane</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Elastolefin</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Polyacrylic</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Polyamide</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Polyester</a></li>
             </ul>
           </li>
 
-          <li role="menuitem"><a class="dropdown-item" >Something else here</a></li>
-          <li class="divider dropdown-divider"></li>
-          <li role="menuitem"><a class="dropdown-item" >Separated link</a></li>
+          <li role="menuitem" dropdown [autoClose]="true" triggers="mouseover" placement="right" container="body">
+            <a dropdownToggle class="dropdown-item dropdown-toggle"
+               (click)="false">Other<span class="caret"></span></a>
+            <ul *dropdownMenu class="dropdown-menu" role="menu">
+              <li role="menuitem"><a class="dropdown-item" >Aramid</a></li>
+              <li role="menuitem"><a class="dropdown-item" >Glas</a></li>
+            </ul>
+          </li>
+
         </ul>
       </div>
       <div class="btn-group mb-4" dropdown [autoClose]="true" container="body">
-        <button id="button-nested" dropdownToggle type="button" class="btn btn-dark dropdown-toggle"
-                aria-controls="dropdown-nested">
-          This dropdown has nested submenu <span class="caret"></span>
+        <button id="button-nested2" dropdownToggle type="button" class="btn btn-dark dropdown-toggle"
+                aria-controls="dropdown-nested1">
+          3D-Program <span class="caret"></span>
         </button>
-        <ul id="dropdown-nested" *dropdownMenu class="dropdown-menu"
-            role="menu" aria-labelledby="button-nested">
-          <li role="menuitem"><a class="dropdown-item" >Action</a></li>
+        <ul id="dropdown-nested2" *dropdownMenu class="dropdown-menu"
+            role="menu" aria-labelledby="button-nested2">
+          <li role="menuitem"><a class="dropdown-item" >Lectra Modaris</a></li>
+          <li role="menuitem"><a class="dropdown-item" >Assyst Vidya</a></li>
+          <li role="menuitem"><a class="dropdown-item" >CLO3D</a></li>
+          <li role="menuitem"><a class="dropdown-item" >Browzwear VStitche</a></li>
 
-          <li role="menuitem" dropdown triggers="mouseover" placement="right" container="body">
-            <a dropdownToggle class="dropdown-item dropdown-toggle"
-               (click)="false">Hover me for nested dropdown <span class="caret"></span></a>
-            <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li role="menuitem"><a class="dropdown-item" >Action</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Action1</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Action2</a></li>
-            </ul>
-          </li>
 
-          <li role="menuitem" dropdown triggers="mouseover" placement="right" container="body">
-            <a dropdownToggle class="dropdown-item dropdown-toggle"
-               (click)="false">Hover me for nested dropdown <span class="caret"></span></a>
-            <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li role="menuitem"><a class="dropdown-item" >Action</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Action1</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Action2</a></li>
-            </ul>
-          </li>
 
-          <li role="menuitem"><a class="dropdown-item" >Something else here</a></li>
-          <li class="divider dropdown-divider"></li>
-          <li role="menuitem"><a class="dropdown-item" >Separated link</a></li>
+
         </ul>
+      </div>
+      <div class="btn-group mb-4" dropdown [autoClose]="true" container="body">
+        <button id="button-nested3" dropdownToggle type="button" class="btn btn-dark dropdown-toggle"
+                aria-controls="dropdown-nested1">
+          Product Group <span class="caret"></span>
+        </button>
+        <ul id="dropdown-nested3" *dropdownMenu class="dropdown-menu"
+            role="menu" aria-labelledby="button-nested3">
+          <li role="menuitem"><a class="dropdown-item" >Accessoires</a></li>
+          <li role="menuitem"><a class="dropdown-item" >Beachwear</a></li>
+          <li role="menuitem"><a class="dropdown-item" >Berufsbekleidung/ PSA</a></li>
+          <li role="menuitem"><a class="dropdown-item" ></a></li>
+
+        </ul>
+      </div>
+      <div class="btn-group mb-4" dropdown [autoClose]="true" container="body">
+        <li class="dropdown">
+          <a class="btn btn-dark dropdown-toggle" href="#" data-toggle="dropdown">
+            Product Group<b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><label class="checkbox"><input type="checkbox">Two</label></li>
+            <li><label class="checkbox"><input type="checkbox">Two</label></li>
+          </ul>
+        </li>
       </div>
       <button class="btn-lg btn-outline-dark">Search your Material!</button>
 
@@ -87,4 +119,5 @@
     <!-- end material content-->
   </div>
 </div>
+
 
