@@ -74,7 +74,7 @@ exports.revokeToken = function (req, res, next) {
     });
 
     // users can revoke their own tokens and admins can revoke any tokens
-    if (!req.user.ownsToken(token) && req.user.role !== Role.SuperAdmin) {
+    if (!req.user.ownsToken(token) && req.user.role !== Role.superAdmin) {
         return res.status(401).json({
             message: 'Unauthorized'
         });
@@ -209,7 +209,7 @@ exports.getAll = function (req, res, next) {
 
 exports.getById = function (req, res, next) {
     // users can get their own user and admins can get any user
-    if (Number(req.params.id) !== req.user.id && req.user.role !== Role.SuperAdmin) {
+    if (Number(req.params.id) !== req.user.id && req.user.role !== Role.superAdmin) {
         return res.status(401).json({
             message: 'Unauthorized'
         });
@@ -232,7 +232,7 @@ exports.createSchema = function (req, res, next) {
         email: Joi.string(),
         password: Joi.string().min(6).required(),
         confirmPassword: Joi.string().valid(Joi.ref('password')).required(),
-        role: Joi.string().valid(Role.SuperAdmin, Role.user).required()
+        role: Joi.string().valid(Role.superAdmin, Role.user).required()
     });
     validateRequest(req, next, schema);
 };
@@ -258,8 +258,8 @@ exports.updateSchema = function (req, res, next) {
     };
 
     // only admins can update role
-    if (req.user.role === Role.SuperAdmin) {
-        schemaRules.role = Joi.string().valid(Role.SuperAdmin, Role.user).empty('');
+    if (req.user.role === Role.superAdmin) {
+        schemaRules.role = Joi.string().valid(Role.superAdmin, Role.user).empty('');
     }
 
     const schema = Joi.object(schemaRules).with('password', 'confirmPassword');
@@ -268,7 +268,7 @@ exports.updateSchema = function (req, res, next) {
 
 exports.update = function (req, res, next) {
     // users can update their own user and admins can update any user
-    if (Number(req.params.id) !== req.user.id && req.user.role !== Role.SuperAdmin) {
+    if (Number(req.params.id) !== req.user.id && req.user.role !== Role.superAdmin) {
         return res.status(401).json({
             message: 'Unauthorized'
         });
@@ -285,7 +285,7 @@ exports.update = function (req, res, next) {
 
 exports._delete = function (req, res, next) {
     // users can delete their own user and admins can delete any user
-    if (Number(req.params.id) !== req.user.id && req.user.role !== Role.SuperAdmin) {
+    if (Number(req.params.id) !== req.user.id && req.user.role !== Role.superAdmin) {
         return res.status(401).json({
             message: 'Unauthorized'
         });

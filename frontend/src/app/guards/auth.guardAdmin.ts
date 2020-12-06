@@ -4,7 +4,7 @@ import {AuthenticationService} from '../services/authentication.service';
 import {User} from "../models";
 import RoleEnum = User.RoleEnum;
 
-//Für den SuperAdmin, nicht den Admin!
+//Für den superAdmin, nicht den Admin!
 @Injectable()
 export class AuthGuardAdmin implements CanActivate {
 

@@ -12,7 +12,7 @@ import {
   BsDropdownModule,
 } from 'ngx-bootstrap/dropdown';
 import {AuthenticationService, AuthorisationService, UserService} from './services/index';
-import { HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {JwtModule} from "@auth0/angular-jwt";
 import { HomeComponent } from './components/home/home.component';
 import {ReactiveFormsModule} from "@angular/forms";
@@ -27,6 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { EditMaterialComponent } from './components/edit-material/edit-material.component';
 import { SuperAdminComponent } from './components/super-admin/super-admin.component';
+import {ErrorInterceptor, JwtInterceptor} from "./helpers";
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -77,6 +78,8 @@ export function tokenGetter() {
     BsDropdownModule.forRoot()
   ],
   providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     AuthenticationService,
     AuthorisationService,
     UserService
