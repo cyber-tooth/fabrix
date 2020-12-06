@@ -98,7 +98,6 @@ export class RegisterComponent implements OnInit {
     this.strengthChange = value;
   }
 
-
   isRegisterFieldValid(field: string) {
     return (!this.registerForm.get(field).valid && this.registerForm.get(field).touched) ||
       (this.registerForm.get(field).untouched && this.registerFormSubmitAttempt);

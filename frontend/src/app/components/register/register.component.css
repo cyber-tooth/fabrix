@@ -6,5 +6,12 @@
 
 .container{
   float: left;
+}
 
+input.ng-touched.ng-invalid{
+  borde: 1px solid red;
+}
+
+.validator-message{
+  color: red;
 }

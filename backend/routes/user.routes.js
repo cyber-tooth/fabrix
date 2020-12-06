@@ -8,7 +8,7 @@ var router = express.Router();
 router.get('/', authorize(Role.superAdmin), accountController.getAll);
 router.get('/:id', authorize(), accountController.getById);
 router.post('/', authorize(), accountController.createSchema, accountController.create);
-router.put('/:id', authorize(), accountController.updateSchema, accountController.update);
+router.put('/:id', authorize(Role.superAdmin), accountController.updateSchema, accountController.update);
 router.delete('/:id', authorize(Role.superAdmin), accountController._delete);
 
 module.exports = router;
