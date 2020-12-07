@@ -284,16 +284,18 @@ async function sendVerificationEmail(user, origin) {
 async function sendAlreadyRegisteredEmail(email, origin) {
     let message;
     if (origin) {
-        message = `<p>If you don't know your password please visit the <a href="${origin}/forgot-password">forgot password</a> page.</p>`;
+        message = `<p>If you don't know your password please visit the <a href="${origin}/forgot-password">forgot password</a> page. 
+                    If it wasn't you then please change your password.</p>`;
     } else {
-        message = `<p>If you don't know your password please visit the <a href="http://localhost:4200/forgot-password">forgot password</a> page.</p>`;
+        message = `<p>If you don't know your password please visit the <a href="http://localhost:4200/forgot-password">forgot password</a> page.
+                    If it wasn't you then please change your password.</p>`;
     }
 
     await sendEmail({
         to: email,
-        subject: 'Your Email is already Registered',
-        html: `<h4>Email Already Registered</h4>
-               <p>Your email <strong>${email}</strong> is already registered.</p>
+        subject: 'Your Email is already registered or someone tried to register with your Email',
+        html: `<h4>Email Already registered or someone tried to register</h4>
+               <p>Someone tried to register with your Email but your email <strong>${email}</strong> is already registered.</p>
                ${message}`
     });
 }

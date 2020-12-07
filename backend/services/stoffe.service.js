@@ -29,7 +29,7 @@ async function create(paypload) {
 async function update(id, params) {
     const stoffe = await getStoffe(id);
 
-    // copy params to pet and save
+    // copy params to stoff and save
     Object.assign(stoffe,params);
 
     await stoffe.save();
@@ -44,7 +44,7 @@ async function _delete(id) {
 
 async function getStoffe(id) {
     const stoffe = await db.Stoffe.findByPk(id);
-    if (!stoffe) throw 'Pet not found';
+    if (!stoffe) throw 'Stoff not found';
     return stoffe;
 }
 

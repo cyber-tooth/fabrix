@@ -98,7 +98,7 @@ exports.registerSchema = function (req, res, next) {
     const schema = Joi.object({
         firstName: Joi.string().required(),
         lastName: Joi.string().required(),
-        firmenname: Joi.string(),
+        firmenname: Joi.any(),
         email: Joi.string().email().required(),
         password: Joi.string().min(6).required(),
         confirmPassword: Joi.string().valid(Joi.ref('password')).required(),
@@ -228,7 +228,7 @@ exports.createSchema = function (req, res, next) {
     const schema = Joi.object({
         firstName: Joi.string().required(),
         lastName: Joi.string().required(),
-        firmenname: Joi.string().empty(''),
+        firmenname: Joi.any().empty(''),
         email: Joi.string(),
         password: Joi.string().min(6).required(),
         confirmPassword: Joi.string().valid(Joi.ref('password')).required(),
@@ -251,7 +251,7 @@ exports.updateSchema = function (req, res, next) {
     const schemaRules = {
         firstName: Joi.string().empty(''),
         lastName: Joi.string().empty(''),
-        firmenname: Joi.string().empty(''),
+        firmenname: Joi.any().empty(''),
         email: Joi.string().email().empty(''),
         password: Joi.string().min(6).empty(''),
         confirmPassword: Joi.string().valid(Joi.ref('password')).empty('')
