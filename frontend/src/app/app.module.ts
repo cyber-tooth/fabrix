@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbDropdownModule, NgbDropdown} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -54,7 +54,6 @@ export function tokenGetter() {
     ImpressumComponent,
     MaterialComponent,
     ManageUsersComponent,
-
     EditMaterialComponent,
     SuperAdminComponent
   ],
@@ -64,7 +63,6 @@ export function tokenGetter() {
     AppRoutingModule,
     BrowserModule,
     HttpClientModule,
-    NgbModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -75,14 +73,17 @@ export function tokenGetter() {
     ReactiveFormsModule,
     AlertModule.forRoot(),
     BrowserAnimationsModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    NgbModule,
+    NgbDropdownModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     AuthenticationService,
     AuthorisationService,
-    UserService
+    UserService,
+    NgbDropdown
   ],
   bootstrap: [AppComponent]
 })

@@ -12,22 +12,23 @@ import RoleEnum = User.RoleEnum;
 
 export class ManageUsersComponent implements OnInit {
   userList: Array<User> = [];
-
   headElements = ['Id', 'Firstname', 'Email', 'Role', 'Actions'];
   public page =1;
   public pageSize =10;
   constructor(private userService: UserService) {}
 
   ngOnInit() {
-   // this.getUserData()
-    this.setUsers()
+    this.getUserData()
+  //  this.setUsers()
   }
 
- // getUserData(){
- //   this.userService.getAll().subscribe((res) => {
- //     this.userList = res as User[];
- //   })
- // }
+ getUserData(){
+   this.userService.getAll().subscribe((res) => {
+     this.userList = res as User[];
+     //TODO this line should be deleted just for debugging
+     console.log("userList", this.userList)
+   })
+ }
 
   changeRoleAsUser(user: User){
     user.role = RoleEnum.user;
