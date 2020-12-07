@@ -77,7 +77,8 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
     NgbModule,
-    NgbDropdownModule
+    NgbDropdownModule,
+    FormsModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
