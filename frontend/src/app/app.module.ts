@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {NgbModule, NgbDropdownModule, NgbDropdown} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -12,7 +13,7 @@ import {
 } from 'ngx-bootstrap/dropdown';
 import { NgxBootstrapMultiselectModule } from 'ngx-bootstrap-multiselect';
 import {AuthenticationService, AuthorisationService, UserService} from './services/index';
-import { HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {JwtModule} from "@auth0/angular-jwt";
 import { HomeComponent } from './components/home/home.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -24,6 +25,10 @@ import { ImpressumComponent } from './components/impressum/impressum.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MaterialComponent } from './components/material/material.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ManageUsersComponent } from './components/manage-users/manage-users.component';
+import { EditMaterialComponent } from './components/edit-material/edit-material.component';
+import { SuperAdminComponent } from './components/super-admin/super-admin.component';
+import {ErrorInterceptor, JwtInterceptor} from "./helpers";
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -48,7 +53,10 @@ export function tokenGetter() {
     MailSentComponent,
     ContactComponent,
     ImpressumComponent,
-    MaterialComponent
+    MaterialComponent,
+    ManageUsersComponent,
+    EditMaterialComponent,
+    SuperAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -68,12 +76,16 @@ export function tokenGetter() {
     AlertModule.forRoot(),
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
-    FormsModule
+    NgbModule,
+    NgbDropdownModule
   ],
   providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     AuthenticationService,
     AuthorisationService,
-    UserService
+    UserService,
+    NgbDropdown
   ],
   bootstrap: [AppComponent]
 })
