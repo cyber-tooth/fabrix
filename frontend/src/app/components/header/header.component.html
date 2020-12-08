@@ -8,19 +8,12 @@
     <span [hidden]="!isLoggedIn()">
       <span>Hello, {{getFirstName()}}</span>
     </span>
-    <a class="p-2 text-dark" *ngIf="hasAccess(['user','admin'])" routerLink="/dashboard">Dashboard</a>
+    <a class="p-2 text-dark" *ngIf="hasAccess(['user','admin','superAdmin'])" routerLink="/dashboard">Dashboard</a>
     <a class="p-2 text-dark" *ngIf="hasAccess(['superAdmin'])" routerLink="/manage-users">Manage-Users</a>
     <a class="p-2 text-dark" *ngIf="hasAccess(['superAdmin'])" routerLink="/edit-material">Edit Material</a>
     <span *ngIf="!isLoggedIn()">
           <a class="p-2 text-dark" routerLink="/login"><fa-icon [icon]="faUserIcon"></fa-icon> </a>
     </span>
-
-  <span *ngIf="!isLoggedIn()">
-     <button class="btn btn-outline" routerLink="/register"><fa-icon [icon]="faSignInAltIcon"></fa-icon></button>
-  </span>
-  <span [hidden]="!isLoggedIn()">
-      <button class="btn btn-outline" (click)="logout()"><fa-icon [icon]="faSignOutAltIcon"></fa-icon></button>
-  </span>
   </nav>
 </div>
 

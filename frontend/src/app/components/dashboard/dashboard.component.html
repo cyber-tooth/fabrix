@@ -1,4 +1,5 @@
 <div class="custom-flex">
+  <h5 *ngIf="hasAccess(['superAdmin'])">Hello {{getFirstName()}} you are registered as Super Admin, now as you will, you can manage users or edit materials..</h5>
   <h1>Dashboard a Beautiful Page</h1>
   <p class="lead">Dashboard is a one-page template for building simple and beautiful home pages. Download, edit the text,
     and
@@ -7,7 +8,6 @@
   </p>
   <button class="btn-lg btn-outline-dark">Find your Material!</button>
 </div>
-
 
 
 <!--TODO do we need that-->
