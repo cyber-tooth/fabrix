@@ -1,21 +1,27 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-  <h3 class="my-0 mr-md-auto font-weight-normal"><a class="text-dark" routerLink="/home">Filfab</a></h3>
-  <nav class="my-2 my-md-0 mr-md-3">
+  <h3 class="my-0 mr-md-auto font-weight-normal" style="text-align: center;"><a class="text-dark" routerLink="/home">Filfab</a></h3>
+  <nav class="my-2 my-md-0 mr-md-3 navbar navbar-light">
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline" type=" "><fa-icon [icon]="faSearchIcon"></fa-icon></button>
+    </form>
     <span [hidden]="!isLoggedIn()">
       <span>Hello, {{getFirstName()}}</span>
     </span>
     <a class="p-2 text-dark" *ngIf="hasAccess(['user','admin'])" routerLink="/dashboard">Dashboard</a>
-
+    <a class="p-2 text-dark" *ngIf="hasAccess(['superAdmin'])" routerLink="/manage-users">Manage-Users</a>
+    <a class="p-2 text-dark" *ngIf="hasAccess(['superAdmin'])" routerLink="/edit-material">Edit Material</a>
     <span *ngIf="!isLoggedIn()">
           <a class="p-2 text-dark" routerLink="/login"><fa-icon [icon]="faUserIcon"></fa-icon> </a>
     </span>
-  </nav>
+
   <span *ngIf="!isLoggedIn()">
-     <button class="btn btn-outline-dark" routerLink="/register">Sign up</button>
+     <button class="btn btn-outline" routerLink="/register"><fa-icon [icon]="faSignInAltIcon"></fa-icon></button>
   </span>
   <span [hidden]="!isLoggedIn()">
-      <button class="btn btn-outline-dark" (click)="logout()">Logout</button>
+      <button class="btn btn-outline" (click)="logout()"><fa-icon [icon]="faSignOutAltIcon"></fa-icon></button>
   </span>
+  </nav>
 </div>
 
 

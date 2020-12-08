@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {AuthenticationService, AuthorisationService} from "../../services";
-import {faUser} from '@fortawesome/free-solid-svg-icons';
+import {faSearch, faSignInAlt, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,9 @@ import {faUser} from '@fortawesome/free-solid-svg-icons';
 export class HeaderComponent {
 
   faUserIcon = faUser;
+  faSearchIcon = faSearch;
+  faSignOutAltIcon = faSignOutAlt;
+  faSignInAltIcon = faSignInAlt;
 
   constructor(private authenticationService: AuthenticationService,
               private authorisationService: AuthorisationService) {

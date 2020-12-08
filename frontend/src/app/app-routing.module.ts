@@ -16,7 +16,7 @@ import {ImpressumComponent} from "./components/impressum/impressum.component";
 import {MaterialComponent} from "./components/material/material.component";
 import {ManageUsersComponent} from "./components/manage-users/manage-users.component";
 import {EditMaterialComponent} from "./components/edit-material/edit-material.component";
-import {SuperAdminComponent} from "./components/super-admin/super-admin.component";
+
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -32,7 +32,6 @@ const routes: Routes = [
   {path: 'forgot-password', component: ForgotComponent},
   {path: 'mail-sent', component: MailSentComponent},
   {path: 'material', component: MaterialComponent},
-  {path: 'super-admin', component: SuperAdminComponent},
   {path: 'manage-users', component: ManageUsersComponent},
   {path: 'edit-materials', component: EditMaterialComponent}
 ];

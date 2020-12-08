@@ -27,7 +27,6 @@ import { MaterialComponent } from './components/material/material.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { EditMaterialComponent } from './components/edit-material/edit-material.component';
-import { SuperAdminComponent } from './components/super-admin/super-admin.component';
 import {ErrorInterceptor, JwtInterceptor} from "./helpers";
 
 export function tokenGetter() {
@@ -56,7 +55,6 @@ export function tokenGetter() {
     MaterialComponent,
     ManageUsersComponent,
     EditMaterialComponent,
-    SuperAdminComponent
   ],
   imports: [
     BrowserModule,
