@@ -55,8 +55,7 @@
   </div>
 
   <button class="btn btn-lg btn-dark btn-block" type="submit">Sign in</button>
-  <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2018</p>
-
+  <p class="mt-5 mb-3 text-muted text-center">&copy; 2020</p>
   <div class="col-lg" *ngFor="let alert of alerts">
     <alert [type]="alert.type" (onClosed)="onCloseNotification(alert)">{{
       alert.msg }}</alert>

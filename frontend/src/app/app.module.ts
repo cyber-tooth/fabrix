@@ -28,6 +28,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { EditMaterialComponent } from './components/edit-material/edit-material.component';
 import {ErrorInterceptor, JwtInterceptor} from "./helpers";
+import { AgbComponent } from './components/agb/agb.component';
+import { DatenschutzComponent } from './components/datenschutz/datenschutz.component';
+import { FaqComponent } from './components/faq/faq.component';
+import { NgxBootstrapSliderModule } from 'ngx-bootstrap-slider';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -55,6 +60,9 @@ export function tokenGetter() {
     MaterialComponent,
     ManageUsersComponent,
     EditMaterialComponent,
+    AgbComponent,
+    DatenschutzComponent,
+    FaqComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +71,8 @@ export function tokenGetter() {
     AppRoutingModule,
     BrowserModule,
     HttpClientModule,
+    NgxBootstrapSliderModule,
+    NgxSliderModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
