@@ -17,7 +17,7 @@
              required>
       <app-validation-msg [display]="isLoginFieldValid('password')" msg="Enter your password"></app-validation-msg>
       <div class="validator-message" *ngIf="loginFormSubmitAttempt && this.loginForm.get('password').valid && this.loginForm.get('email').valid">Wrong email or password, please try again.</div>
-      <div><small><a routerLink="/forgot">Forgot Password?</a></small></div>
+      <div><small><a routerLink="/forgot-password">Forgot Password?</a></small></div>
     </div>
 
     <div class="checkbox mb-3">
