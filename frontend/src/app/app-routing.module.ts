@@ -16,6 +16,9 @@ import {ImpressumComponent} from "./components/impressum/impressum.component";
 import {MaterialComponent} from "./components/material/material.component";
 import {ManageUsersComponent} from "./components/manage-users/manage-users.component";
 import {EditMaterialComponent} from "./components/edit-material/edit-material.component";
+import {AgbComponent} from "./components/agb/agb.component";
+import {DatenschutzComponent} from "./components/datenschutz/datenschutz.component";
+import {FaqComponent} from "./components/faq/faq.component";
 
 
 const routes: Routes = [
@@ -33,7 +36,10 @@ const routes: Routes = [
   {path: 'mail-sent', component: MailSentComponent},
   {path: 'material', component: MaterialComponent},
   {path: 'manage-users', component: ManageUsersComponent},
-  {path: 'edit-materials', component: EditMaterialComponent}
+  {path: 'agb', component: AgbComponent},
+  {path: 'datenschutz', component: DatenschutzComponent},
+  {path: 'faq', component: FaqComponent}
+
 ];
 
 @NgModule({

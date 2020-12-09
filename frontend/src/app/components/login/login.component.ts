@@ -53,8 +53,8 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/dashboard']);
           },
           error => {
-            console.log(error.error.error);
-            this.pushNotification(error.error.error, 'danger');
+            console.log(error.error);
+            this.pushNotification(error.error, 'danger');
           });
     } else {
       // validate all form fields

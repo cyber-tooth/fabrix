@@ -1,114 +1,63 @@
 <div class="container">
   <div class="row">
     <!-- start filter section-->
-    <div class="col-4">
-      <h3>Filter</h3>
-      <div>
-        <ngx-bootstrap-multiselect [options]="myOptions" [texts]="myTexts" [settings]="mySettings" [(ngModel)]="optionsModel"></ngx-bootstrap-multiselect>
+    <div class="col-12">
+      <div class="row">
+        <div class="col-3">
+          <ngx-bootstrap-multiselect [options]="myOptions1" [texts]="textSetting1" [settings]="mySettings" [(ngModel)]="optionsModel1"></ngx-bootstrap-multiselect>
+        </div>
+        <div class="col-3">
+          <ngx-bootstrap-multiselect [options]="myOptions2" [texts]="textSetting2" [settings]="mySettings" [(ngModel)]="optionsModel2"></ngx-bootstrap-multiselect>
+        </div>
+        <div class="col-3">
+          <ngx-bootstrap-multiselect [options]="myOptions3" [texts]="textSetting3" [settings]="mySettings" [(ngModel)]="optionsModel3"></ngx-bootstrap-multiselect>
+        </div>
+        <div class="col-3">
+          <ngx-bootstrap-multiselect [options]="myOptions4" [texts]="textSetting4" [settings]="mySettings" [(ngModel)]="optionsModel4"></ngx-bootstrap-multiselect>
+        </div>
       </div>
-      <div class="btn-group mb-4" dropdown [autoClose]="true" container="body">
-        <button id="button-nested1" dropdownToggle type="button" class="btn btn-dark dropdown-toggle"
-                aria-controls="dropdown-nested1">
-          Material composition <span class="caret"></span>
-        </button>
-        <ul id="dropdown-nested1" *dropdownMenu class="dropdown-menu"
-            role="menu" aria-labelledby="button-nested1">
 
-          <li role="menuitem" dropdown [autoClose]="true" triggers="mouseover" placement="right" container="body">
-            <a dropdownToggle class="dropdown-item dropdown-toggle"
-               (click)="false">Natural Fibre <span class="caret"></span></a>
-            <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li role="menuitem"><a class="dropdown-item" >Alpaca</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Casein</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Cashmere</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Cotton</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Fur</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Hemp</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Jute</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Leather</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Linen</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Lyocell</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Modal</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Mohair</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Ramie</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Silk</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Soy</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Viscose</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Wool (sheep)</a></li>
-            </ul>
-          </li>
+      <hr>
 
-          <li role="menuitem" dropdown [autoClose]="true" triggers="mouseover" placement="right" container="body">
-            <a dropdownToggle class="dropdown-item dropdown-toggle"
-               (click)="false">Synthetic fibre <span class="caret"></span></a>
-            <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li role="menuitem"><a class="dropdown-item" >Elastane</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Elastolefin</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Polyacrylic</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Polyamide</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Polyester</a></li>
-            </ul>
-          </li>
-
-          <li role="menuitem" dropdown [autoClose]="true" triggers="mouseover" placement="right" container="body">
-            <a dropdownToggle class="dropdown-item dropdown-toggle"
-               (click)="false">Other<span class="caret"></span></a>
-            <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li role="menuitem"><a class="dropdown-item" >Aramid</a></li>
-              <li role="menuitem"><a class="dropdown-item" >Glas</a></li>
-            </ul>
-          </li>
-
-        </ul>
+      <div class="row">
+        <div class="col-4">
+          <ngx-bootstrap-multiselect [options]="myOptions5" [texts]="textSetting5" [settings]="mySettings" [(ngModel)]="optionsModel5"></ngx-bootstrap-multiselect>
+        </div>
+        <div class="col-4">
+          <h5> Weight </h5>
+          <ngx-slider [(value)]="value1" [options]="options" (valueChange)="change1()"></ngx-slider>
+        </div>
+        <div class="col-4">
+          <h5> Thickness </h5>
+          <ngx-slider [(value)]="value2" [options]="options"></ngx-slider>
+        </div>
       </div>
-      <div class="btn-group mb-4" dropdown [autoClose]="true" container="body">
-        <button id="button-nested2" dropdownToggle type="button" class="btn btn-dark dropdown-toggle"
-                aria-controls="dropdown-nested1">
-          3D-Program <span class="caret"></span>
-        </button>
-        <ul id="dropdown-nested2" *dropdownMenu class="dropdown-menu"
-            role="menu" aria-labelledby="button-nested2">
-          <li role="menuitem"><a class="dropdown-item" >Lectra Modaris</a></li>
-          <li role="menuitem"><a class="dropdown-item" >Assyst Vidya</a></li>
-          <li role="menuitem"><a class="dropdown-item" >CLO3D</a></li>
-          <li role="menuitem"><a class="dropdown-item" >Browzwear VStitche</a></li>
 
+      <hr>
 
-
-
-        </ul>
+      <div class="row">
+        <div class="col-4">
+          <h5> Drape-Coefficient </h5>
+          <ngx-slider [(value)]="value3" [options]="options"></ngx-slider>
+        </div>
+        <div class="col-4">
+          <h5> Elasticity</h5>
+          <ngx-slider [(value)]="value4" [options]="options" (valueChange)="change1()"></ngx-slider>
+        </div>
+        <div class="col-4">
+          <h5> Elongation</h5>
+          <ngx-slider [(value)]="value5" [options]="options" (valueChange)="change1()"></ngx-slider>
+        </div>
       </div>
-      <div class="btn-group mb-4" dropdown [autoClose]="true" container="body">
-        <button id="button-nested3" dropdownToggle type="button" class="btn btn-dark dropdown-toggle"
-                aria-controls="dropdown-nested1">
-          Product Group <span class="caret"></span>
-        </button>
-        <ul id="dropdown-nested3" *dropdownMenu class="dropdown-menu"
-            role="menu" aria-labelledby="button-nested3">
-          <li role="menuitem"><a class="dropdown-item" >Accessoires</a></li>
-          <li role="menuitem"><a class="dropdown-item" >Beachwear</a></li>
-          <li role="menuitem"><a class="dropdown-item" >Berufsbekleidung/ PSA</a></li>
-          <li role="menuitem"><a class="dropdown-item" ></a></li>
 
-        </ul>
-      </div>
-      <div class="btn-group mb-4" dropdown [autoClose]="true" container="body">
-        <li class="dropdown">
-          <a class="btn btn-dark dropdown-toggle" href="#" data-toggle="dropdown">
-            Product Group<b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            <li><label class="checkbox"><input type="checkbox">Two</label></li>
-            <li><label class="checkbox"><input type="checkbox">Two</label></li>
-          </ul>
-        </li>
-      </div>
-      <button class="btn-lg btn-outline-dark">Search your Material!</button>
-
+      <hr>
     </div>
+
+
+
     <!-- end filter section-->
     <!-- start material content-->
-    <div class="col-8">
+    <div class="col-12">
       <h1>Material</h1>
       <p class="lead">Dashboard is a one-page template for building simple and beautiful home pages. Download, edit the text,
         and
