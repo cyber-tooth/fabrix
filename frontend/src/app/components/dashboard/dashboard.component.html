@@ -1,5 +1,6 @@
 <div class="custom-flex">
   <h5 *ngIf="hasAccess(['superAdmin'])">Hello {{getFirstName()}} you are registered as Super Admin, now as you will, you can manage users or edit materials..</h5>
+  <h5 *ngIf="hasAccess(['admin'])">Hello {{getFirstName()}} you are registered as Admin, now as you will, you can edit materials..</h5>
   <h1>Dashboard a Beautiful Page</h1>
   <p class="lead">Dashboard is a one-page template for building simple and beautiful home pages. Download, edit the text,
     and

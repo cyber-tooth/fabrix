@@ -1,3 +1,10 @@
 .paulinaStyle{
   color: red;
 }
+input.ng-touched.ng-invalid {
+  border: 1px solid red;
+  color: red;
+}
+.validator-message{
+  color: red;
+}

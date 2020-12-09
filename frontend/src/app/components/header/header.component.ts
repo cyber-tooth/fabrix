@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationService, AuthorisationService} from "../../services";
 import {faSearch, faSignInAlt, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
 
@@ -9,7 +9,7 @@ import {faSearch, faSignInAlt, faSignOutAlt, faUser} from '@fortawesome/free-sol
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
 
   faUserIcon = faUser;
   faSearchIcon = faSearch;
@@ -18,6 +18,12 @@ export class HeaderComponent {
 
   constructor(private authenticationService: AuthenticationService,
               private authorisationService: AuthorisationService) {
+  }
+  ngOnInit()
+  {
+  }
+  searchClick(){
+
   }
 
   isLoggedIn() {

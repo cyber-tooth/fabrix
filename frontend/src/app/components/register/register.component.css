@@ -9,7 +9,8 @@
 }
 
 input.ng-touched.ng-invalid{
-  borde: 1px solid red;
+  border: 1px solid red;
+  color: red;
 }
 
 .validator-message{
