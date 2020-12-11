@@ -18,7 +18,7 @@ export class ManageUsersComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.getUserData()
+    this.getUserData();
   //  this.setUsers()
   }
 
@@ -26,7 +26,7 @@ export class ManageUsersComponent implements OnInit {
    this.userService.getAll().subscribe((res) => {
      this.userList = res as User[];
      //TODO this line should be deleted just for debugging
-     console.log("userList", this.userList)
+     console.log("userList", this.userList);
    })
  }
 
