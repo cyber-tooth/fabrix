@@ -5,8 +5,8 @@ export class User {
   firmenname: string;
   email: string;
   password: string;
-  confirmPassword: string
-  acceptTerms: boolean
+  confirmPassword: string;
+  acceptTerms: boolean;
   role: User.RoleEnum;
 
 

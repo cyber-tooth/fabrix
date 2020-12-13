@@ -1,10 +1,9 @@
 <div class="mu-body" style="height: 100%;">
-  <p routerLink="/dashboard"> < Back
-  </p>
+  <div routerLink="/dashboard"><fa-icon [icon]="faChevronCircleLeftIcon"></fa-icon>
+  </div>
   <h3>Manage Users</h3>
   <p>You can update the existing users or set their permissions here.</p>
-  <h6>List of Users</h6>
-  <table class="table table-hover" >
+  <table class="table table-hover">
     <thead>
     <tr>
       <th *ngFor="let head of headElements" scope="col">{{head}}</th>
@@ -16,16 +15,24 @@
       <td>{{user.firstName}}</td>
       <td>{{user.email}}</td>
       <td class="overflow-hidden">
-        <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>Role: {{user.role}}</button>
-        <div ngbDropdownMenu>
-          <button ngbDropdownItem (click)="changeRoleAsUser(user)">No access</button>
-          <button ngbDropdownItem (click)="changeRoleAsAdmin(user)">Admin</button>
-          <button ngbDropdownItem (click)="changeRoleAsSuperAdmin(user)">Super Admin</button>
+        <div class="dropdown">
+          <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
+            Role: {{user.role}}
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" (click)="changeRoleAsUser(user)">No access</a>
+            <a class="dropdown-item" (click)="changeRoleAsAdmin(user)">Admin</a>
+            <a class="dropdown-item" (click)="changeRoleAsSuperAdmin(user)">Super Admin</a>
+          </div>
         </div>
+      </td>
+      <td class="overflow-hidden">
+          <button class="btn btn-outline btn-sm" (click)="deleteUser(user)"><fa-icon [icon]="faUserMinusIcon"></fa-icon></button>
       </td>
     </tr>
     </tbody>
   </table>
+  <h6>List of Users</h6>
   <ngb-pagination class="d-flex justify-content-end"
                   [(page)]="page"
                   [pageSize]="pageSize"

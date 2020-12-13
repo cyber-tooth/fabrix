@@ -48,8 +48,6 @@ export class AuthenticationService {
     this.currentUserSubject.next(null);
   }
 
-
-
   confirm(token: string) {
     return this.http.post<any>(`${environment.apiUrl}/v1/auth/verify-email`, {token}).pipe(map(response => response));
   }

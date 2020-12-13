@@ -6,7 +6,8 @@
 html,
 body {
   height: 100%;
-  background-color: rgb(217,217,214);
+  background-color: whitesmoke;
+ /* background-color: rgb(217,217,214);*/
 }
 
 .main {

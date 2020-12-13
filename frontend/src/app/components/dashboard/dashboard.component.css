@@ -1,1 +1,10 @@
-
+.home{
+  margin-right: 18%;
+  margin-left: 18%;
+  padding: 2%;
+  background: rgba(158,162,162,1);
+  color: #F0FFF0;
+}
+.button{
+  text-align: right;
+}

@@ -38,7 +38,8 @@ const routes: Routes = [
   {path: 'manage-users', component: ManageUsersComponent},
   {path: 'agb', component: AgbComponent},
   {path: 'datenschutz', component: DatenschutzComponent},
-  {path: 'faq', component: FaqComponent}
+  {path: 'faq', component: FaqComponent},
+  {path: 'edit-material', component: EditMaterialComponent}
 
 ];
 

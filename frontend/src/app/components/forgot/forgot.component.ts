@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenticationService} from "../../services";
 
 @Component({
   selector: 'app-forgot',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForgotComponent implements OnInit {
 
-  constructor() { }
+  email = null;
+  constructor(
+    private authenticationService: AuthenticationService) {
+  }
 
   ngOnInit(): void {
+  }
+
+  forgot(email: string) {
+    this.authenticationService.forgot(email).subscribe(u => this.setUser());
+  }
+
+  private setUser(){
+    this.authenticationService.currentUser.subscribe(u =>{
+      this.email = u;
+    })
   }
 
 }

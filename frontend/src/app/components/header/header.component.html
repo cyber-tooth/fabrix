@@ -2,7 +2,7 @@
   <h3 class="my-0 mr-md-auto font-weight-normal"><a class="text-dark" routerLink="/home">Filfab</a></h3><a class="p-2 text-dark" *ngIf="hasAccess(['user','admin','superAdmin'])" routerLink="/dashboard">Dashboard</a>
   <a class="p-2 text-dark" *ngIf="hasAccess(['superAdmin'])" routerLink="/manage-users">Manage-Users</a>
   <a class="p-2 text-dark" *ngIf="hasAccess(['superAdmin', 'admin'])" routerLink="/edit-material">Edit Material</a>
-  <a class="p-2 text-dark" *ngIf="hasAccess(['user'])" routerLink="/edit-material">Materialcard</a>
+  <a class="p-2 text-dark" *ngIf="hasAccess(['user','superAdmin','admin'])">Materialcards</a>
   <nav class="my-2 my-md-0 mr-md-3 navbar navbar-light">
     <form class="form-inline">
       <span [hidden]="searchClick()">
@@ -20,5 +20,5 @@
   </span>
   </nav>
 </div>
-
+<
 

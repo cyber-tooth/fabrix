@@ -1,45 +1,70 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from "../../models";
-import {UserService} from "../../services";
+import {StoffeService} from '../../services';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Stoffe} from '../../models';
+import {faPlus, faUserMinus} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'app-edit-material',
   templateUrl: './edit-material.component.html',
   styleUrls: ['./edit-material.component.css']
 })
 export class EditMaterialComponent implements OnInit {
-  userList: Array<User> = [];
+  faUserMinusIcon = faUserMinus;
+  faPlusIcon = faPlus;
 
-  headElements = ['Id', 'Firstname', 'Email', 'Role for', 'Actions'];
-  public page =1;
-  public pageSize =10;
-  constructor(private userService: UserService) {}
+  materialList: Array<Stoffe> = [];
 
+  materialForm: FormGroup;
+  materialFormSubmitAttempt: boolean;
+
+  headElements = ['Id', 'name', 'material composition', 'product group', 'weight', 'surface look', 'thickness', 'commercial fabric name', 'Actions'];
+
+  public page = 1;
+  public pageSize = 10;
+
+  constructor(private stoffeService: StoffeService,
+              private form: FormBuilder) {
+  }
+
+  // tslint:disable-next-line:typedef
   ngOnInit() {
-    // this.getUserData()
-    this.setUsers()
+    this.getMaterialData();
+
+    this.materialForm =
+      this.form.group({
+        email: [null, [Validators.required]],
+        acceptTerms: [true],
+        firstName: [null, [Validators.required as any]],
+        lastName: [null, [Validators.required as any]],
+      });
+
+    this.materialFormSubmitAttempt = false;
   }
 
-  // getUserData(){
-  //   this.userService.getAll().subscribe((res) => {
-  //     this.userList = res as User[];
-  //   })
-  // }
-
-
-  editMaterial(user: User){
-
+  // tslint:disable-next-line:typedef
+  getMaterialData() {
+    this.stoffeService.getAll().subscribe((res) => {
+      this.materialList = res as Stoffe[];
+      // TODO this line should be deleted just for debugging
+      // console.log("userList", this.userList);
+    });
   }
 
-  deleteMaterial(user: User) {
-    console.log(user);
-    this.userService.delete(user.id).subscribe(u => this.setUsers());
+  // tslint:disable-next-line:typedef
+  addMaterial(material: Stoffe) {
+    this.stoffeService.create(material).subscribe(u => this.setMaterials());
   }
+  // tslint:disable-next-line:typedef
+  delete(material: Stoffe){
 
-  private setUsers(){
-    this.userService.getAll().subscribe(u =>{
-      this.userList = u;
-    })
+  }
+  // tslint:disable-next-line:typedef
+  private setMaterials() {
+    this.stoffeService.getAll().subscribe(m => {
+      this.materialList = m;
+    });
   }
 
 }
