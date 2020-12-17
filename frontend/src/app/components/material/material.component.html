@@ -25,11 +25,11 @@
         </div>
         <div class="col-4">
           <h5> Weight </h5>
-          <ngx-slider [(value)]="value1" [options]="options" (valueChange)="change1()"></ngx-slider>
+          <ngx-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ngx-slider>
         </div>
         <div class="col-4">
           <h5> Thickness </h5>
-          <ngx-slider [(value)]="value2" [options]="options"></ngx-slider>
+          <ngx-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ngx-slider>
         </div>
       </div>
 
@@ -38,22 +38,20 @@
       <div class="row">
         <div class="col-4">
           <h5> Drape-Coefficient </h5>
-          <ngx-slider [(value)]="value3" [options]="options"></ngx-slider>
+          <ngx-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ngx-slider>
         </div>
         <div class="col-4">
           <h5> Elasticity</h5>
-          <ngx-slider [(value)]="value4" [options]="options" (valueChange)="change1()"></ngx-slider>
+          <ngx-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ngx-slider>
         </div>
         <div class="col-4">
           <h5> Elongation</h5>
-          <ngx-slider [(value)]="value5" [options]="options" (valueChange)="change1()"></ngx-slider>
+          <ngx-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ngx-slider>
         </div>
       </div>
 
       <hr>
     </div>
-
-
 
     <!-- end filter section-->
     <!-- start material content-->

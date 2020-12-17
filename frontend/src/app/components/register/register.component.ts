@@ -7,7 +7,7 @@ import {AlertComponent} from "ngx-bootstrap/alert";
 import {CustomValidators} from "../../helpers/custom-validators";
 
 @Component({
-  selector: 'htw-register',
+  selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })

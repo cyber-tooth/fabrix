@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts} from "ngx-bootstrap-multiselect";
+import {IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts} from 'ngx-bootstrap-multiselect';
 import { Options } from '@angular-slider/ngx-slider';
-//https://github.com/angular-slider/ngx-slider
+// https://github.com/angular-slider/ngx-slider
 
 @Component({
   selector: 'app-material',
@@ -144,7 +144,7 @@ export class MaterialComponent implements OnInit {
     { id: 7, name: 'Outer Wear'},
     { id: 8, name: 'Sleepwear/ Loungewear'},
     { id: 9, name: 'Sportswear'},
-    { id: 10, name: 'Underwear',}
+    { id: 10, name: 'Underwear', }
   ];
 
   myOptions4: IMultiSelectOption[] = [
@@ -157,7 +157,7 @@ export class MaterialComponent implements OnInit {
     { id: 7, name: 'Circular Knit', parentId: 6 },
     { id: 8, name: 'Flat Knit', parentId: 6 },
     { id: 9, name: 'Warp Knit', parentId: 6 },
-    { id: 10, name: 'Cuff Material',parentId: 6 },
+    { id: 10, name: 'Cuff Material', parentId: 6 },
     { id: 11, name: 'Non-Woven', }
 
   ];
@@ -172,22 +172,16 @@ export class MaterialComponent implements OnInit {
     { id: 7, name: 'Plissé'},
     { id: 8, name: 'Plush'},
     { id: 9, name: 'Rib'},
-    { id: 10, name: 'Sersucker',},
-    { id: 10, name: 'Terry',},
-    { id: 10, name: 'Velvet',},
-    { id: 10, name: 'Velour',},
-    { id: 10, name: 'Other',}
+    { id: 10, name: 'Sersucker'},
+    { id: 10, name: 'Terry'},
+    { id: 10, name: 'Velvet'},
+    { id: 10, name: 'Velour'},
+    { id: 10, name: 'Other'}
   ];
 
 
-  value1: any;
-  value2: any;
-  value3: any;
-  value4: any;
-  value5: any;
-  enabled: any;
-
-  value: number = 100;
+  value = 0;
+  highValue = 100;
   options: Options = {
     floor: 0,
     ceil: 100

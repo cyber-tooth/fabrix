@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from "../../services";
-import {User} from "../../models";
+import {UserService} from '../../services';
+import {User} from '../../models';
 import RoleEnum = User.RoleEnum;
-import {faChevronCircleLeft, faUserMinus} from "@fortawesome/free-solid-svg-icons";
+import {faChevronCircleLeft, faUserMinus} from '@fortawesome/free-solid-svg-icons';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {DeleteModalComponent} from "../delete-modal/delete-modal.component";
+import {DeleteModalComponent} from '../delete-modal/delete-modal.component';
 
 @Component({
-  selector: 'htw-manage-users',
+  selector: 'app-manage-users',
   templateUrl: './manage-users.component.html',
   styleUrls: ['./manage-users.component.css']
 })
@@ -18,8 +18,8 @@ export class ManageUsersComponent implements OnInit {
 
   userList: Array<User> = [];
   headElements = ['Id', 'Firstname', 'Email', 'Role', 'Actions'];
-  public page =1;
-  public pageSize =10;
+  public page = 1;
+  public pageSize = 10;
   constructor(private userService: UserService, private modalService: NgbModal) {}
 
   // tslint:disable-next-line:typedef
@@ -34,7 +34,7 @@ export class ManageUsersComponent implements OnInit {
  getUserData(){
    this.userService.getAll().subscribe((res) => {
      this.userList = res as User[];
-     //TODO this line should be deleted just for debugging
+     // TODO this line should be deleted just for debugging
      console.log('userList', this.userList);
    });
  }
@@ -63,10 +63,10 @@ export class ManageUsersComponent implements OnInit {
     ref.componentInstance.selectedUser = user;
 
     ref.result.then((ok) => {
-        console.log("Ok Click");
+        console.log('Ok Click');
       },
       (cancel) => {
-        console.log("Cancel Click");
+        console.log('Cancel Click');
 
       });
 
