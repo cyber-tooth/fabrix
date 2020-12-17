@@ -7,7 +7,7 @@ import {AlertComponent} from "ngx-bootstrap/alert";
 import {CustomValidators} from "../../helpers/custom-validators";
 
 @Component({
-  selector: 'app-register',
+  selector: 'htw-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
@@ -25,7 +25,6 @@ export class RegisterComponent implements OnInit {
     private form: FormBuilder,
     private router: Router,
     private userService: UserService) {
-
   }
 
   ngOnInit() {
@@ -91,7 +90,7 @@ export class RegisterComponent implements OnInit {
       // validate all form fields
       this.validateAllFormFields(this.registerForm);
     }
-
+    this.registerFormSubmitAttempt = false;
   }
 
   checkPasswordStrength(value) {

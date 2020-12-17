@@ -4,7 +4,7 @@ import {faSearch, faSignInAlt, faSignOutAlt, faUser} from '@fortawesome/free-sol
 
 
 @Component({
-  selector: 'app-header',
+  selector: 'htw-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })

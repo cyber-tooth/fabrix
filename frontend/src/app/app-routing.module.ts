@@ -19,6 +19,7 @@ import {EditMaterialComponent} from "./components/edit-material/edit-material.co
 import {AgbComponent} from "./components/agb/agb.component";
 import {DatenschutzComponent} from "./components/datenschutz/datenschutz.component";
 import {FaqComponent} from "./components/faq/faq.component";
+import {DeleteModalComponent} from "./components/delete-modal/delete-modal.component";
 
 
 const routes: Routes = [
@@ -39,8 +40,9 @@ const routes: Routes = [
   {path: 'agb', component: AgbComponent},
   {path: 'datenschutz', component: DatenschutzComponent},
   {path: 'faq', component: FaqComponent},
-  {path: 'edit-material', component: EditMaterialComponent}
-
+  {path: 'edit-material', component: EditMaterialComponent},
+  {path: 'delete-modal', component: DeleteModalComponent},
+  {path: 'delete-modal/:id', component: DeleteModalComponent}
 ];
 
 @NgModule({

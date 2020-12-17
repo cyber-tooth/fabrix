@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {UserService} from "../../services";
 import {User} from "../../models";
 import RoleEnum = User.RoleEnum;
 import {faChevronCircleLeft, faUserMinus} from "@fortawesome/free-solid-svg-icons";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {DeleteModalComponent} from "../delete-modal/delete-modal.component";
 
 @Component({
-  selector: 'app-manage-users',
+  selector: 'htw-manage-users',
   templateUrl: './manage-users.component.html',
   styleUrls: ['./manage-users.component.css']
 })
@@ -15,12 +16,11 @@ export class ManageUsersComponent implements OnInit {
   faUserMinusIcon = faUserMinus;
   faChevronCircleLeftIcon = faChevronCircleLeft;
 
-
   userList: Array<User> = [];
   headElements = ['Id', 'Firstname', 'Email', 'Role', 'Actions'];
   public page =1;
   public pageSize =10;
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private modalService: NgbModal) {}
 
   // tslint:disable-next-line:typedef
   ngOnInit() {
@@ -35,7 +35,7 @@ export class ManageUsersComponent implements OnInit {
    this.userService.getAll().subscribe((res) => {
      this.userList = res as User[];
      //TODO this line should be deleted just for debugging
-     //console.log("userList", this.userList);
+     console.log('userList', this.userList);
    });
  }
 
@@ -58,8 +58,19 @@ export class ManageUsersComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   deleteUser(user: User) {
-    console.log(user);
-    this.userService.delete(user.id).subscribe(u => this.setUsers());
+
+    const ref = this.modalService.open(DeleteModalComponent, { centered: true });
+    ref.componentInstance.selectedUser = user;
+
+    ref.result.then((ok) => {
+        console.log("Ok Click");
+      },
+      (cancel) => {
+        console.log("Cancel Click");
+
+      });
+
+   // console.log(user);
   }
 
   // tslint:disable-next-line:typedef
