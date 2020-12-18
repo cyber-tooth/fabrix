@@ -208,7 +208,7 @@ exports.getAll = function (req, res, next) {
 };
 
 exports.getById = function (req, res, next) {
-    // users can get their own user and admins can get any user
+    //users can get their own user and admins can get any user
     if (Number(req.params.id) !== req.user.id && req.user.role !== Role.superAdmin) {
         return res.status(401).json({
             message: 'Unauthorized'
@@ -229,10 +229,10 @@ exports.createSchema = function (req, res, next) {
         firstName: Joi.string().required(),
         lastName: Joi.string().required(),
         firmenname: Joi.any().empty(''),
-        email: Joi.string(),
-        password: Joi.string().min(6).required(),
+        email: Joi.string().required(),
+        password: Joi.string().min(8).required(),
         confirmPassword: Joi.string().valid(Joi.ref('password')).required(),
-        role: Joi.string().valid(Role.superAdmin, Role.user).required()
+        role: Joi.string().valid(Role.superAdmin, Role.user, Role.admin).required()
     });
     validateRequest(req, next, schema);
 };
@@ -253,13 +253,13 @@ exports.updateSchema = function (req, res, next) {
         lastName: Joi.string().empty(''),
         firmenname: Joi.any().empty(''),
         email: Joi.string().email().empty(''),
-        password: Joi.string().min(6).empty(''),
-        confirmPassword: Joi.string().valid(Joi.ref('password')).empty('')
+        password: Joi.string().min(8).empty(''),
+        confirmPassword: Joi.string().valid(Joi.ref('password')).empty(''),
     };
 
-    // only admins can update role
+    //only SuperAdmins can update role
     if (req.user.role === Role.superAdmin) {
-        schemaRules.role = Joi.string().valid(Role.superAdmin, Role.user).empty('');
+        schemaRules.role = Joi.string().valid(Role.superAdmin, Role.user, Role.admin).empty('');
     }
 
     const schema = Joi.object(schemaRules).with('password', 'confirmPassword');
@@ -270,7 +270,7 @@ exports.update = function (req, res, next) {
     // users can update their own user and admins can update any user
     if (Number(req.params.id) !== req.user.id && req.user.role !== Role.superAdmin) {
         return res.status(401).json({
-            message: 'Unauthorized'
+        message: 'Unauthorized'
         });
     }
 
