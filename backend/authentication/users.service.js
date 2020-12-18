@@ -243,7 +243,6 @@ function randomTokenString() {
 
 function basicDetails(user) {
     return {
-        user: {
             id: user.id,
             firstName: user.firstName,
             lastName: user.lastName,
@@ -253,7 +252,7 @@ function basicDetails(user) {
             created: user.created,
             updated: user.updated,
             isVerified: user.isVerified,
-        }
+
     };
 }
 
