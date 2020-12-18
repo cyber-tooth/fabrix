@@ -8,15 +8,11 @@
 }
 
 .title{
-  margin-top: 2%;
+  margin-top: 1%;
   margin-bottom: 1%;
 }
 
-.add-button{
-  box-shadow:  10px 10px 15px silver;
-  border-radius: 5px;
-  margin: 1%;
+.button-add{
+  margin-top: 2%;
 }
-#faPlusIcon{
-  color: green;
-}
+

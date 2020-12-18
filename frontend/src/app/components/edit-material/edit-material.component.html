@@ -1,6 +1,12 @@
 <div class="mu-body">
-  <h3>Create new materials or Update the existing materials here.</h3>
-  <div class="button-add"><button class="btn btn-outline"><fa-icon [icon]="faPlusIcon"></fa-icon></button></div>
+  <div routerLink="/dashboard"><fa-icon [icon]="faChevronCircleLeftIcon"></fa-icon></div>
+  <div class="button-add">
+    <button type="button" class="m-md-0 btn btn-outline-secondary" placement="bottom" ngbTooltip="add new Material" [routerLink]="['/add-material']">
+      <fa-icon [icon]="faPlusIcon"></fa-icon></button>
+  </div>
+  <div class="title"><h3>Edit Materials</h3></div>
+  <p>Create new materials or Update the existing materials here.</p>
+
   <table class="table table-bordered">
     <thead>
     <tr>

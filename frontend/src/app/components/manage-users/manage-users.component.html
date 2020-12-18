@@ -13,20 +13,20 @@
       <th scope="row">{{user.id}}</th>
       <td>{{user.firstName}}</td>
       <td>{{user.email}}</td>
-      <td class="overflow-hidden">
-        <div class="dropdown">
-          <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
-            Role: {{user.role}}
-          </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" (click)="changeRoleAsUser(user)">User</a>
-            <a class="dropdown-item" (click)="changeRoleAsAdmin(user)">Admin</a>
-            <a class="dropdown-item" (click)="changeRoleAsSuperAdmin(user)">Super Admin</a>
-          </div>
+      <td>
+        <div class="form-floating">
+          <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+            <option selected>{{user.role}}</option>
+            <option (click)="changeRoleAsUser(user)">User</option>
+            <option (click)="changeRoleAsAdmin(user)">Admin</option>
+            <option (click)="changeRoleAsSuperAdmin(user)">Super Admin</option>
+          </select>
         </div>
       </td>
       <td class="overflow-hidden">
-          <button class="btn btn-outline btn-sm" type="button" ngbAutofocus [routerLink]="['/delete-modal/', user.id]"><fa-icon [icon]="faUserMinusIcon"></fa-icon></button>
+        <button type="button" class="btn btn-outline mr-2" placement="bottom" ngbTooltip="Delete this User"
+                [routerLink]="['/delete-modal/', user.id]"><fa-icon [icon]="faUserMinusIcon"></fa-icon>
+        </button>
       </td>
     </tr>
     </tbody>
