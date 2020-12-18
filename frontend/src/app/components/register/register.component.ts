@@ -83,7 +83,6 @@ export class RegisterComponent implements OnInit {
             }
           },
           error => {
-            console.log(error);
             this.pushNotification(error.message, 'danger');
           });
     } else {

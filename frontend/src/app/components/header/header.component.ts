@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService, AuthorisationService} from "../../services";
 import {faSearch, faSignInAlt, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -9,7 +10,7 @@ import {faSearch, faSignInAlt, faSignOutAlt, faUser} from '@fortawesome/free-sol
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit {
 
   faUserIcon = faUser;
   faSearchIcon = faSearch;
@@ -17,12 +18,14 @@ export class HeaderComponent implements OnInit{
   faSignInAltIcon = faSignInAlt;
 
   constructor(private authenticationService: AuthenticationService,
-              private authorisationService: AuthorisationService) {
+              private authorisationService: AuthorisationService,
+              private router: Router) {
   }
-  ngOnInit()
-  {
+
+  ngOnInit() {
   }
-  searchClick(){
+
+  searchClick() {
 
   }
 
@@ -35,6 +38,7 @@ export class HeaderComponent implements OnInit{
 
   logout() {
     this.authenticationService.logout();
+    this.router.navigate(['/']);
   }
 
   getFirstName() {

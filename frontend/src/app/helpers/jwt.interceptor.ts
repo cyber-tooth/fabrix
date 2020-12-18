@@ -17,7 +17,6 @@ export class JwtInterceptor implements HttpInterceptor {
 
     const isLoggedIn = currentUser && token;
     const isApiUrl = request.url.startsWith(environment.apiUrl);
-
     if (isLoggedIn && isApiUrl) {
       request = request.clone({
         setHeaders: {
@@ -25,7 +24,6 @@ export class JwtInterceptor implements HttpInterceptor {
         }
       });
     }
-
     return next.handle(request);
   }
 }

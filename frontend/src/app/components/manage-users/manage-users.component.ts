@@ -34,8 +34,6 @@ export class ManageUsersComponent implements OnInit {
  getUserData(){
    this.userService.getAll().subscribe((res) => {
      this.userList = res as User[];
-     // TODO this line should be deleted just for debugging
-     console.log('userList', this.userList);
    });
  }
 
@@ -51,7 +49,6 @@ export class ManageUsersComponent implements OnInit {
   }
   // tslint:disable-next-line:typedef
   changeRoleAsSuperAdmin(user: User){
-    console.log(user);
     user.role = RoleEnum.superAdmin;
     this.userService.update(user).subscribe(u => this.setUsers());
   }

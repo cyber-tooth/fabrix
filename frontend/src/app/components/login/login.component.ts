@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
 
   checkPasswordStrength(value) {
     this.strengthChange = value;
-    console.log(this.strengthChange);
   }
 
   login() {
@@ -53,7 +52,6 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/dashboard']);
           },
           error => {
-            console.log(error.error);
             this.pushNotification(error.error, 'danger');
           });
     } else {

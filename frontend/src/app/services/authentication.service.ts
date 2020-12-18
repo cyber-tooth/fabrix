@@ -34,10 +34,10 @@ export class AuthenticationService {
     return this.http.post<any>(`${environment.apiUrl}/v1/auth/login`, {email, password})
       .pipe(map(data => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-        console.log(data);
-        localStorage.setItem('currentUser', JSON.stringify(data.user));
+        localStorage.setItem('currentUser', JSON.stringify(data));
         localStorage.setItem('token', JSON.stringify(data.token));
-        this.currentUserSubject.next(data.user);
+        this.currentUserSubject.next(data);
+        this.tokenSubject.next(data.token);
         return data.user;
       }));
   }
