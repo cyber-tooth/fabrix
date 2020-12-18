@@ -37,6 +37,7 @@ async function update(id, params) {
     return basicDetails(stoffe);
 }
 
+
 async function _delete(id) {
     const stoffe = await getStoffe(id);
     await stoffe.destroy();
@@ -49,6 +50,18 @@ async function getStoffe(id) {
 }
 
 function basicDetails(stoffe) {
-    const { id, name } = stoffe;
-    return { id, name };
+    return {
+        stoffe: {
+            id: stoffe.id,
+            name: stoffe.name,
+            material_composition: stoffe.material_composition,
+            product_group: stoffe.product_group,
+            weight: stoffe.weight,
+            surface_look: stoffe.surface_look,
+            thickness: stoffe.thickness,
+            commercial_fabric_name: stoffe.commercial_fabric_name,
+            createdAt: stoffe.createdAt,
+            updatedAt: stoffe.updatedAt
+        }
+    };
 }
