@@ -39,15 +39,10 @@ const routes: Routes = [
   {path: 'agb', component: AgbComponent},
   {path: 'datenschutz', component: DatenschutzComponent},
   {path: 'faq', component: FaqComponent},
-  {path: 'delete-modal', component: DeleteModalComponent},
-  {path: 'delete-modal/:id', component: DeleteModalComponent},
-  {
-    path: 'manage-users',
-    component: ManageUsersComponent,
+  {path: 'manage-users', component: ManageUsersComponent,
     canActivate: [AuthGuardSuperAdmin]
   },
-  {path: 'edit-material',
-    component: EditMaterialComponent,
+  {path: 'edit-material', component: EditMaterialComponent,
     canActivate: [AuthGuardAdmin]
   }
 ];

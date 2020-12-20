@@ -3,8 +3,10 @@ import {UserService} from '../../services';
 import {User} from '../../models';
 import RoleEnum = User.RoleEnum;
 import {faChevronCircleLeft, faUserMinus} from '@fortawesome/free-solid-svg-icons';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {DeleteModalComponent} from '../delete-modal/delete-modal.component';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
+import {HttpErrorResponse} from "@angular/common/http";
+import {ActivatedRoute} from "@angular/router";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-manage-users',
@@ -17,27 +19,55 @@ export class ManageUsersComponent implements OnInit {
   faChevronCircleLeftIcon = faChevronCircleLeft;
 
   userList: Array<User> = [];
+  user: User;
+  selectedId: string;
+  error: HttpErrorResponse;
+  closeResult = '';
+  form: FormGroup;
 
   headElements = ['Id', 'Firstname', 'Email', 'Role', 'Actions'];
   public page = 1;
   public pageSize = 10;
-  constructor(private userService: UserService, private modalService: NgbModal) {}
+  constructor(private userService: UserService, private route: ActivatedRoute,
+              config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder) {
+    config.backdrop = 'static';   // schliesst nicht, wenn man in das Fenster dahinter klickt
+    config.keyboard = false;
+    // Formular fuer delete
+    this.form = this.fb.group(
+      {
+        id: ['', Validators.required],
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+      }
+    );
+  }
 
   // tslint:disable-next-line:typedef
   ngOnInit() {
-    this.userService.getAll().subscribe(users => {
-      this.userList = users;
-      //  this.setUsers()
-    });
+    this.setUsers();
+  }
+  readOne(id: string): void {
+    this.userService.show(id).subscribe(
+      (response: User) => this.user = response,
+      error => this.error = error,
+    );
+  }
+  deleteOne(id: string): void {
+    this.userService.delete(id).subscribe(u => this.setUsers());
+    window.location.reload();
   }
 
-  // tslint:disable-next-line:typedef
-  getUserData(){
-    this.userService.getAll().subscribe((res) => {
-      this.userList = res as User[];
+  open(content, id: string): void {
+    this.readOne(id);
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      console.log(this.closeResult);
+      if (result === 'delete')
+      {
+        this.deleteOne(this.user?.id);
+      }
     });
   }
-
   // tslint:disable-next-line:typedef
   changeRoleAsUser(user: User){
     user.role = RoleEnum.user;
@@ -55,26 +85,9 @@ export class ManageUsersComponent implements OnInit {
   }
 
   // tslint:disable-next-line:typedef
-  deleteUser(user: User) {
-
-    const ref = this.modalService.open(DeleteModalComponent, { centered: true });
-    ref.componentInstance.selectedUser = user;
-
-    ref.result.then((ok) => {
-        console.log('Ok Click');
-      },
-      (cancel) => {
-        console.log('Cancel Click');
-
-      });
-
-    // console.log(user);
-  }
-
-  // tslint:disable-next-line:typedef
   private setUsers(){
     this.userService.getAll().subscribe(u => {
-      this.userList = u;
+      this.userList = u as User[];
     });
   }
 }

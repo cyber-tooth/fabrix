@@ -34,7 +34,6 @@ import { FaqComponent } from './components/faq/faq.component';
 import { NgxBootstrapSliderModule } from 'ngx-bootstrap-slider';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { AddMaterialComponent } from './components/add-material/add-material.component';
-import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 import {AuthGuardAdmin, AuthGuardUser, AuthGuardSuperAdmin} from './guards';
 
 export function tokenGetter() {
@@ -66,8 +65,7 @@ export function tokenGetter() {
     AgbComponent,
     DatenschutzComponent,
     FaqComponent,
-    AddMaterialComponent,
-    DeleteModalComponent
+    AddMaterialComponent
   ],
   imports: [
     BrowserModule,
