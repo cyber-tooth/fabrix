@@ -18,7 +18,6 @@ import {EditMaterialComponent} from './components/edit-material/edit-material.co
 import {AgbComponent} from './components/agb/agb.component';
 import {DatenschutzComponent} from './components/datenschutz/datenschutz.component';
 import {FaqComponent} from './components/faq/faq.component';
-import {DeleteModalComponent} from './components/delete-modal/delete-modal.component';
 import {AuthGuardSuperAdmin, AuthGuardUser, AuthGuardAdmin} from './guards/index';
 
 
