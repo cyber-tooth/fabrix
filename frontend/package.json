@@ -31,7 +31,7 @@
     "materialize-css": "^1.0.0-rc.2",
     "ng-bootstrap": "^1.6.3",
     "ngx-bootstrap": "^6.2.0",
-    "ngx-bootstrap-multiselect": "^2.1.0",
+    "angular-2-dropdown-multiselect": "^1.9.0",
     "ngx-bootstrap-slider": "^1.9.0",
     "rxjs": "~6.6.0",
     "semantic-ui-css": "^2.4.1",

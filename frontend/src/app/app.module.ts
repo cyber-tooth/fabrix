@@ -11,7 +11,7 @@ import {
 import {
   BsDropdownModule,
 } from 'ngx-bootstrap/dropdown';
-import { NgxBootstrapMultiselectModule } from 'ngx-bootstrap-multiselect';
+import {MultiselectDropdownModule} from 'angular-2-dropdown-multiselect';
 import {AuthenticationService, AuthorisationService, StoffeService, UserService} from './services/index';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtModule} from '@auth0/angular-jwt';
@@ -70,7 +70,7 @@ export function tokenGetter() {
   imports: [
     BrowserModule,
     FontAwesomeModule,
-    NgxBootstrapMultiselectModule,
+    MultiselectDropdownModule,
     AppRoutingModule,
     BrowserModule,
     HttpClientModule,

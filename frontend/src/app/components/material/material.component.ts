@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts} from 'ngx-bootstrap-multiselect';
+import {IMultiSelectSettings, IMultiSelectTexts, IMultiSelectOption} from 'angular-2-dropdown-multiselect';
+
 import { Options } from '@angular-slider/ngx-slider';
 // https://github.com/angular-slider/ngx-slider
 
