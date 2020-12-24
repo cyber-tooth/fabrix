@@ -1,18 +1,16 @@
 <div class="home">
-  <div class="custom-flex">
-    <h1>Filfabs - Filter your Fabrics</h1>
-    <p class="lead">
-      Filfabs is a textile material database for various fields of applications.
-      As a 3D product developer you can find textile materials based on your needs and receive ready to use data for all common 3D-Programs.
-      As a Fashion Designer you can find inspiration on what's new on the textile market.
-      As a Fashion product developer you can receive extensive data sets for textile materials, tested according to ISO Standards.
-
-      <span style="text-align: center; color: rgb(194,225,137);">It was never so easy. So let’s get started!</span>
-    </p>
-  </div>
-    <div class="button">
-      <button class="btn-lg btn-dark" [routerLink]="['/material']">Find your Material!</button>
-   </div>
+  <main role="main">
+    <div class="jumbotron">
+      <div class="col-sm-8 mx-auto">
+        <h1>Filfabs - Filter your Fabrics</h1>
+        <p> Filfabs is a textile material database for various fields of applications.</p>
+        <p>As a 3D product developer you can find textile materials based on your needs and receive ready to use data for all common 3D-Programs.</p>
+        <p>As a Fashion Designer you can find inspiration on what's new on the textile market.</p>
+        <p>As a Fashion product developer you can receive extensive data sets for textile materials, tested according to ISO Standards.</p>
+        <p class="button">
+          <a class="btn btn-primary" [routerLink]="['/material']" role="button">Find your Material!</a>
+        </p>
+      </div>
+    </div>
+  </main>
 </div>
-
-
