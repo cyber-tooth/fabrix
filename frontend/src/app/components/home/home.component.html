@@ -1,8 +1,12 @@
 <div class="home">
   <main role="main">
+    <div class="jumbotron-fluid">
+      <p class="welcomeRoleText mt-0 mb-5" *ngIf="hasAccess(['superAdmin'])">Hello,<span style="color:forestgreen;"> {{getFirstName()}}</span>! You are registered as Super Admin. Now as you will, you can manage users or edit materials.</p>
+      <p class="welcomeRoleText"  *ngIf="hasAccess(['admin'])">Hello,<span style="color:forestgreen;"> {{getFirstName()}}! </span> you are registered as Admin, now as you will, you can edit materials or have a look at user data.</p>
+    </div>
     <div class="jumbotron">
       <div class="col-sm-8 mx-auto">
-        <h1>Filfabs - Filter your Fabrics</h1>
+        <h1 style="text: solid">Filfabs - Filter your Fabrics</h1>
         <p> Filfabs is a textile material database for various fields of applications.</p>
         <p>As a 3D product developer you can find textile materials based on your needs and receive ready to use data for all common 3D-Programs.</p>
         <p>As a Fashion Designer you can find inspiration on what's new on the textile market.</p>
