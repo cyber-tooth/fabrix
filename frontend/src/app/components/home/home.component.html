@@ -1,21 +1,67 @@
-<div class="home">
-  <main role="main">
+ <main role="main">
     <div class="jumbotron-fluid">
       <p class="welcomeRoleText mt-0 mb-5" *ngIf="hasAccess(['superAdmin'])">Hello,<span style="color:forestgreen;"> {{getFirstName()}}</span>! You are registered as Super Admin. Now as you will, you can manage users or edit materials.</p>
       <p class="welcomeRoleText"  *ngIf="hasAccess(['admin'])">Hello,<span style="color:forestgreen;"> {{getFirstName()}}! </span> you are registered as Admin, now as you will, you can edit materials or have a look at user data.</p>
     </div>
-    <div class="jumbotron">
-      <div class="col-sm-8 mx-auto">
-        <h1 style="text: solid">Filfabs - Filter your Fabrics</h1>
-        <p> Filfabs is a textile material database for various fields of applications.</p>
-        <p>As a 3D product developer you can find textile materials based on your needs and receive ready to use data for all common 3D-Programs.</p>
-        <p>As a Fashion Designer you can find inspiration on what's new on the textile market.</p>
-        <p>As a Fashion product developer you can receive extensive data sets for textile materials, tested according to ISO Standards.</p>
-        <p style="text-align: center; color: rgb(194,225,137);">It was never so easy. So let’s get started!</p>
-        <p class="button">
-          <a class="btn btn-primary col-sm-12 col-md-8 col-lg-4" [routerLink]="['/material']" role="button">Find your Material!</a>
-        </p>
-      </div>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item firstCarousel active">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Filfabs - Filter your Fabrics</h1>
+              <p>Filfabs is a textile material database for various fields of applications.</p>
+              <p>As a <span style="color: orange">3D product developer</span> you can find textile materials based on your needs and receive ready to use data for all common 3D-Programs.</p>
+              <p style="color: rgb(194,225,137);">It was never so easy. So let’s get started!</p>
+              <p><a class="btn btn-lg btn-primary" [routerLink]="['/material']" role="button">Find your Material!</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item secondCarousel">
+          <div class="container">
+            <div class="carousel-caption text-left">
+              <h1>Filter your Fabrics</h1>
+              <p>Filfabs is a textile material database for various fields of applications.</p>
+              <p>As a <span style="color: #0082D1">Fashion Designer</span> you can find inspiration on what's new on the textile market.</p>
+              <p style="color: rgb(194,225,137);">It was never so easy. So let’s get started!</p>
+              <p><a class="btn btn-lg btn-primary" [routerLink]="['/material']" role="button">Find your Material!</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item thirdCarousel">
+          <div class="container">
+            <div class="carousel-caption text-right">
+              <h1>Filter your Fabrics</h1>
+              <p>Filfabs is a textile material database for various fields of applications.</p>
+              <p>As a <span style="color: orange">Fashion product developer</span> you can receive extensive data sets for textile materials, tested according to ISO Standards.</p>
+              <p style="color: rgb(194,225,137);">It was never so easy. So let’s get started!</p>
+              <p><a class="btn btn-lg btn-primary" [routerLink]="['/material']" role="button">Find your Material!</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item fourthCarousel">
+          <div class="container">
+            <div class="carousel-caption text-center">
+              <h1>Become a member now!</h1>
+              <p>Enjoy the benefits as a <span style="color: orange">member</span> and get more information about our fabrics.</p>
+              <p ><a class="btn btn-lg btn-primary" [routerLink]="['/register']" role="button">Sign in!</a></p>
+            </div>
+          </div>
+        </div>
+    </div>
+      <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
   </main>
-</div>
+

@@ -2,7 +2,8 @@
   <div routerLink="/dashboard"><fa-icon [icon]="faChevronCircleLeftIcon"></fa-icon></div>
   <div class="title"><h3>Manage Users</h3></div>
   <p>You can update the existing users or set their permissions here.</p>
-  <table class="table table-hover">
+ <div class="table-responsive">
+  <table class="table table-hover table-sm">
     <thead>
     <tr>
       <th *ngFor="let head of headElements" scope="col">{{head}}</th>
@@ -53,6 +54,7 @@
     </tr>
     </tbody>
   </table>
+ </div>
   <h6>List of Users</h6>
   <ngb-pagination class="d-flex justify-content-end"
                   [(page)]="page"
