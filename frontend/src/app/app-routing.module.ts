@@ -19,6 +19,9 @@ import {AgbComponent} from './components/agb/agb.component';
 import {DatenschutzComponent} from './components/datenschutz/datenschutz.component';
 import {FaqComponent} from './components/faq/faq.component';
 import {AuthGuardSuperAdmin, AuthGuardUser, AuthGuardAdmin} from './guards/index';
+import {MaterialcardListComponent} from "./components/materialcard-list/materialcard-list.component";
+import {MaterialCardComponent} from "./components/material-card/material-card.component";
+import {FilterCardComponent} from './components/filter-card/filter-card.component';
 
 
 const routes: Routes = [
@@ -39,11 +42,13 @@ const routes: Routes = [
   {path: 'datenschutz', component: DatenschutzComponent},
   {path: 'faq', component: FaqComponent},
   {path: 'manage-users', component: ManageUsersComponent,
-    canActivate: [AuthGuardSuperAdmin]
-  },
+    canActivate: [AuthGuardSuperAdmin]},
   {path: 'edit-material', component: EditMaterialComponent,
-    canActivate: [AuthGuardAdmin]
-  }
+    canActivate: [AuthGuardAdmin]},
+  {path: 'materialcard-list', component: MaterialcardListComponent},
+  {path: 'materialcard-item', component: MaterialcardListComponent},
+  {path: 'materialCard/id', component: MaterialCardComponent},
+  {path: 'filter-card', component: FilterCardComponent},
 ];
 
 @NgModule({
