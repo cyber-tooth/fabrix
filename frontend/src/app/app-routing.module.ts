@@ -19,6 +19,11 @@ import {AgbComponent} from './components/agb/agb.component';
 import {DatenschutzComponent} from './components/datenschutz/datenschutz.component';
 import {FaqComponent} from './components/faq/faq.component';
 import {AuthGuardSuperAdmin, AuthGuardUser, AuthGuardAdmin} from './guards/index';
+import {AddMaterialComponent} from './components/add-material/add-material.component';
+import {FilterCardComponent} from "./components/filter-card/filter-card.component";
+import {MaterialCardComponent} from "./components/material-card/material-card.component";
+import {MaterialcardListComponent} from "./components/materialcard-list/materialcard-list.component";
+
 
 
 const routes: Routes = [
