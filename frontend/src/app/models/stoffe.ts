@@ -1,7 +1,7 @@
 export class Stoffe{
   id: string;
   name: string;
-  materialComposition; string;
+  materialComposition: string;
   productGroup: string;
   weigtht: string;
   surfaceLook: string;
