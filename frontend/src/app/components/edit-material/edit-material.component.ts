@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {StoffeService} from '../../services';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Stoffe} from '../../models';
-import {faChevronCircleLeft, faPlus, faUserMinus} from "@fortawesome/free-solid-svg-icons";
+import {faChevronCircleLeft, faPlus, faUserMinus} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   // tslint:disable-next-line:component-selector
