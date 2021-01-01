@@ -3,51 +3,51 @@
       <h2>No user account yet?</h2>
     </div>
     <div class="text-left mb-4">
-      <p>With this account you can ...</p>
+      <p>Register via the form below:</p>
     </div>
 
  <div class="form-group">
-    <input formControlName="firmenname" type="text" placeholder="firm name (optional)"
+    <input formControlName="firmenname" type="text" placeholder="Company name (optional)"
            name="email" id="firmenname" class="form-control">
     <app-validation-msg [display]="isRegisterFieldValid('firmenname')"></app-validation-msg>
   </div>
 
   <div class="form-group md-form">
-    <input formControlName="firstName" type="text" placeholder="first name"
+    <input formControlName="firstName" type="text" placeholder="First name"
            name="email" id="firstName" class="form-control"
            aria-required="true" required>
     <app-validation-msg [display]="isRegisterFieldValid('firstName')" msg="Enter your first name"></app-validation-msg>
   </div>
 
   <div class="form-group">
-    <input formControlName="lastName" type="text" placeholder="last name"
+    <input formControlName="lastName" type="text" placeholder="Last name"
            name="email" id="lastName" class="form-control"
            aria-required="true" required>
     <app-validation-msg [display]="isRegisterFieldValid('lastName')" msg="Enter your last name"></app-validation-msg>
   </div>
 
   <div class="form-group">
-    <input formControlName="email" type="email" placeholder="email"
+    <input formControlName="email" type="email" placeholder="Email"
            name="email" id="email" class="form-control"
            aria-required="true" required>
-    <div class="validator-message" *ngIf="registerForm.get('email').hasError('email')">Email must be a valid email address</div>
+    <div class="validator-message" *ngIf="registerForm.get('email').hasError('email')"><small> Email must be a valid email address</small></div>
     <app-validation-msg [display]="isRegisterFieldValid('email')" msg="Enter your email"></app-validation-msg>
   </div>
 
   <div class="form-group">
-    <input formControlName="password" type="password" placeholder="password"
+    <input formControlName="password" type="password" placeholder="Password"
            name="password" id="password" class="form-control" aria-required="true"
            required>
-    <div class="validator-message" *ngIf="registerForm.get('password').hasError('hasNumber')">A number</div>
-    <div class="validator-message" *ngIf="registerForm.get('password').hasError('hasCapitalCase')">An uppercase letter</div>
-    <div class="validator-message" *ngIf="registerForm.get('password').hasError('hasSmallCase')">A lowercase letter</div>
-    <div class="validator-message" *ngIf="registerForm.get('password').hasError('hasSpecialCharacters')">A special character</div>
-    <div class="validator-message" *ngIf="registerForm.get('password').hasError('minlength')">A minimum of 8 characters</div>
+    <div class="validator-message" *ngIf="registerForm.get('password').hasError('hasNumber')"><small> A number</small></div>
+    <div class="validator-message" *ngIf="registerForm.get('password').hasError('hasCapitalCase')"><small> An uppercase letter</small></div>
+    <div class="validator-message" *ngIf="registerForm.get('password').hasError('hasSmallCase')"><small> A lowercase letter</small></div>
+    <div class="validator-message" *ngIf="registerForm.get('password').hasError('hasSpecialCharacters')"><small> A special character</small></div>
+    <div class="validator-message" *ngIf="registerForm.get('password').hasError('minlength')"><small> A minimum of 8 characters</small></div>
     <app-validation-msg [display]="isRegisterFieldValid('password')" msg="Enter your password"></app-validation-msg>
   </div>
 
   <div class="form-group">
-    <input formControlName="confirmPassword" type="password" placeholder="confirm password"
+    <input formControlName="confirmPassword" type="password" placeholder="Confirm password"
            name="confirmPassword" id="confirmPassword" class="form-control" aria-required="true"
            required>
     <div class="validator-message" *ngIf="registerForm.get('confirmPassword').hasError('validator')">The passwords do not match.</div>

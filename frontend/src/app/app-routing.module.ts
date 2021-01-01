@@ -22,6 +22,7 @@ import {AuthGuardSuperAdmin, AuthGuardUser, AuthGuardAdmin} from './guards/index
 import {MaterialcardListComponent} from "./components/materialcard-list/materialcard-list.component";
 import {MaterialCardComponent} from "./components/material-card/material-card.component";
 import {FilterCardComponent} from './components/filter-card/filter-card.component';
+import {RoleDropdownComponent} from "./components/role-dropdown/role-dropdown.component";
 
 
 const routes: Routes = [
@@ -53,6 +54,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
+  declarations: [],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

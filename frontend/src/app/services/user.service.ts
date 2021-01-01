@@ -19,7 +19,11 @@ export class UserService {
   }
 
   create(user: User): any {
-    return this.http.post<any>(`${environment.apiUrl}/v1/auth/register`, user).pipe(map(response => response));
+    return this.http.post<any>(`${environment.apiUrl}/v1/auth/register`, user).pipe(map(response => {
+      console.log(response);
+      console.log(response.id);
+    })
+    );
   }
 
   update(user: User): any {

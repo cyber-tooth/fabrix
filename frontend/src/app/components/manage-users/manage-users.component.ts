@@ -37,10 +37,8 @@ export class ManageUsersComponent implements OnInit {
     // Formular fuer delete
     this.form = this.fb.group(
       {
-        id: ['', Validators.required],
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        role: ['', Validators.required],
+        idControl: ['', Validators.required],
+        roleControl: ['', Validators.required],
       }
     );
   }
@@ -48,6 +46,9 @@ export class ManageUsersComponent implements OnInit {
   // tslint:disable-next-line:typedef
   ngOnInit() {
     this.setUsers();
+    this.form.patchValue({
+      roleControl: this.user?.role
+    });
   }
   readOne(id: string): void {
     this.userService.show(id).subscribe(
@@ -71,17 +72,7 @@ export class ManageUsersComponent implements OnInit {
       }
     });
   }
-  openUserRole(content, id: string): void {
-    this.readOne(id);
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title-UserRole'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      console.log(this.closeResult);
-      if (result === 'delete')
-      {
-        this.deleteOne(this.user?.id);
-      }
-    });
-  }
+
   isSuperAdmin(userRole: User.RoleEnum): boolean {
     if (userRole === RoleEnum.superAdmin)
     {
@@ -100,34 +91,33 @@ export class ManageUsersComponent implements OnInit {
       return true;
     }
   }
+  changeRoleAsUser(currentUser: User): void {
+    this.user = currentUser;
+    this.user.role = RoleEnum.user;
+  }
+  changeRoleAsAdmin(currentUser: User): void {
+    this.user = currentUser;
+    this.user.role = RoleEnum.admin;
+  }
+  changeRoleAsSuperAdmin(currentUser: User): void {
+    this.user = currentUser;
+    this.user.role = RoleEnum.superAdmin;
+  }
+  update(user: User): void {
+    this.user = user;
+    this.userService.update(this.user);
+    console.log(this.user.firstName + this.user.role);
+  }
   onSubmit(): void {
-    // TODO: Use EventEmitter with form value
+    const values = this.form.value;
+    this.user.role = values.roleControl;
+    this.update(this.user);
     console.warn(this.form.value);
-  }
-  changeRole(userRole: User): void {
-    //userRole.role = RoleEnum.user;
-    this.user = userRole;
-    this.userService.update(this.user).subscribe(u => this.setUsers());
-  }
-  changeRoleAsUser(userRole: User): void {
-    // userRole.role = RoleEnum.user;
-    this.user = userRole;
-    this.userService.update(this.user).subscribe(u => this.setUsers());
-  }
-  // tslint:disable-next-line:typedef
-  changeRoleAsAdmin(user: User){
-    user.role = RoleEnum.admin;
-    // this.user = userRole;
-    this.userService.update(user).subscribe(u => this.setUsers());
-  }
-  // tslint:disable-next-line:typedef
-  changeRoleAsSuperAdmin(userRole: User){
-    userRole.role = RoleEnum.superAdmin;
-    this.userService.update(userRole).subscribe(u => this.setUsers());
   }
   private setUsers(): void {
     this.userService.getAll().subscribe(u => {
       this.userList = u as User[];
+      console.log(u);
     });
   }
 }

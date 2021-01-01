@@ -1,5 +1,16 @@
 <div class="row">
-  <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of [1,2,3,4,5]">
-    <app-materialcard-item></app-materialcard-item>
+  <div class="col-lg-4 col-md-6 mb-4" *ngFor="let material of materials">
+    <!-- alle Materialien in der Datenbank aufgelistet -->
+    <div class="card h-100" (click)="$event">
+      <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+      <div class="card-body">
+        <h4 class="card-title ">
+          <a href="#">Material A {{material.name}}</a>
+        </h4>
+      </div>
+    </div>
+    <!-- Click auf ein Material führt zur Materialkarte -->
+   // <app-material-card [material]="material"></app-material-card>
+
   </div>
 </div>

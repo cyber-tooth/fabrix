@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {IMultiSelectSettings, IMultiSelectTexts, IMultiSelectOption} from 'angular-2-dropdown-multiselect';
 
 import { Options } from '@angular-slider/ngx-slider';
@@ -7,10 +7,16 @@ import { Options } from '@angular-slider/ngx-slider';
 @Component({
   selector: 'app-material',
   templateUrl: './material.component.html',
-  styleUrls: ['./material.component.css']
+  styleUrls: ['./material.component.css'],
+  encapsulation: ViewEncapsulation.None,
+  styles: [`
+    .card.disabled {
+      opacity: 0.5;
+    }
+  `]
 })
 export class MaterialComponent implements OnInit {
-
+  disabled = false;
   optionsModel1: number[];
   optionsModel2: number[];
   optionsModel3: number[];

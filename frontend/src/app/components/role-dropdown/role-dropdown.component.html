@@ -1,0 +1,10 @@
+<form>
+  <div class="form-group row align-items-center">
+    <div class="col-auto my-1">
+      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+        <option selected>{{ selectedOption }}</option>
+        <option *ngFor="let option of options" (click)="onChange(option)">{{option}}</option>
+      </select>
+    </div>
+  </div>
+</form>
