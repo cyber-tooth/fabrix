@@ -181,9 +181,33 @@ export class MaterialComponent implements OnInit {
   ];
 
 
-  value = 0;
-  highValue = 100;
-  options: Options = {
+  WeightValue = 0;
+  WeightHighValue = 100;
+  Weightoptions: Options = {
+    floor: 0,
+    ceil: 100
+  };
+  ThicknessValue = 0;
+  ThicknessHighValue = 100;
+  Thicknessoptions: Options = {
+    floor: 0,
+    ceil: 100
+  };
+  DrapeCoefficientValue = 0;
+  DrapeCoefficientHighValue = 100;
+  DrapeCoefficientoptions: Options = {
+    floor: 0,
+    ceil: 100
+  };
+  ElasticityValue = 0;
+  ElasticityHighValue = 100;
+  Elasticityoptions: Options = {
+    floor: 0,
+    ceil: 100
+  };
+  ElongationValue = 0;
+  ElongationHighValue = 100;
+  Elongationoptions: Options = {
     floor: 0,
     ceil: 100
   };

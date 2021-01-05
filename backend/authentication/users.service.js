@@ -243,15 +243,15 @@ function randomTokenString() {
 
 function basicDetails(user) {
     return {
-            id: user.id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            firmenname: user.firmenname,
-            email: user.email,
-            role: user.role,
-            created: user.created,
-            updated: user.updated,
-            isVerified: user.isVerified,
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        firmenname: user.firmenname,
+        email: user.email,
+        role: user.role,
+        created: user.created,
+        updated: user.updated,
+        isVerified: user.isVerified,
 
     };
 }
@@ -300,15 +300,30 @@ async function sendAlreadyRegisteredEmail(email, origin) {
 }
 
 async function sendPasswordResetEmail(user, origin) {
+    console.log('--> user.resetToken', user.resetToken)
     let message;
     if (origin) {
-        const resetUrl = `${origin}/reset-password/{user.resetToken}`;
-        message = `<p>Please click the below link to reset your password, the link will be valid for 1 day:</p>
-                   <p><a href="${resetUrl}">${resetUrl}</a></p>`;
+        const resetUrl = `${origin}/reset-password/${user.resetToken}`;
+        message = `<p>Hi ${user.firstName},</p>
+                    <p>You recently requested to reset your password for your Filfab account. Click the button below to reset it. </p>
+                   <p style="text-align: center">
+                   <form action="${resetUrl}">
+                        <input style="height: 20px" type="submit" value="Reset Password" />
+                   </form>
+                   <p>If you did not requested a password reset, please ignore this email. This email is only valid for the next 24 hours.</p>
+                   <p>Thanks,</p>
+                   <p>Your Filfab Team</p>`;
     } else {
         const resetUrl = `http://localhost:4200/reset-password/${user.resetToken}`;
-        message = `<p>Please click the below link to reset your password, the link will be valid for 1 day:</p>
-                   <p><a href="${resetUrl}">${resetUrl}</a></p>`;
+        message = `<p>Hi ${user.firstName},</p>
+                    <p>You recently requested to reset your password for your Filfab account. Click the button below to reset it. </p>
+                   <p style="text-align: center">
+                   <form action="${resetUrl}">
+                        <input style="height: 20px" type="submit" value="Reset Password" />
+                   </form>
+                   <p>If you did not requested a password reset, please ignore this email. This email is only valid for the next 24 hours.</p>
+                   <p>Thanks,</p>
+                   <p>Your Filfab Team</p>`;
     }
 
     await sendEmail({

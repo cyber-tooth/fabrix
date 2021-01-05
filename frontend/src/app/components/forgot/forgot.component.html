@@ -1,10 +1,26 @@
-<div class="form-group forget-body">
-  <h2>Did you forget your password?</h2>
-  <p>Please enter the email address you used when you set up your account,
-    so we can send you a link to reset your password.</p>
-
-  <input formControlName="email" type="email" placeholder="email"
-         name="email" id="email" class="form-control"
-         aria-required="true" required>
-  <button class="btn btn-lg btn-dark btn-block" type="submit">Submit</button>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 text-center">
+      <h2>Did you forget your password?</h2>
+      <p>Please enter the email address you used when you set up your account,
+        so we can send you a link to reset your password.</p>
+    </div>
+    <div class="col-12">
+      <form class="form-flex" [formGroup]="forgotForm" (ngSubmit)="forgot()" >
+        <div class="form-group">
+          <input formControlName="email" type="email" placeholder="email"
+                 name="email" id="email" class="form-control"
+                 aria-required="true" required>
+          <div class="validator-message" *ngIf="forgotForm.get('email').hasError('email')">Email must be a valid email address</div>
+          <app-validation-msg [display]="isForgotFieldValid('email')" msg="Enter your email"></app-validation-msg>
+        </div>
+        <button class="btn btn-lg btn-dark btn-block" type="submit">Submit</button>
+      </form>
+    </div>
+    <div class="col-12 text-center" *ngFor="let alert of alerts">
+      <alert [type]="alert.type" (onClosed)="onCloseNotification(alert)">{{
+        alert.msg }}</alert>
+    </div>
+  </div>
 </div>
+

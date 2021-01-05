@@ -147,7 +147,7 @@ exports.forgotPasswordSchema = function (req, res, next) {
 
 exports.forgotPassword = function (req, res, next) {
     accountService.forgotPassword(req.body, req.get('origin'))
-        .then(() => res.json({
+        .then(() => res.status(200).json({
             message: 'Please check your email for password reset instructions'
         }))
         .catch(next => {

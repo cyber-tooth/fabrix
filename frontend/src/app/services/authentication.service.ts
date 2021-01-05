@@ -1,4 +1,3 @@
-
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
@@ -57,9 +56,10 @@ export class AuthenticationService {
     return this.http.post<any>(`${environment.apiUrl}/v1/auth/forgot-password`, {email}).pipe((response) => response);
   }
 
-  reset(password: string, token: string) {
+  reset(password: string, confirmPassword: string, token: string) {
     return this.http.post<any>(`${environment.apiUrl}/v1/auth/reset-password`, {
       password,
+      confirmPassword,
       token
     }).pipe((response) => response);
   }
