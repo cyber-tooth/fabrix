@@ -1,21 +1,20 @@
 <div class="container">
     <!-- start filter section-->
-
   <div class="row">
     <ul class="col-4">
-        <li class="col-3">
-          <ss-multiselect-dropdown [options]="myOptions1" [texts]="textSetting1" [settings]="mySettings" [(ngModel)]="optionsModel1"></ss-multiselect-dropdown>
+        <li class="col-3 mb-1">
+         <small><ss-multiselect-dropdown [options]="myOptions1" [texts]="textSetting1" [settings]="mySettings" [(ngModel)]="optionsModel1"></ss-multiselect-dropdown></small>
         </li>
-        <li class="col-3">
+        <li class="col-3 mb-1">
           <ss-multiselect-dropdown [options]="myOptions2" [texts]="textSetting2" [settings]="mySettings" [(ngModel)]="optionsModel2"></ss-multiselect-dropdown>
         </li>
-        <li class="col-3">
+        <li class="col-3 mb-1">
           <ss-multiselect-dropdown [options]="myOptions3" [texts]="textSetting3" [settings]="mySettings" [(ngModel)]="optionsModel3"></ss-multiselect-dropdown>
         </li>
-        <li class="col-3">
+        <li class="col-3 mb-1">
           <ss-multiselect-dropdown [options]="myOptions4" [texts]="textSetting4" [settings]="mySettings" [(ngModel)]="optionsModel4"></ss-multiselect-dropdown>
         </li>
-        <li class="col-3">
+        <li class="col-3 mb-1">
           <ss-multiselect-dropdown [options]="myOptions5" [texts]="textSetting5" [settings]="mySettings" [(ngModel)]="optionsModel5"></ss-multiselect-dropdown>
         </li>
     </ul>
@@ -23,11 +22,11 @@
   </div>
 
       <ul class="col">
-        <li class="col-4">
+        <li class="col-4 mb-1">
           <h5> Weight </h5>
             <ngx-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ngx-slider>
         </li>
-        <li class="col-4 ">
+        <li class="col-4 mb-1">
           <h5> Thickness </h5>
           <ngx-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ngx-slider>
         </li>

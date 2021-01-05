@@ -1,5 +1,5 @@
 <div class="mu-body" style="height: 100%;">
-  <div routerLink="/dashboard"><fa-icon [icon]="faChevronCircleLeftIcon"></fa-icon></div>
+  <div routerLink="/home"><fa-icon [icon]="faChevronCircleLeftIcon"></fa-icon></div>
   <div class="title"><h3>Manage Users</h3></div>
   <p>You can update the existing users or set their permissions here.</p>
  <div class="table-responsive">
@@ -16,35 +16,7 @@
       <td>{{user.lastName}}</td>
       <td>{{user.email}}</td>
       <td>
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <small><div *ngIf="isSuperAdmin(user.role)" class="form-row align-items-center">
-            <div class="col-auto my-1">
-              <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                <option  selected>Super Admin</option>
-                <option (click)="changeRoleAsUser(user)">User</option>
-                <option (click)="changeRoleAsAdmin(user)">Admin</option>
-              </select>
-            </div>
-          </div></small>
-          <div *ngIf="isAdmin(user.role)" class="form-row align-items-center">
-            <div class="col-auto my-1">
-              <select class="custom-select mr-sm-2" id="inlineFormCustomSelect2">
-                <option  selected>Super Admin</option>
-                <option (click)="changeRoleAsUser(user)">User</option>
-                <option (click)="changeRoleAsSuperAdmin(user)">Super Admin</option>
-              </select>
-            </div>
-          </div>
-          <div *ngIf="isUser(user.role)" class="form-row align-items-center">
-            <div class="col-auto my-1">
-              <select onChange="openUserRole(content, user.id)" class="custom-select mr-sm-2" id="inlineFormCustomSelect3">
-                <option  selected>User</option>
-                <option (click)="changeRoleAsAdmin(user)">Admin</option>
-                <option (click)="changeRoleAsSuperAdmin(user)">Super Admin</option>
-              </select>
-            </div>
-          </div>
-        </form>
+        <app-role-dropdown [currentUser]="user"></app-role-dropdown>
       </td>
       <td class="overflow-hidden">
         <button type="button" class="btn btn-outline mr-2" placement="bottom" ngbTooltip="Delete this User"
@@ -54,7 +26,8 @@
     </tr>
     </tbody>
   </table>
- </div>
+   </div>
+
   <h6><small>List of Users</small></h6>
   <ngb-pagination class="d-flex justify-content-end"
                   [(page)]="page"
@@ -73,7 +46,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <h5 style="">Are you sure you want to delete the profile of <span class="text-primary">{{ user?.firstName }} {{ user?.lastName }} with id: {{ user?.id }} </span>?</h5>
+    <h5 style="">Are you sure you want to delete the profile of <span class="text-primary">{{ currentUser?.firstName }} {{ currentUser?.lastName }} with id: {{ user?.id }} </span>?</h5>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.close('cancel')">Cancel</button>

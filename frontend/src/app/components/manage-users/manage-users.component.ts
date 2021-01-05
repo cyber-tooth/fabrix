@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from '../../services';
 import {User} from '../../models';
 import {faChevronCircleLeft, faUserMinus} from '@fortawesome/free-solid-svg-icons';
@@ -15,17 +15,20 @@ import RoleEnum = User.RoleEnum;
 })
 
 export class ManageUsersComponent implements OnInit {
+  currentUser: User;
   faUserMinusIcon = faUserMinus;
   faChevronCircleLeftIcon = faChevronCircleLeft;
 
   userList: Array<User> = [];
-  user: User;
+
   selectedId: string;
   error: HttpErrorResponse;
   closeResult = '';
   form: FormGroup;
   roles: Array<User.RoleEnum>;
   roleUser: boolean;
+  options: RoleEnum[];
+  selectedOption: RoleEnum;
 
   headElements = ['Id', 'Firstname', 'Lastname', 'Email', 'Role', 'Actions'];
   public page = 1;
@@ -37,7 +40,6 @@ export class ManageUsersComponent implements OnInit {
     // Formular fuer delete
     this.form = this.fb.group(
       {
-        idControl: ['', Validators.required],
         roleControl: ['', Validators.required],
       }
     );
@@ -46,13 +48,10 @@ export class ManageUsersComponent implements OnInit {
   // tslint:disable-next-line:typedef
   ngOnInit() {
     this.setUsers();
-    this.form.patchValue({
-      roleControl: this.user?.role
-    });
   }
   readOne(id: string): void {
     this.userService.show(id).subscribe(
-      (response: User) => this.user = response,
+      (response: User) => this.currentUser = response,
       error => this.error = error,
     );
   }
@@ -68,51 +67,9 @@ export class ManageUsersComponent implements OnInit {
       console.log(this.closeResult);
       if (result === 'delete')
       {
-        this.deleteOne(this.user?.id);
+        this.deleteOne(this.currentUser?.id);
       }
     });
-  }
-
-  isSuperAdmin(userRole: User.RoleEnum): boolean {
-    if (userRole === RoleEnum.superAdmin)
-    {
-      return true;
-    }
-  }
-  isAdmin(userRole: User.RoleEnum): boolean {
-    if (userRole === RoleEnum.admin)
-    {
-      return true;
-    }
-  }
-  isUser(userRole: User.RoleEnum): boolean {
-    if (userRole === RoleEnum.user)
-    {
-      return true;
-    }
-  }
-  changeRoleAsUser(currentUser: User): void {
-    this.user = currentUser;
-    this.user.role = RoleEnum.user;
-  }
-  changeRoleAsAdmin(currentUser: User): void {
-    this.user = currentUser;
-    this.user.role = RoleEnum.admin;
-  }
-  changeRoleAsSuperAdmin(currentUser: User): void {
-    this.user = currentUser;
-    this.user.role = RoleEnum.superAdmin;
-  }
-  update(user: User): void {
-    this.user = user;
-    this.userService.update(this.user);
-    console.log(this.user.firstName + this.user.role);
-  }
-  onSubmit(): void {
-    const values = this.form.value;
-    this.user.role = values.roleControl;
-    this.update(this.user);
-    console.warn(this.form.value);
   }
   private setUsers(): void {
     this.userService.getAll().subscribe(u => {

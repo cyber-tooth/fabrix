@@ -24,7 +24,8 @@
         <td>{{material.thickness}}</td>
         <td>{{material.commercialFabricName}}</td>
         <td>
-          <button class="btn btn-outline btn-sm" (click)="delete(material)"><fa-icon [icon]="faUserMinusIcon"></fa-icon></button>
+          <button class="btn btn-outline btn-sm" *ngIf="hasAccess(['admin'] && AdminAdded(material))" (click)="open(content, material.id)"><fa-icon [icon]="faUserMinusIcon"></fa-icon></button>
+          <button class="btn btn-outline btn-sm" *ngIf="hasAccess(['superAdmin'])" (click)="open(content, material.id)"><fa-icon [icon]="faUserMinusIcon"></fa-icon></button>
         </td>
       </tr>
     </tbody>
@@ -35,3 +36,39 @@
                   [pageSize]="pageSize"
                   [collectionSize]="materialList.length"></ngb-pagination>
 </div>
+
+
+
+  <!-- modaler Dialog fuer das Loeschen -->
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Confirm delete</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cancel')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <h4 style="color: red">Do you really want to delete this material?</h4>
+      <form [formGroup]="fB">
+        <div class="form-group">
+          <label for="inpId">id</label>
+          <div class="input-group">
+            <input id="inpId" class="form-control" formControlName="idControl" value="{{ selectedMaterial?.id }}" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inpFN">firstname</label>
+          <div class="input-group">
+            <input id="inpFN" class="form-control" formControlName="firstNameControl" value="{{ selectedMaterial?.name }}" readonly>
+          </div>
+        </div>
+
+
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('cancel')">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="modal.close('delete')">Delete</button>
+    </div>
+  </ng-template>

@@ -1,10 +1,30 @@
-<form>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="form-group row align-items-center">
     <div class="col-auto my-1">
-      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+      <label for="role"></label>
+      <select (change)="open(content)" id="role" formControlName="roleControl" class="form-control custom-select mr-sm-2">
         <option selected>{{ selectedOption }}</option>
-        <option *ngFor="let option of options" (click)="onChange(option)">{{option}}</option>
+        <option *ngFor="let op of options">{{op}}</option>
       </select>
     </div>
   </div>
 </form>
+
+<!-- modaler Dialog fuer das Loeschen -->
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirm update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cancel')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h5 style="">Are you sure you want to change the role of <span class="text-primary">{{ currentUser?.firstName }} {{ currentUser?.lastName }}</span>?</h5>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('cancel')">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('update')">Update</button>
+  </div>
+</ng-template>
