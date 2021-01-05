@@ -23,13 +23,51 @@
         <div class="col-4">
           <ss-multiselect-dropdown [options]="myOptions5" [texts]="textSetting5" [settings]="mySettings" [(ngModel)]="optionsModel5"></ss-multiselect-dropdown>
         </div>
+
         <div class="col-4">
           <h5> Weight </h5>
           <ngx-slider [(value)]="WeightValue" [(highValue)]="WeightHighValue" [options]="Weightoptions"></ngx-slider>
+
+          <div class="row">
+            <div class="col">
+              <label for="WeightValue">From (g/m2)</label>
+              <input [value]="WeightValue" [(ngModel)]="WeightValue" type="text" placeholder="WeightValue"
+                     name="WeightValue" id="WeightValue" class="form-control"
+                     aria-required="true" >
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col">
+              <label for="WeightHighValue">To (g/m2)</label>
+              <input [value]="WeightHighValue" [(ngModel)]="WeightHighValue" type="text" placeholder="WeightHighValue"
+                     name="WeightHighValue" id="WeightHighValue" class="form-control"
+                     aria-required="true">
+            </div>
+          </div>
+
         </div>
         <div class="col-4">
           <h5> Thickness </h5>
           <ngx-slider [(value)]="ThicknessValue" [(highValue)]="ThicknessHighValue" [options]="Thicknessoptions"></ngx-slider>
+
+          <div class="row">
+            <div class="col">
+              <label for="ThicknessValue">From (mm)</label>
+              <input [value]="ThicknessValue" [(ngModel)]="ThicknessValue" type="text" placeholder="ThicknessValue"
+                     name="ThicknessValue" id="ThicknessValue" class="form-control"
+                     aria-required="true" >
+            </div>
+            <div class="col-2">
+              <span>-</span>
+            </div>
+            <div class="col">
+              <label for ="ThicknessHighValue">To (mm)</label>
+              <input [value]="ThicknessHighValue" [(ngModel)]="ThicknessHighValue" type="text" placeholder="ThicknessHighValue"
+                     name="ThicknessHighValue" id="ThicknessHighValue" class="form-control"
+                     aria-required="true">
+            </div>
+          </div>
         </div>
       </div>
 
@@ -39,14 +77,65 @@
         <div class="col-4">
           <h5> Drape-Coefficient </h5>
           <ngx-slider [(value)]="DrapeCoefficientValue" [(highValue)]="DrapeCoefficientHighValue" [options]="DrapeCoefficientoptions"></ngx-slider>
+          <div class="row">
+            <div class="col">
+              <label for="DrapeCoefficientValue">Stiff (%)</label>
+              <input [value]="DrapeCoefficientValue" [(ngModel)]="DrapeCoefficientValue" type="text" placeholder="DrapeCoefficientValue"
+                     name="DrapeCoefficientValue" id="DrapeCoefficientValue" class="form-control"
+                     aria-required="true" >
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col">
+              <label for="DrapeCoefficientHighValue">Soft  (%)</label>
+              <input [value]="DrapeCoefficientHighValue" [(ngModel)]="DrapeCoefficientHighValue" type="text" placeholder="DrapeCoefficientHighValue"
+                     name="DrapeCoefficientHighValue" id="DrapeCoefficientHighValue" class="form-control"
+                     aria-required="true">
+            </div>
+          </div>
         </div>
         <div class="col-4">
           <h5> Elasticity</h5>
           <ngx-slider [(value)]="ElasticityValue" [(highValue)]="ElasticityHighValue" [options]="Elasticityoptions"></ngx-slider>
+          <div class="row">
+            <div class="col">
+              <label for="ElasticityValue">No elasticity (%)</label>
+              <input [value]="ElasticityValue" [(ngModel)]="ElasticityValue" type="text" placeholder="ElasticityValue"
+                     name="ElasticityValue" id="ElasticityValue" class="form-control"
+                     aria-required="true" >
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col">
+              <label for="ElasticityHighValue">Maximum elasticity (%)</label>
+              <input [value]="ElasticityHighValue" [(ngModel)]="ElasticityHighValue" type="text" placeholder="ElasticityHighValue"
+                     name="ElasticityHighValue" id="ElasticityHighValue" class="form-control"
+                     aria-required="true">
+            </div>
+          </div>
         </div>
         <div class="col-4">
           <h5> Elongation</h5>
-          <ngx-slider [(value)]="ElongationValue" [(highValue)]="ElasticityHighValue" [options]="Elasticityoptions"></ngx-slider>
+          <ngx-slider [(value)]="ElongationValue" [(highValue)]="ElongationHighValue" [options]="Elongationoptions"></ngx-slider>
+          <div class="row">
+            <div class="col">
+              <label for="ElongationValue">No elongation (%)</label>
+              <input [value]="ElongationValue" [(ngModel)]="ElongationValue" type="text" placeholder="ElongationValue"
+                     name="ElongationValue" id="ElongationValue" class="form-control"
+                     aria-required="true" >
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col">
+              <label for="ElongationHighValue">Maximum elongation (%)</label>
+              <input [value]="ElongationHighValue" [(ngModel)]="ElongationHighValue" type="text" placeholder="ElongationHighValue"
+                     name="ElongationHighValue" id="ElongationHighValue" class="form-control"
+                     aria-required="true">
+            </div>
+          </div>
         </div>
       </div>
 
