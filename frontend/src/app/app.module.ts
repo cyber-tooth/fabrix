@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {NgbModule, NgbDropdownModule, NgbDropdown} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbDropdownModule, NgbDropdown, NgbAlertConfig} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -39,6 +39,7 @@ import { MaterialcardListComponent } from './components/materialcard-list/materi
 import { MaterialcardItemComponent } from './components/materialcard-item/materialcard-item.component';
 import { MaterialCardComponent } from './components/material-card/material-card.component';
 import { FilterCardComponent } from './components/filter-card/filter-card.component';
+import { RoleDropdownComponent } from './components/role-dropdown/role-dropdown.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -73,7 +74,8 @@ export function tokenGetter() {
     MaterialcardListComponent,
     MaterialcardItemComponent,
     MaterialCardComponent,
-    FilterCardComponent
+    FilterCardComponent,
+    RoleDropdownComponent
   ],
   imports: [
     BrowserModule,
@@ -109,7 +111,8 @@ export function tokenGetter() {
     AuthGuardUser,
     UserService,
     StoffeService,
-    NgbDropdown
+    NgbDropdown,
+    NgbAlertConfig
   ],
   bootstrap: [AppComponent]
 })

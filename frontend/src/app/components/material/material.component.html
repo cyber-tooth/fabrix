@@ -1,23 +1,25 @@
 <div class="container">
-  <div class="row">
     <!-- start filter section-->
-    <div class="col-12">
-      <div class="row">
-        <div class="col-3">
-          <ss-multiselect-dropdown [options]="myOptions1" [texts]="textSetting1" [settings]="mySettings" [(ngModel)]="optionsModel1"></ss-multiselect-dropdown>
-        </div>
-        <div class="col-3">
+  <div class="row">
+    <ul class="col-4">
+        <li class="col-3 mb-1">
+         <small><ss-multiselect-dropdown [options]="myOptions1" [texts]="textSetting1" [settings]="mySettings" [(ngModel)]="optionsModel1"></ss-multiselect-dropdown></small>
+        </li>
+        <li class="col-3 mb-1">
           <ss-multiselect-dropdown [options]="myOptions2" [texts]="textSetting2" [settings]="mySettings" [(ngModel)]="optionsModel2"></ss-multiselect-dropdown>
-        </div>
-        <div class="col-3">
+        </li>
+        <li class="col-3 mb-1">
           <ss-multiselect-dropdown [options]="myOptions3" [texts]="textSetting3" [settings]="mySettings" [(ngModel)]="optionsModel3"></ss-multiselect-dropdown>
-        </div>
-        <div class="col-3">
+        </li>
+        <li class="col-3 mb-1">
           <ss-multiselect-dropdown [options]="myOptions4" [texts]="textSetting4" [settings]="mySettings" [(ngModel)]="optionsModel4"></ss-multiselect-dropdown>
-        </div>
-      </div>
+        </li>
+        <li class="col-3 mb-1">
+          <ss-multiselect-dropdown [options]="myOptions5" [texts]="textSetting5" [settings]="mySettings" [(ngModel)]="optionsModel5"></ss-multiselect-dropdown>
+        </li>
+    </ul>
 
-      <hr>
+  </div>
 
       <div class="row">
         <div class="col-4">
@@ -139,17 +141,7 @@
         </div>
       </div>
 
-      <hr>
-    </div>
-
     <!-- end filter section-->
-    <!-- start material content-->
-    <div class="col-12">
-      <h1>Material</h1>
-
-    </div>
-    <!-- end material content-->
-  </div>
 </div>
 
 

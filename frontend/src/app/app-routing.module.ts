@@ -23,6 +23,7 @@ import {AddMaterialComponent} from './components/add-material/add-material.compo
 import {FilterCardComponent} from "./components/filter-card/filter-card.component";
 import {MaterialCardComponent} from "./components/material-card/material-card.component";
 import {MaterialcardListComponent} from "./components/materialcard-list/materialcard-list.component";
+import {RoleDropdownComponent} from "./components/role-dropdown/role-dropdown.component";
 
 
 
@@ -47,10 +48,9 @@ const routes: Routes = [
     canActivate: [AuthGuardSuperAdmin]},
   {path: 'edit-material', component: EditMaterialComponent,
     canActivate: [AuthGuardAdmin]},
-
   {path: 'materialcard-list', component: MaterialcardListComponent},
-  {path: 'materialcard-item', component: MaterialcardListComponent},
-  {path: 'materialCard/id', component: MaterialCardComponent},
+  {path: 'materialcard-list/materialcard-item', component: MaterialcardListComponent},
+  {path: 'materialcard-list/materialCard/id', component: MaterialCardComponent},
   {path: 'filter-card', component: FilterCardComponent},
   {path: 'add-material', component: AddMaterialComponent,
     canActivate: [AuthGuardSuperAdmin]
@@ -59,6 +59,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
+  declarations: [],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

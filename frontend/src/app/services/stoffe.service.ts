@@ -22,4 +22,7 @@ export class StoffeService {
   delete(id: string): any {
     return this.http.delete(`${environment.apiUrl}/v1/stoffe/` + id).pipe(map(response => response));
   }
+  getDataById(id: string): any {
+    return this.http.get(`${environment.apiUrl}/v1/stoffe/` + id).pipe(map(response => response));
+  }
 }
