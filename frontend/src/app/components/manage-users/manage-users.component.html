@@ -10,7 +10,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let user of userList | slice: (page-1) * pageSize : page * pageSize">
+    <ng-container *ngFor="let user of userList | slice: (page-1) * pageSize : page * pageSize">
+    <tr *ngIf="user.isVerified === true">
       <th scope="row">{{user.id}}</th>
       <td>{{user.firstName}}</td>
       <td>{{user.lastName}}</td>
@@ -24,6 +25,7 @@
         </button>
       </td>
     </tr>
+    </ng-container>
     </tbody>
   </table>
    </div>
