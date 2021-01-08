@@ -12,11 +12,6 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./add-material.component.css']
 })
 export class AddMaterialComponent implements OnInit {
-
-  fileData: File = null;
-  previewUrl: any = null;
-  fileUploadProgress: string = null;
-  uploadedFilePath: string = null;
   constructor(
     private cs: StoffeService,
     private fb: FormBuilder,
@@ -42,8 +37,11 @@ export class AddMaterialComponent implements OnInit {
     };
   }
 
+
   form: FormGroup;
   material: Stoffe;
+
+  urls = [];
 
 
   ngOnInit(): void {
@@ -67,23 +65,20 @@ export class AddMaterialComponent implements OnInit {
     this.router.navigate(['/edit-material']);
 
   }
-  fileProgress(fileInput: any) {
-    this.fileData = (fileInput.target.files[0] as File);
-    this.preview();
-  }
 
-  preview() {
-    // Show preview
-    const mimeType = this.fileData.type;
-    if (mimeType.match(/image\/*/) == null) {
-      return;
+  selectFiles(event) {
+    if (event.target.files) {
+      for (let i = 0; i < File.length; i++) {
+        const reader = new FileReader();
+
+        reader.readAsDataURL(event.target.files[i]);
+
+        // tslint:disable-next-line:no-shadowed-variable
+        reader.onload = (event: any) => {
+          this.urls.push(event.target.result);
+        };
+      }
     }
-
-    const reader = new FileReader();
-    reader.readAsDataURL(this.fileData);
-    reader.onload = (event) => {
-      this.previewUrl = reader.result;
-    };
   }
 
   cancel(): void {

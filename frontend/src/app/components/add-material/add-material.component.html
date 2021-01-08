@@ -59,18 +59,10 @@
     </div>
   </div>
 
-    <div class="form-group row">
-      <input type="file" name="image" (change)="fileProgress($event)" />
-    </div>
-    <div *ngIf="fileUploadProgress">
-      Upload progress: {{ fileUploadProgress }}
-    </div>
-    <div class="image-preview mb-3" *ngIf="previewUrl">
-      <img [src]="previewUrl" height="300" />
-    </div>
 
-    <div class="mb-3" *ngIf="uploadedFilePath">
-      {{uploadedFilePath}}
+    <div class="form-group row">
+      <img *ngFor="let url of urls" [src]="url" width="100" height="100" alt="">
+      <input type="file" (change)="selectFiles($event)" multiple />
     </div>
 
 
@@ -82,9 +74,6 @@
         <button type="cancel" class="btn btn-secondary btn-block" (click)="cancel()">Cancel</button>
       </div>
     </div>
-
-
-
 
 </form>
 </div>
