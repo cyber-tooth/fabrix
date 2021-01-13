@@ -7,9 +7,12 @@ var router = require('./routes/routes');
 const cors = require('cors');
 const errorHandler = require('./security/error-handler.js');
 
+// parse requests of content-type: application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
-    extended: false
+    extended: false  //must be true
 }));
+
+// parse requests of content-type: application/json
 app.use(bodyParser.json());
 app.use(cookieParser());
 
@@ -29,6 +32,6 @@ app.use(errorHandler);
 // include the routers
 router(app);
 
-// start server
+// start server, set port, listen for requests
 const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 4000;
 app.listen(port, () => console.log('Server listening on port ' + port));
