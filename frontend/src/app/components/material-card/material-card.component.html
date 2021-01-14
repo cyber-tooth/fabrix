@@ -1,37 +1,62 @@
- <div class="row">
-  <div class="col-lg-4<">
-    <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
-      <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-      </ol>
-      <div class="carousel-inner" role="listbox">
-        <div class="fill carousel-item active">
-          <img class=" d-block img-fluid" src="assets/img/bootstrap-solid.png" alt="First slide">
+<div class="container">
+   <div class="row">
+    <div class="col-sm-12 col-md-4 col-lg-4">
+
+      <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+          <div class="fill carousel-item active">
+            <img class=" d-block img-fluid" src="assets/img/bootstrap-solid.png" alt="First slide">
+          </div>
+          <div class="fill carousel-item">
+            <img class="d-block img-fluid" src="assets/img/bootstrap-solid.svg" alt="Second slide">
+          </div>
         </div>
-        <div class="fill carousel-item">
-          <img class="d-block img-fluid" src="assets/img/bootstrap-solid.svg" alt="Second slide">
-        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
       </div>
-      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
     </div>
 
-      <div class="card-body">
-        <h4 class="card-title">
-          Material A <!--{{selectedMaterial.name}}-->
-        </h4>
-        <h5>More about the fabric</h5>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-      </div>
-      <div class="card-footer">
-        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-      </div>
-    </div>
- </div>
+
+     <div class="col-sm-12 col-md-6 col-lg-6 mr-lg-2 mt-lg-2">
+        <div class="card-body">
+          <h4 class="card-title">
+            Material A <!--{{selectedMaterial.name}}-->
+          </h4>
+          <h5>More about the fabric</h5>
+          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Additional Information
+                  </button>
+                </h5>
+              </div>
+
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+     </div>
+   </div>
+</div>
