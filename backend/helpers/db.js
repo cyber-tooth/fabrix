@@ -36,12 +36,26 @@ async function initialize() {
     db.Pet = require('../models/pet.model')(sequelize);
     db.Stoffe = require('../models/stoff.model')(sequelize);
     db.RefreshToken = require('../authentication/refresh-token.model')(sequelize);
+    db.Category = require('../models/category.model')(sequelize);
+    db.Consists = require('../models/consists_of.model')(sequelize);
+    db.Material = require('../models/material.model')(sequelize);
+    db.Composition = require('../models/material_composition.model')(sequelize);
+    db.Pictures = require('../models/pictures.model')(sequelize);
 
     // define relationships
     db.User.hasMany(db.RefreshToken, {
         onDelete: 'CASCADE'
     });
     db.RefreshToken.belongsTo(db.User);
+    db.Category.belongsToMany(db.Category,{foreignKey:'parent_category'},
+        {onDelete: 'CASCADE', onUpdate: 'CASCADE'}); //self-referencing category belongs to only one parent category
+    db.Consists.belongsToMany(db.Composition,
+        {through: 'material.model', foreignKey: 'id', otherKey: 'id'},
+        {onDelete: 'CASCADE', onUpdate: 'CASCADE'}); // composition table
+    db.Composition.belongsTo(db.Category, {foreignKey:'category_id'},
+        {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
+    db.Pictures.belongsTo(db.Material, {foreignKey:'material_id'},
+        {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
 
     // sync all models with database
     await sequelize.sync();
