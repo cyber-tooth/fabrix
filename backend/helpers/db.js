@@ -42,19 +42,34 @@ async function initialize() {
     db.Composition = require('../models/material_composition.model')(sequelize);
     db.Pictures = require('../models/pictures.model')(sequelize);
 
-    // define relationships
+    // Section to define relationships
     db.User.hasMany(db.RefreshToken, {
         onDelete: 'CASCADE'
     });
     db.RefreshToken.belongsTo(db.User);
-    db.Category.belongsToMany(db.Category,{foreignKey:'parent_category'},
-        {onDelete: 'CASCADE', onUpdate: 'CASCADE'}); //self-referencing category belongs to only one parent category
-    db.Consists.belongsToMany(db.Composition,
-        {through: 'material.model', foreignKey: 'id', otherKey: 'id'},
-        {onDelete: 'CASCADE', onUpdate: 'CASCADE'}); // composition table
+
+    // self-referencing category belongs to only one parent category, 1 to N
+    db.Category.belongsTo(db.Category,{foreignKey:'parent_category'},
+        {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
+    db.Category.hasMany(db.Category,
+        {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
+
+    // consists_of composite pair of 2 PK-FK, N to M relationship with material and composition
+    db.Material.belongsToMany(db.Composition, {through: 'Consists'},
+        {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
+    db.Composition.belongsToMany(db.Material, {through: 'Consists'},
+        {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
+
+    // material composition N to 1 relationship with category
     db.Composition.belongsTo(db.Category, {foreignKey:'category_id'},
         {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
+    db.Category.hasMany(db.Composition,
+        {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
+
+    // pictures N to 1 relationship with material
     db.Pictures.belongsTo(db.Material, {foreignKey:'material_id'},
+        {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
+    db.Material.hasMany(db.Pictures,
         {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
 
     // sync all models with database
