@@ -33,11 +33,9 @@ async function initialize() {
 
     // init models and add them to the exported db object
     db.User = require('../authentication/users.model')(sequelize);
-    db.Pet = require('../models/pet.model')(sequelize);
-    db.Stoffe = require('../models/stoff.model')(sequelize);
     db.RefreshToken = require('../authentication/refresh-token.model')(sequelize);
     db.Category = require('../models/category.model')(sequelize);
-    db.Consists = require('../models/consists_of.model')(sequelize);
+    db.consists_of = require('../models/consists_of.model')(sequelize);
     db.Material = require('../models/material.model')(sequelize);
     db.Composition = require('../models/material_composition.model')(sequelize);
     db.Pictures = require('../models/pictures.model')(sequelize);
@@ -49,26 +47,38 @@ async function initialize() {
     db.RefreshToken.belongsTo(db.User);
 
     // self-referencing category belongs to only one parent category, 1 to N
-    db.Category.belongsTo(db.Category,{foreignKey:'parent_category'},
-        {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
+    db.Category.belongsTo(db.Category,{
+        foreignKey:'parent_category',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'});
     db.Category.hasMany(db.Category,
         {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
 
     // consists_of composite pair of 2 PK-FK, N to M relationship with material and composition
-    db.Material.belongsToMany(db.Composition, {through: 'Consists'},
-        {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
-    db.Composition.belongsToMany(db.Material, {through: 'Consists'},
-        {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
+    db.Material.belongsToMany(db.Composition, {
+        foreignKey: 'material_id',
+        through: 'consists_of',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'});
+    db.Composition.belongsToMany(db.Material, {
+        foreignKey: 'material_composition_id',
+        through: 'consists_of',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'});
 
     // material composition N to 1 relationship with category
-    db.Composition.belongsTo(db.Category, {foreignKey:'category_id'},
-        {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
+    db.Composition.belongsTo(db.Category, {
+        foreignKey:'category_id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'});
     db.Category.hasMany(db.Composition,
         {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
 
     // pictures N to 1 relationship with material
-    db.Pictures.belongsTo(db.Material, {foreignKey:'material_id'},
-        {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
+    db.Pictures.belongsTo(db.Material, {
+        foreignKey:'material_id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'});
     db.Material.hasMany(db.Pictures,
         {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
 

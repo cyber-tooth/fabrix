@@ -4,10 +4,10 @@
     "port": 3306,
     "user": "root",
     "password": "",
-    "database": "fabrix"
+    "database": "filfab"
   },
   "secret": "THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING",
-  "emailFrom": "info@fabrix.com",
+  "emailFrom": "info@filfab.com",
   "smtpOptions": {
     "host": "",
     "port": 465,
