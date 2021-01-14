@@ -53,6 +53,7 @@ const routes: Routes = [
   {path: 'materialcard-list/materialCard/id', component: MaterialCardComponent},
   {path: 'materialcard-list/materialCard/id', component: MaterialCardComponent},
   {path: 'materialcard-list/materialCard', component: MaterialCardComponent},
+  {path: 'materialCard', component: MaterialCardComponent},
   {path: 'filter-card', component: FilterCardComponent},
   {path: 'add-material', component: AddMaterialComponent,
     canActivate: [AuthGuardSuperAdmin]

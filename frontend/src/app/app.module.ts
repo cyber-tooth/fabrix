@@ -40,6 +40,7 @@ import { MaterialcardItemComponent } from './components/materialcard-item/materi
 import { MaterialCardComponent } from './components/material-card/material-card.component';
 import { FilterCardComponent } from './components/filter-card/filter-card.component';
 import { RoleDropdownComponent } from './components/role-dropdown/role-dropdown.component';
+import { SearchPipe} from "./components/search.pipe";
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -75,7 +76,8 @@ export function tokenGetter() {
     MaterialcardItemComponent,
     MaterialCardComponent,
     FilterCardComponent,
-    RoleDropdownComponent
+    RoleDropdownComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
