@@ -6,7 +6,7 @@ function model(sequelize) {
     const attributes = {
         id: {type: DataTypes.INTEGER, allowNull: false, unique: true, autoIncrement: true, primaryKey: true},
         url: {type: DataTypes.STRING(2083), allowNull: false},
-        name: {type: DataTypes.STRING(300), allowNull: false}
+        name: {type: DataTypes.STRING(300), allowNull: true}
     };
 
     const options = {

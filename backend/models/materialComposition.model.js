@@ -13,5 +13,5 @@ function model(sequelize) {
         timestamps: true
     };
 
-    return sequelize.define('material_composition', attributes, options);
+    return sequelize.define('materialComposition', attributes, options);
 }

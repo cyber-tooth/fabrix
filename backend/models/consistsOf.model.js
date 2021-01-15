@@ -1,12 +1,10 @@
 const { DataTypes } = require('sequelize');
-const { Material } = require('./material.model');
-const { Composition } = require('./material_composition.model');
 
 module.exports = model;
 
 function model(sequelize) {
     const attributes = {
-        degree: {type: DataTypes.INTEGER, allowNull: false}
+        degree: {type: DataTypes.INTEGER, allowNull: true}
     };
 
     const options = {
@@ -14,5 +12,5 @@ function model(sequelize) {
         timestamps: true
     };
 
-    return sequelize.define('consists_of', attributes, options);
+    return sequelize.define('consistsOf', attributes, options);
 }

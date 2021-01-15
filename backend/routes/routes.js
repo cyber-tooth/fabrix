@@ -29,8 +29,10 @@ module.exports = function (app) {
     // User routes
     apiRoutes.use('/v1/users', userRoutes);
 
-    // Material routes
+    // User routes
+    apiRoutes.use('/v1/stoffe', stoffRoutes);
 
+    //material routes
 
     //swagger ui
     apiRoutes.use('/', swaggerRoutes);

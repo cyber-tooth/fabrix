@@ -50,17 +50,64 @@ async function getMaterial(id) {
 }
 
 function basicDetails(material) {
-    return {
-        material: {
-            id: material.id,
-            name: material.name,
-            material_composition: material_composition.name,
-            category_id: category.id,
-            category_name: category.category_name,
-            parent_category_id: category.parent_category_id,
-            picture: picture.url,
-            createdAt: material.createdAt,
-            updatedAt: material.updatedAt
-        }
+    const data = {
+        id: material.id,
+        name: material.name,
+        created_by: material.created_by,
+        categories: [],
+        pictures: []
+    }
+
+    material.consistsOf.forEach(consistsOf => {
+        data.category.push({
+            category: consistsOf.
+        })
+    }
+    );
+}
+
+
+
+
+
+async function create(paypload) {
+    const material = await db.Material.create({name: payload.name});
+
+    payload.consistsOf.forEach(consistsOf => { /* { category_id: 8, degree: "80" } */
+        consistsOf.material_id = material.id;
+    await db.ConsistsOf.create(consistsOf);
+});
+
+    payload.pictures.forEach(picture => {
+        picture.material_id = material.id;
+    await db.Picture.create(picture);
+});
+
+    return basicDetails(material);
+}
+
+function basicDetails(material) { /* db.Material */
+    const data = {
+        id: material.id,
+        name: material.name,
+        categories: [],
+        pictures: [],
     };
+
+    material.consistsOf.forEach( consistsOf => { /* db.ConsistsOf */
+        data.categories.push({
+            category: consistsOf.category.name,
+            degree: consistsOf.degree
+        });
+});
+
+    material.pictures.forEach( picture => {
+        data.pictures.push({
+            url: picture.url,
+            title: picture.title
+        });
+});
+
+
+    return data;
 }
