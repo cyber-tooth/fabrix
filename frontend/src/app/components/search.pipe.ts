@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform} from "@angular/core";
-import { Stoffe} from "../models";
+import { Material} from "../models";
 
 @Pipe({name: 'materialFilter'})
 export class SearchPipe implements PipeTransform {

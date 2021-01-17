@@ -12,7 +12,7 @@ import {
   BsDropdownModule,
 } from 'ngx-bootstrap/dropdown';
 import {MultiselectDropdownModule} from 'angular-2-dropdown-multiselect';
-import {AuthenticationService, AuthorisationService, StoffeService, UserService} from './services/index';
+import {AuthenticationService, AuthorisationService, MaterialService, UserService} from './services/index';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtModule} from '@auth0/angular-jwt';
 import { HomeComponent } from './components/home/home.component';
@@ -41,6 +41,7 @@ import { MaterialCardComponent } from './components/material-card/material-card.
 import { FilterCardComponent } from './components/filter-card/filter-card.component';
 import { RoleDropdownComponent } from './components/role-dropdown/role-dropdown.component';
 import { SearchPipe} from "./components/search.pipe";
+import { CreateCategoryModalComponent } from './components/create-category-modal/create-category-modal.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -77,7 +78,8 @@ export function tokenGetter() {
     MaterialCardComponent,
     FilterCardComponent,
     RoleDropdownComponent,
-    SearchPipe
+    SearchPipe,
+    CreateCategoryModalComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +114,7 @@ export function tokenGetter() {
     AuthGuardAdmin,
     AuthGuardUser,
     UserService,
-    StoffeService,
+    MaterialService,
     NgbDropdown,
     NgbAlertConfig
   ],
