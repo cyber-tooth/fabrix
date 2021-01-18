@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthenticationService, UserService} from "../../services";
-import {Router} from "@angular/router";
-import {User} from "../../models";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {AlertComponent} from "ngx-bootstrap/alert";
-import {CustomValidators} from "../../helpers/custom-validators";
+import {UserService} from '../../services';
+import {Router} from '@angular/router';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AlertComponent} from 'ngx-bootstrap/alert';
+import {CustomValidators} from '../../helpers/custom-validators';
 
 @Component({
   selector: 'app-register',
@@ -32,8 +31,8 @@ export class RegisterComponent implements OnInit {
       this.form.group({
           email: [null, [Validators.required, Validators.email]],
           acceptTerms: [true],
-          firstName: [null, [<any>Validators.required]],
-          lastName: [null, [<any>Validators.required]],
+          firstName: [null, [Validators.required as any]],
+          lastName: [null, [Validators.required as any]],
           firmenname: [null],
           password: [
             null,
@@ -115,8 +114,8 @@ export class RegisterComponent implements OnInit {
   pushNotification(msg, type): void {
     this.alerts = [];
     this.alerts.push({
-      type: type,
-      msg: msg
+      type,
+      msg
     });
   }
 
