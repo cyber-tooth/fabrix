@@ -63,6 +63,8 @@ export class RoleDropdownComponent implements OnInit {
       if (result === 'update')
       {
         this.onSubmit();
+      } else {
+        window.location.reload();
       }
     });
   }

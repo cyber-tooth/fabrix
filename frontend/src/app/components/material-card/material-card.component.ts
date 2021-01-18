@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Stoffe} from "../../models";
+import {Material} from "../../models";
 import {ActivatedRoute} from "@angular/router";
-import {StoffeService} from "../../services";
+import {MaterialService} from "../../services";
 
 @Component({
   selector: 'app-material-card',
@@ -9,10 +9,10 @@ import {StoffeService} from "../../services";
   styleUrls: ['./material-card.component.css']
 })
 export class MaterialCardComponent implements OnInit {
-  selectedMaterial: Stoffe;
+  selectedMaterial: Material;
   selectedId: string;
 
-  constructor(private route: ActivatedRoute, private sS: StoffeService) { }
+  constructor(private route: ActivatedRoute, private sS: MaterialService) { }
 
   ngOnInit(): void {
     this.selectedId = String(this.route.snapshot.paramMap.get('id'));
@@ -20,7 +20,7 @@ export class MaterialCardComponent implements OnInit {
   }
   readOne(id: string): void {
     this.sS.getDataById(id).subscribe(
-      (response: Stoffe) => this.selectedMaterial = response,
+      (response: Material) => this.selectedMaterial = response,
       error => console.log(error)
     );
   }

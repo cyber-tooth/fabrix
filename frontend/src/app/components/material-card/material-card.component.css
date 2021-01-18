@@ -1,0 +1,27 @@
+.carousel{
+
+}
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+.carousel-item .img-fluid {
+  width:100%;
+  height:100%;
+}
+.card{
+  border-color: black;
+  color: black;
+}
+.card-header{
+  background-color: rgb(245 247 246);
+}
+.card-body{
+  background-color: rgb(245 247 246);
+}
+.btn-link{
+  color: black;
+}
+body{
+  font-family: Verdana;
+}

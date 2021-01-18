@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthorisationService, StoffeService} from '../../services';
+import {AuthorisationService, MaterialService} from '../../services';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Stoffe, User} from '../../models';
+import {Material, User} from '../../models';
 import {faChevronCircleLeft, faPlus, faUserMinus} from '@fortawesome/free-solid-svg-icons';
 import {Router} from "@angular/router";
 import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
@@ -19,8 +19,8 @@ export class EditMaterialComponent implements OnInit {
   faPlusIcon = faPlus;
   faChevronCircleLeftIcon = faChevronCircleLeft;
 
-  materialList: Array<Stoffe> = [];
-  selectedMaterial: Stoffe;
+  materialList: Array<Material> = [];
+  selectedMaterial: Material;
 
   materialForm: FormGroup;
   materialFormSubmitAttempt: boolean;
@@ -32,7 +32,7 @@ export class EditMaterialComponent implements OnInit {
 
   closeResult = '';
   error: HttpErrorResponse;
-  constructor(private stoffeService: StoffeService,
+  constructor(private materialService: MaterialService,
               private authorisationService: AuthorisationService,
               private router: Router,
               config: NgbModalConfig,
@@ -55,8 +55,8 @@ export class EditMaterialComponent implements OnInit {
     this.getMaterialData();
   }
   getMaterialData(): void {
-    this.stoffeService.getAll().subscribe((res) => {
-      this.materialList = res as Stoffe[];
+    this.materialService.getAll().subscribe((res) => {
+      this.materialList = res as Material[];
       // TODO this line should be deleted just for debugging
        console.log(this.materialList);
     });
@@ -66,23 +66,23 @@ export class EditMaterialComponent implements OnInit {
     return this.authorisationService.hasAccess(roles);
   }
   // hier noch material.name nach hinzugefügte person ändern..
-  adminAdded(material: Stoffe): boolean {
+  adminAdded(material: Material): boolean {
     if (material.name === 'RoleEnum.admin')
     {
       return true;
     }
   }
-  addMaterial(material: Stoffe) {
-    this.stoffeService.create(material).subscribe(u => this.setMaterials());
+  addMaterial(material: Material) {
+    this.materialService.create(material).subscribe(u => this.setMaterials());
   }
   readOne(id: string): void {
-    this.stoffeService.getDataById(id).subscribe(
-      (response: Stoffe) => this.selectedMaterial = response,
+    this.materialService.getDataById(id).subscribe(
+      (response: Material) => this.selectedMaterial = response,
       error => this.error = error,
     );
   }
   deleteOne(id: string): void {
-    this.stoffeService.delete(id);
+    this.materialService.delete(id);
     window.location.reload();
   }
   open(content, id: string): void {
@@ -97,7 +97,7 @@ export class EditMaterialComponent implements OnInit {
     });
   }
   private setMaterials(): void {
-    this.stoffeService.getAll().subscribe(m => {
+    this.materialService.getAll().subscribe(m => {
       this.materialList = m;
     });
   }

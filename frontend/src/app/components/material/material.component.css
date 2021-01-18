@@ -2,6 +2,26 @@
   opacity: 1;
 }
 
-ul{
+u{
   list-style: none;
+}
+.card{
+  border-color: black;
+  color: black;
+}
+.card-header{
+  background-color: rgb(245 247 246);
+}
+.card-body {
+  background-color: rgb(245 247 246);
+}
+.btn-link{
+  color: black;
+}
+body{
+  font-family: Verdana;
+}
+#ss-multiselect-dropdown{
+  background-color: transparent;
+  color: black;
 }

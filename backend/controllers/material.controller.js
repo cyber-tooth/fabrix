@@ -1,8 +1,8 @@
-const petService = require('../services/pet.service');
+const materialService = require('../services/material.service');
 
 exports.getAll = function (req, res, next) {
-    petService.getAll()
-        .then(pets => res.json(pets))
+    stoffeService.getAll()
+        .then(stoffe => res.json(stoffe))
         .catch(next => {
             return res.status(400).json({
                 error: next
@@ -11,8 +11,8 @@ exports.getAll = function (req, res, next) {
 };
 
 exports.getById = function (req, res, next) {
-    petService.getById(req.params.id)
-        .then(pet => pet ? res.json(pet) : res.sendStatus(404))
+    stoffeService.getById(req.params.id)
+        .then(stoff => stoff ? res.json(stoff) : res.sendStatus(404))
         .catch(next => {
             return res.status(400).json({
                 error: next
@@ -21,8 +21,8 @@ exports.getById = function (req, res, next) {
 };
 
 exports.create = function (req, res, next) {
-    petService.create(req.body)
-        .then(pet => res.json(pet))
+    stoffeService.create(req.body)
+        .then(stoff => res.json(stoff))
         .catch(next => {
             return res.status(400).json({
                 error: next
@@ -31,8 +31,8 @@ exports.create = function (req, res, next) {
 };
 
 exports.update = function (req, res, next) {
-    petService.update(req.params.id, req.body)
-        .then(pet => res.json(pet))
+    stoffeService.update(req.params.id, req.body)
+        .then(stoff => res.json(stoff))
         .catch(next => {
             return res.status(400).json({
                 error: next
@@ -41,9 +41,9 @@ exports.update = function (req, res, next) {
 };
 
 exports.delete = function (req, res, next) {
-    petService.delete(req.params.id)
+    stoffeService.delete(req.params.id)
         .then(() => res.json({
-            message: 'Pet deleted successfully'
+            message: 'Stoff deleted successfully'
         }))
         .catch(next => {
             return res.status(400).json({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Stoffe} from "../../models";
+import {Material} from "../../models";
 
 @Component({
   selector: 'app-materialcard-list',
@@ -7,7 +7,7 @@ import {Stoffe} from "../../models";
   styleUrls: ['./materialcard-list.component.css']
 })
 export class MaterialcardListComponent implements OnInit {
-  materials: Stoffe;
+  materials: Material;
   constructor() { }
 
   ngOnInit(): void {

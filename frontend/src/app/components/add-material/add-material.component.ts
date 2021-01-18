@@ -2,8 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Stoffe} from '../../models';
-import {StoffeService} from '../../services/stoffe.service';
+import {Material} from '../../models';
+import {MaterialService} from '../../services/material.service';
 import {HttpClient} from '@angular/common/http';
 
 @Component({
@@ -12,13 +12,8 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./add-material.component.css']
 })
 export class AddMaterialComponent implements OnInit {
-
-  fileData: File = null;
-  previewUrl: any = null;
-  fileUploadProgress: string = null;
-  uploadedFilePath: string = null;
   constructor(
-    private cs: StoffeService,
+    private cs: MaterialService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -29,7 +24,7 @@ export class AddMaterialComponent implements OnInit {
         nameControl: ['', Validators.required],
         materialCompositionControl: ['', Validators.required],
         productGroupControl: ['', Validators.required],
-        weigthtControl: ['', Validators.required],
+        weightControl: ['', Validators.required],
         surfaceLookControl: ['', Validators.required],
         thicknessControl: ['', Validators.required],
         commercialFabricNameControl: ['', Validators.required],
@@ -37,13 +32,17 @@ export class AddMaterialComponent implements OnInit {
       }
     );
     this.material = {
-      id: '', name: '', materialComposition: '', productGroup: '', weigtht: '', surfaceLook: '',
+      id: '', name: '', MATERIAL_COMPOSITION_NAME: '', productGroup: '', weight: '', surfaceLook: '',
       thickness: '', commercialFabricName: ''
     };
   }
 
+
   form: FormGroup;
-  material: Stoffe;
+  material: { surfaceLook: string; commercialFabricName: string; productGroup: string; thickness: string; name: string;
+                MATERIAL_COMPOSITION_NAME: string; weight: string; id: string };
+
+  urls = [];
 
 
   ngOnInit(): void {
@@ -54,9 +53,9 @@ export class AddMaterialComponent implements OnInit {
     console.warn(this.form.value);
     const values = this.form.value;
     this.material.name = values.nameControl;
-    this.material.materialComposition = values.materialCompositionControl;
+    this.material.MATERIAL_COMPOSITION_NAME = values.materialCompositionControl;
     this.material.productGroup = values.productGroupControl;
-    this.material.weigtht = values.weigthtControl;
+    this.material.weight = values.weigthtControl;
     this.material.surfaceLook = values.surfaceLookControl;
     this.material.thickness = values.thicknessControl;
     this.material.commercialFabricName = values.commercialFabricNameControl;
@@ -67,25 +66,24 @@ export class AddMaterialComponent implements OnInit {
     this.router.navigate(['/edit-material']);
 
   }
-  fileProgress(fileInput: any) {
-    this.fileData = (fileInput.target.files[0] as File);
-    this.preview();
-  }
 
-  preview() {
-    // Show preview
-    const mimeType = this.fileData.type;
-    if (mimeType.match(/image\/*/) == null) {
-      return;
+  selectFiles(event) {
+    if (event.target.files) {
+      for (let i = 0; i < File.length; i++) {
+        const reader = new FileReader();
+
+        reader.readAsDataURL(event.target.files[i]);
+
+        // tslint:disable-next-line:no-shadowed-variable
+        reader.onload = (event: any) => {
+          this.urls.push(event.target.result);
+        };
+      }
     }
-
-    const reader = new FileReader();
-    reader.readAsDataURL(this.fileData);
-    reader.onload = (event) => {
-      this.previewUrl = reader.result;
-    };
   }
+  open(){
 
+  }
   cancel(): void {
     this.router.navigate(['/edit-material']);
   }

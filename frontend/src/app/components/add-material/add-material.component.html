@@ -1,93 +1,75 @@
-<div class="title"><h3>Add Material</h3></div>
-<p>You can add a new material here.</p>
 
-<div class="row">
 <div class="container">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-    <label for="inputName" class="col-md-2 control-label">Name</label>
-    <div class="col-md-4">
-      <input type="text" class="form-control" formControlName="NameControl"
-             id="inputName" />
-    </div>
-
+  <h3 style="text-align: center">Add Material</h3>
+  <p style="text-align: center">You can add a new material here.</p>
+  <div class="col text-right">
+    <button class="btn btn-dark" (click)="open()">Create new category</button>
   </div>
-  <div class="form-group">
-    <label for="inputMaterialComposition" class="col-md-2 control-label">Material Composition</label>
-    <div class="col-md-4">
-      <input type="text" class="form-control" formControlName="MaterialCompositionControl"
-             id="inputMaterialComposition" />
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="inputProductGroup" class="col-md-2 control-label">Product Group</label>
-    <div class="col-md-4">
-      <input type="text" class="form-control" formControlName="ProductGroupControl"
-             id="inputProductGroup" />
-    </div>
-  </div>
+  <div class="row">
 
-  <div class="form-group">
-    <label for="inputWeigtht" class="col-md-2 control-label">Weight</label>
-    <div class="col-md-4">
-      <input type="text" class="form-control" formControlName="weigthtControl"
-             id="inputWeigtht" />
-    </div>
-  </div>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-  <div class="form-group">
-    <label for="inputSurfaceLook" class="col-md-2 control-label">Surface Look</label>
-    <div class="col-md-4">
-      <input type="text" class="form-control" formControlName="surfaceLookControl"
-             id="inputSurfaceLook" />
-    </div>
-  </div>
+        <h5>Main categories</h5>
 
-  <div class="form-group">
-    <label for="inputThickness" class="col-md-2 control-label">Thickness</label>
-    <div class="col-md-4">
-      <input type="text" class="form-control" formControlName="thicknessControl"
-             id="inputThickness" />
-    </div>
-  </div>
+        <div class="form-group col">
+        <label for="inputName" class="control-label">Name</label>
+          <input type="text" class="form-control" formControlName="NameControl"
+                 id="inputName" />
+        </div>
 
-  <div class="form-group">
-    <label for="inputCommercialFabricName" class="col-md-2 control-label">Commercial fabric name</label>
-    <div class="col-md-4">
-      <input type="text" class="form-control" formControlName="commercialFabricNameControl"
-             id="inputCommercialFabricName" />
-    </div>
-  </div>
-
-    <div class="form-group row">
-      <input type="file" name="image" (change)="fileProgress($event)" />
-    </div>
-    <div *ngIf="fileUploadProgress">
-      Upload progress: {{ fileUploadProgress }}
-    </div>
-    <div class="image-preview mb-3" *ngIf="previewUrl">
-      <img [src]="previewUrl" height="300" />
-    </div>
-
-    <div class="mb-3" *ngIf="uploadedFilePath">
-      {{uploadedFilePath}}
-    </div>
-
-
-    <div class="form-group row">
-      <div class="col-sm-6">
-        <button type="submit" class="btn btn-primary btn-block" [disabled]="form.valid">Create</button>
+      <div class="form-group col">
+        <label for="inputMaterialComposition" class="control-label">Material Composition</label>
+          <input type="text" class="form-control" formControlName="MaterialCompositionControl"
+                 id="inputMaterialComposition" />
       </div>
-      <div class="col-sm-6">
-        <button type="cancel" class="btn btn-secondary btn-block" (click)="cancel()">Cancel</button>
+      <div class="form-group col">
+        <label for="inputProductGroup" class="control-label">Product Group</label>
+          <input type="text" class="form-control" formControlName="ProductGroupControl"
+                 id="inputProductGroup" />
       </div>
-    </div>
+
+      <div class="form-group col">
+        <label for="inputWeigtht" class="control-label">Weight</label>
+          <input type="text" class="form-control" formControlName="weigthtControl"
+                 id="inputWeigtht" />
+      </div>
+
+      <div class="form-group col">
+        <label for="inputSurfaceLook" class="control-label">Surface Look</label>
+          <input type="text" class="form-control" formControlName="surfaceLookControl"
+                 id="inputSurfaceLook" />
+      </div>
+
+      <div class="form-group col">
+        <label for="inputThickness" class="control-label">Thickness</label>
+          <input type="text" class="form-control" formControlName="thicknessControl"
+                 id="inputThickness" />
+      </div>
+
+      <div class="form-group col">
+        <label for="inputCommercialFabricName" class="control-label">Commercial fabric name</label>
+          <input type="text" class="form-control" formControlName="commercialFabricNameControl"
+                 id="inputCommercialFabricName" />
+      </div>
 
 
+        <div class="form-group row">
+          <img *ngFor="let url of urls" [src]="url" width="100" height="100" alt="">
+          <input type="file" (change)="selectFiles($event)" multiple />
+        </div>
 
 
-</form>
-</div>
+        <div class="form-group row">
+          <div class="col">
+            <button type="submit" class="btn btn-primary btn-block" [disabled]="form.valid">Create</button>
+          </div>
+          <div class="col">
+            <button type="cancel" class="btn btn-secondary btn-block" (click)="cancel()">Cancel</button>
+          </div>
+        </div>
+
+    </form>
+  </div>
 </div>
 
 

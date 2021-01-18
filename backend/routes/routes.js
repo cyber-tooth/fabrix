@@ -5,9 +5,7 @@ var path = require('path');
 var accountController = require('../authentication/users.controller');
 
 var userRoutes = require('../routes/user.routes');
-var petRoutes = require('../routes/pet.routes');
 var swaggerRoutes = require('../routes/swagger.routes');
-var stoffRoutes = require('../routes/stoff.routes');
 
 
 module.exports = function (app) {
@@ -32,8 +30,9 @@ module.exports = function (app) {
     apiRoutes.use('/v1/users', userRoutes);
 
     // User routes
-    apiRoutes.use('/v1/pets', petRoutes);
     apiRoutes.use('/v1/stoffe', stoffRoutes);
+
+    //material routes
 
     //swagger ui
     apiRoutes.use('/', swaggerRoutes);
