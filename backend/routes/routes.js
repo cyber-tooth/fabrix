@@ -1,12 +1,14 @@
 var express = require('express');
 var authorize = require('../security/authorize.js');
-var Role = require('../helpers/role.js');
 var path = require('path');
 var accountController = require('../authentication/users.controller');
 
 var userRoutes = require('../routes/user.routes');
 var swaggerRoutes = require('../routes/swagger.routes');
-
+var stoffRoutes = require('../routes/stoff.routes');
+var materialRoutes = require('../routes/material.routes');
+const imageController = require('../controllers/image.controller');
+const upload = require("../services/image.service");
 
 module.exports = function (app) {
 
@@ -29,10 +31,12 @@ module.exports = function (app) {
     // User routes
     apiRoutes.use('/v1/users', userRoutes);
 
-    // User routes
+    // Material routes
     apiRoutes.use('/v1/stoffe', stoffRoutes);
+    apiRoutes.use('/v1/material', materialRoutes);
 
-    //material routes
+    //Image routes
+    apiRoutes.post('/v1/upload', upload.any(), imageController.uploadFiles);
 
     //swagger ui
     apiRoutes.use('/', swaggerRoutes);

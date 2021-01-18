@@ -6,11 +6,13 @@ const cookieParser = require('cookie-parser');
 var router = require('./routes/routes');
 const cors = require('cors');
 const errorHandler = require('./security/error-handler.js');
+global.__basedir = __dirname;
 
 // parse requests of content-type: application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
     extended: false  //must be true
 }));
+app.use(express.urlencoded({ extended: true }));
 
 // parse requests of content-type: application/json
 app.use(bodyParser.json());
