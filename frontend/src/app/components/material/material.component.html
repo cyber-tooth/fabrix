@@ -32,14 +32,13 @@
       </div>
   </div>
 
-      <div class="row">
-        <div class="col-sm-12 col-md-3 col-lg-3 mt-4 ml-lg-3">
-
+    <div class="row">
+      <div class="col-sm-12 col-md-3 col-lg-3 mt-4 ml-lg-3">
           <div id="accordion">
             <div class="card mb-1">
               <div class="card-header" id="headingOne">
                 <h5 class="mb-0">
-                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                     Weight
                   </button>
                 </h5>
@@ -75,6 +74,7 @@
               </div>
             </div>
 
+
             <div class="card mb-1">
               <div class="card-header" id="headingTwo">
                 <h5 class="mb-0">
@@ -101,7 +101,7 @@
                         <span>-</span>
                       </div>
                       <div class="col">
-                        <label for ="ThicknessHighValue">To (mm)</label>
+                        <label for ="ThicknessHighValue">To <br />(mm)</label>
                         <input [value]="ThicknessHighValue" [(ngModel)]="ThicknessHighValue" type="text" placeholder="ThicknessHighValue"
                                name="ThicknessHighValue" id="ThicknessHighValue" class="form-control"
                                aria-required="true">
@@ -110,9 +110,9 @@
                     </small>
                   </div>
                 </div>
-              </div>
-            </div>
+             </div>
           </div>
+
             <div class="card mb-1">
               <div class="card-header" id="headingThree">
                 <h5 class="mb-0">
@@ -128,14 +128,14 @@
                     <small>
                     <h5> Drape-Coefficient </h5>
                     <ngx-slider [(value)]="DrapeCoefficientValue" [(highValue)]="DrapeCoefficientHighValue" [options]="DrapeCoefficientoptions"></ngx-slider>
-                    <div class="row">
-                      <div class="col">
-                        <label for="DrapeCoefficientValue">Stiff (%)</label>
-                        <input [value]="DrapeCoefficientValue" [(ngModel)]="DrapeCoefficientValue" type="text" placeholder="DrapeCoefficientValue"
+                      <div class="row">
+                        <div class="col">
+                          <label for="DrapeCoefficientValue">Stiff (%)</label>
+                          <input [value]="DrapeCoefficientValue" [(ngModel)]="DrapeCoefficientValue" type="text" placeholder="DrapeCoefficientValue"
                                name="DrapeCoefficientValue" id="DrapeCoefficientValue" class="form-control"
                                aria-required="true" >
-                      </div>
-                      <div class="col">
+                        </div>
+                      <div class="col-1">
                         <span>-</span>
                       </div>
                       <div class="col">
@@ -147,13 +147,13 @@
                     </div>
                    </small>
                 </div>
+               </div>
               </div>
             </div>
-
               <div class="card mb-1">
                 <div class="card-header" id="headingFourth">
                   <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFourth" aria-expanded="false" aria-controls="collapseThree">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFourth" aria-expanded="false" aria-controls="collapseFourth">
                       Elasticity
                     </button>
                   </h5>
@@ -184,22 +184,21 @@
                       </div>
                       </small>
                     </div>
-
                     </div>
                   </div>
                 </div>
                 <div class="card mb-1">
                   <div class="card-header" id="headingFive">
                     <h5 class="mb-0">
-                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                         Elongation
                       </button>
                     </h5>
                   </div>
                   <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
                     <div class="card-body">
-
                       <div class="col">
+                        <small>
                         <h5> Elongation</h5>
                         <ngx-slider [(value)]="ElongationValue" [(highValue)]="ElongationHighValue" [options]="Elongationoptions"></ngx-slider>
                         <div class="row">
@@ -213,21 +212,23 @@
                             <span>-</span>
                           </div>
                           <div class="col">
-                            <label for="ElongationHighValue">To (%)</label>
+                            <label for="ElongationHighValue"><br />To <br />(%)</label>
                             <input [value]="ElongationHighValue" [(ngModel)]="ElongationHighValue" type="text" placeholder="ElongationHighValue"
                                    name="ElongationHighValue" id="ElongationHighValue" class="form-control"
                                    aria-required="true">
                           </div>
                         </div>
+                       </small>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
             </div>
           </div>
-        </div>
+      </div>
     <!-- end filter content-->
-  </div>
+
 
 
 

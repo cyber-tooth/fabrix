@@ -5,9 +5,6 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarsExample04">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" *ngIf="hasAccess(['user','superAdmin','admin'])">Materials</a>
-      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" *ngIf="hasAccess(['user','superAdmin','admin'])" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
         <div class="dropdown-menu" aria-labelledby="dropdown04">
