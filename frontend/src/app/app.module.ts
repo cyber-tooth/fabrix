@@ -40,7 +40,7 @@ import { MaterialcardItemComponent } from './components/materialcard-item/materi
 import { MaterialCardComponent } from './components/material-card/material-card.component';
 import { FilterCardComponent } from './components/filter-card/filter-card.component';
 import { RoleDropdownComponent } from './components/role-dropdown/role-dropdown.component';
-import { SearchPipe} from "./components/search.pipe";
+import { SearchPipe} from './components/search.pipe';
 import { CreateCategoryModalComponent } from './components/create-category-modal/create-category-modal.component';
 
 export function tokenGetter() {
@@ -92,7 +92,7 @@ export function tokenGetter() {
     NgxSliderModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: tokenGetter,
+        tokenGetter,
         allowedDomains: ['localhost', 'htwhost.com'],
         disallowedRoutes: ['example.com/examplebadroute/']
       }

@@ -19,10 +19,7 @@ export class UserService {
   }
 
   create(user: User): any {
-    return this.http.post<any>(`${environment.apiUrl}/v1/auth/register`, user).pipe(map(response => {
-      console.log(response);
-      console.log(response.id);
-    })
+    return this.http.post<any>(`${environment.apiUrl}/v1/auth/register`, user).pipe(map(response => response)
     );
   }
 
@@ -31,7 +28,12 @@ export class UserService {
   }
 
   changePassword(currentPassword: string, newPassword: string, username: string, refreshToken: string): any {
-    return this.http.post<any>(`${environment.apiUrl}/v1/users/changePassword`, {currentPassword, newPassword, username, refreshToken})
+    return this.http.post<any>(`${environment.apiUrl}/v1/users/changePassword`, {
+      currentPassword,
+      newPassword,
+      username,
+      refreshToken
+    })
       .pipe(map(response => console.log('response', response)));
   }
 
