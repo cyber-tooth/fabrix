@@ -103,7 +103,7 @@ export class MaterialComponent implements OnInit {
 
 
   myOptions1: IMultiSelectOption[] = [
-    { id: 1, name: 'Natural Fibre', isLabel: true },
+    { id: 1, name: 'Natural Raw Material', isLabel: true },
     { id: 2, name: 'Alpaca', parentId: 1 },
     { id: 3, name: 'Casein', parentId: 1 },
     { id: 4, name: 'Cashmere', parentId: 1 },
