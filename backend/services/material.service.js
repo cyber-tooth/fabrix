@@ -11,18 +11,12 @@ module.exports = {
 
 async function getAll() {
     const material = await db.Material.findAll();
+
     return material.map(x => basicDetails(x));
 }
 
 async function getById(id) {
     const material = await getMaterial(id);
-    return basicDetails(material);
-}
-
-async function create(paypload) {
-    const material = new db.Material(paypload);
-
-    await material.save();
     return basicDetails(material);
 }
 
@@ -49,39 +43,19 @@ async function getMaterial(id) {
     return material;
 }
 
-function basicDetails(material) {
-    const data = {
-        id: material.id,
-        name: material.name,
-        created_by: material.created_by,
-        categories: [],
-        pictures: []
-    }
-
-    material.consistsOf.forEach(consistsOf => {
-        data.category.push({
-            category: consistsOf.
-        })
-    }
-    );
-}
-
-
-
-
 
 async function create(paypload) {
-    const material = await db.Material.create({name: payload.name});
+    const material = await db.Material.create({name: paypload.name});
 
-    payload.consistsOf.forEach(consistsOf => { /* { category_id: 8, degree: "80" } */
+    for (const consistsOf of paypload.consistsOf) { /* { category_id: 8, degree: "80" } */
         consistsOf.material_id = material.id;
     await db.ConsistsOf.create(consistsOf);
-});
+    }
 
-    payload.pictures.forEach(picture => {
+    for (const picture of paypload.pictures) {
         picture.material_id = material.id;
     await db.Picture.create(picture);
-});
+    }
 
     return basicDetails(material);
 }
@@ -99,15 +73,13 @@ function basicDetails(material) { /* db.Material */
             category: consistsOf.category.name,
             degree: consistsOf.degree
         });
-});
+    });
 
     material.pictures.forEach( picture => {
         data.pictures.push({
             url: picture.url,
             title: picture.title
         });
-});
-
-
+    });
     return data;
 }
