@@ -1,6 +1,6 @@
 <div class="container">
    <div class="row">
-    <div class="col-sm-12 col-md-4 col-lg-4">
+    <div class="col-sm-12 col-md-4 col-lg-5">
 
       <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -9,7 +9,7 @@
         </ol>
         <div class="carousel-inner" role="listbox">
           <div class="fill carousel-item active">
-            <img class=" d-block img-fluid" src="assets/img/bootstrap-solid.png" alt="First slide">
+            <img class="d-block img-fluid" src="assets/img/bootstrap-solid.png" alt="First slide">
           </div>
           <div class="fill carousel-item">
             <img class="d-block img-fluid" src="assets/img/bootstrap-solid.svg" alt="Second slide">
@@ -29,25 +29,43 @@
 
      <div class="col-sm-12 col-md-6 col-lg-6 mr-lg-2 mt-lg-2">
         <div class="card-body">
-          <h4 class="card-title">
-            Material A <!--{{selectedMaterial.name}}-->
-          </h4>
-          <h5>More about the fabric</h5>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+          <h3 class="card-title mb-4">
+            Materialname <span>{{selectedMaterial.name}}</span>
+          </h3>
+          <h5 class="mb-3" >Main information</h5>
+          <p>Material Composition: <span>{{ selectedMaterial.MATERIAL_COMPOSITION_NAME }}</span></p>
+          <p class="card-text">Product Group: <span>{{ selectedMaterial.productGroup }}</span></p>
+          <p class="card-text">Weight/m2: <span>{{ selectedMaterial.weight}}</span></p>
+          <p class="card-text">Surface Look: <span>{{ selectedMaterial.surfaceLook }}</span></p>
+          <p class="card-text">Thickness in mm: <span>{{ selectedMaterial.thickness }}</span></p>
+          <p class="card-text">Opacity: <span>{{ selectedMaterial }}</span></p>
+          <p class="card-text">Drape-Coefficient: <span>{{ selectedMaterial }}</span></p>
+          <p class="card-text">Commercial Fabric Name: <span>{{ selectedMaterial.commercialFabricName }}</span></p>
+          <p class="card-text">Elasticity: <span>{{ selectedMaterial }}</span></p>
 
           <div id="accordion">
             <div class="card">
               <div class="card-header" id="headingOne">
-                <h5 class="mb-0">
+                <h4 class="mb-0">
                   <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Additional Information
+                    <h5>Additional Information</h5>
                   </button>
-                </h5>
+                </h4>
               </div>
 
               <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                  <p class="card-text">Abrasion Resistance: <span>{{ selectedMaterial }}</span></p>
+                  <p class="card-text">Burst Pressure: <span>{{ selectedMaterial }}</span></p>
+                  <p class="card-text">Care Instruction: <span>{{ selectedMaterial }}</span></p>
+                  <p class="card-text">- Density: <span>{{ selectedMaterial }}</span></p>
+                  <p class="card-text">- Electrical Charge: <span>{{ selectedMaterial }}</span></p>
+                  <p class="card-text">- Finishing: <span>{{ selectedMaterial }}</span></p>
+                  <p class="card-text">- Pilling: <span>{{ selectedMaterial }}</span></p>
+                  <p class="card-text">- Sustainability: <span>{{ selectedMaterial }}</span></p>
+                  <p class="card-text">- Tensile Strength: <span>{{ selectedMaterial}}</span></p>
+
+
                 </div>
               </div>
             </div>

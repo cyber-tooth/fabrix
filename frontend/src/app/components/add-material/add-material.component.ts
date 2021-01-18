@@ -82,7 +82,7 @@ export class AddMaterialComponent implements OnInit {
     }
   }
   open(){
-    
+
   }
   cancel(): void {
     this.router.navigate(['/edit-material']);

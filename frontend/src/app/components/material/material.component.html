@@ -33,10 +33,10 @@
   </div>
 
       <div class="row">
-        <div class="col-sm-12 col-lg-4 mt-4 ml-lg-3">
+        <div class="col-sm-12 col-md-3 col-lg-3 mt-4 ml-lg-3">
 
           <div id="accordion">
-            <div class="card">
+            <div class="card mb-1">
               <div class="card-header" id="headingOne">
                 <h5 class="mb-0">
                   <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -74,7 +74,8 @@
                 </div>
               </div>
             </div>
-            <div class="card">
+
+            <div class="card mb-1">
               <div class="card-header" id="headingTwo">
                 <h5 class="mb-0">
                   <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -84,8 +85,8 @@
               </div>
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                 <div class="card-body">
-
                   <div class="col">
+                    <small>
                     <h5> Thickness </h5>
                     <ngx-slider [(value)]="ThicknessValue" [(highValue)]="ThicknessHighValue" [options]="Thicknessoptions"></ngx-slider>
 
@@ -105,14 +106,14 @@
                                name="ThicknessHighValue" id="ThicknessHighValue" class="form-control"
                                aria-required="true">
                       </div>
-                    </div>
+                     </div>
+                    </small>
                   </div>
                 </div>
-
-              </div>
               </div>
             </div>
-            <div class="card">
+          </div>
+            <div class="card mb-1">
               <div class="card-header" id="headingThree">
                 <h5 class="mb-0">
                   <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -120,10 +121,11 @@
                   </button>
                 </h5>
               </div>
+
               <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                 <div class="card-body">
-
                   <div class="col">
+                    <small>
                     <h5> Drape-Coefficient </h5>
                     <ngx-slider [(value)]="DrapeCoefficientValue" [(highValue)]="DrapeCoefficientHighValue" [options]="DrapeCoefficientoptions"></ngx-slider>
                     <div class="row">
@@ -133,7 +135,7 @@
                                name="DrapeCoefficientValue" id="DrapeCoefficientValue" class="form-control"
                                aria-required="true" >
                       </div>
-                      <div class="col-1">
+                      <div class="col">
                         <span>-</span>
                       </div>
                       <div class="col">
@@ -143,12 +145,12 @@
                                aria-required="true">
                       </div>
                     </div>
-
+                   </small>
                 </div>
               </div>
             </div>
 
-              <div class="card">
+              <div class="card mb-1">
                 <div class="card-header" id="headingFourth">
                   <h5 class="mb-0">
                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFourth" aria-expanded="false" aria-controls="collapseThree">
@@ -156,10 +158,11 @@
                     </button>
                   </h5>
                 </div>
+
                 <div id="collapseFourth" class="collapse" aria-labelledby="headingFourth" data-parent="#accordion">
                   <div class="card-body">
-
                     <div class="col">
+                      <small>
                       <h5> Elasticity</h5>
                       <ngx-slider [(value)]="ElasticityValue" [(highValue)]="ElasticityHighValue" [options]="Elasticityoptions"></ngx-slider>
                       <div class="row">
@@ -179,12 +182,13 @@
                                  aria-required="true">
                         </div>
                       </div>
+                      </small>
                     </div>
 
                     </div>
                   </div>
                 </div>
-                <div class="card">
+                <div class="card mb-1">
                   <div class="card-header" id="headingFive">
                     <h5 class="mb-0">
                       <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -217,14 +221,11 @@
                         </div>
                       </div>
                     </div>
-
-                      </div>
-                    </div>
                   </div>
+                </div>
+            </div>
           </div>
         </div>
-
-      
     <!-- end filter content-->
   </div>
 

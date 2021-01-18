@@ -1,1 +1,30 @@
-<p>create-category-modal works!</p>
+<!-- modaler Dialog fuer das Loeschen -->
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Create new Category here</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cancel')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h4 style="color: red">Create new Category below</h4>
+    <form [formGroup]="form">
+
+      <div class="form-group row align-items-center">
+        <div class="col-auto my-1">
+          <label for="mainCategory"></label>
+          <select id="mainCategory" formControlName="roleControl" class="form-control custom-select mr-sm-2">
+            <option selected>{{ selectedOptionMainCategory }}</option>
+            <option *ngFor="let op of optionsMainCategory">{{op}}</option>
+          </select>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('cancel')">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close('delete')">Delete</button>
+  </div>
+</ng-template>
