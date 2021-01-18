@@ -64,7 +64,8 @@ export class RoleDropdownComponent implements OnInit {
       {
         this.onSubmit();
       } else {
-        window.location.reload();
+        this.selectedOption = this.currentUser.role;
+       // window.location.reload();
       }
     });
   }
