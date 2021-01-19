@@ -7,8 +7,9 @@ var userRoutes = require('../routes/user.routes');
 var swaggerRoutes = require('../routes/swagger.routes');
 var stoffRoutes = require('../routes/stoff.routes');
 var materialRoutes = require('../routes/material.routes');
-const imageController = require('../controllers/image.controller');
-const upload = require("../services/image.service");
+var imageController = require('../controllers/image.controller');
+const upload = require("../services/image_upload.service");
+var uploadController = require('../services/more_images_upload.service');
 
 module.exports = function (app) {
 
@@ -36,7 +37,8 @@ module.exports = function (app) {
     apiRoutes.use('/v1/material', materialRoutes);
 
     //Image routes
-    apiRoutes.post('/v1/upload', upload.any(), imageController.uploadFiles);
+    apiRoutes.post('/v1/upload', upload.any(), imageController.create);
+    apiRoutes.post('/v1/upload_images',uploadController.uploadImages, uploadController.resizeImages, uploadController.getResult);
 
     //swagger ui
     apiRoutes.use('/', swaggerRoutes);

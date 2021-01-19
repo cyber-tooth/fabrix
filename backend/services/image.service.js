@@ -1,21 +1,18 @@
-const multer = require("multer");
+const db = require('../helpers/db.js');
 
-const imageFilter = (req, file, cb) => {
-    if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg') {
-        cb(null, false);
-    } else {
-        cb(new Error('Only .jpeg or .png or .jpg files are accepted'), true);
-    }
-};
+module.exports = { create };
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, '/public/img/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${file.originalname}`);
-    },
-});
+async function create(newImage) {
+    const image = new db.Image(newImage);
 
-var uploadFile = multer({ storage: storage, fileFilter: imageFilter });
-module.exports = uploadFile;
+    await image.save();
+    return basicDetails(image);
+}
+
+function basicDetails(image) { /* db.Material */
+    return {
+        id: image.id,
+        name: image.name,
+        createdAt: image.createdAt,
+    };
+}
