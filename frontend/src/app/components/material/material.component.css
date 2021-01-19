@@ -1,11 +1,10 @@
 .tooltip.in {
   opacity: 1;
 }
-
 u{
   list-style: none;
 }
-.card{
+.card-css{
   border-color: black;
   color: black;
 }
@@ -21,4 +20,9 @@ u{
 body{
   font-family: Verdana;
 }
-
+.flex-container {
+  display:flex;
+}
+.card{
+  background-color: rgb(245 247 246);
+}

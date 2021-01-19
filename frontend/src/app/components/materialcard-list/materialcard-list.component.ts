@@ -7,7 +7,7 @@ import {Material} from "../../models";
   styleUrls: ['./materialcard-list.component.css']
 })
 export class MaterialcardListComponent implements OnInit {
-  materials: Material;
+  material: Material;
   constructor() { }
 
   ngOnInit(): void {
