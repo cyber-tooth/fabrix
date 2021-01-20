@@ -32,39 +32,38 @@ const uploadImages = (req, res, next) => {
     });
 };
 
-const resizeImages = async (req, res, next) => {
+const imageService = require('../services/image.service');
+
+// +  create-Funktion --> damit das Bild in die DB eingetragen wird
+const resizeAndInsertImages = async (req, res, next) => {
     if (!req.files) return next();
 
     req.body.images = [];
     await Promise.all(
         req.files.map(async file => {
-            const filename = file.fieldname;
-            const newFilename = `${filename}.jpeg`;
+            const filename = file.originalname;
 
             await sharp(file.buffer)
                 .resize(640, 320)
                 .toFormat("jpeg")
                 .jpeg({ quality: 90 })
-                .toFile(`public/img/${newFilename}`);
+                .toFile(`public/img/${filename}`);
 
-            req.body.images.push(newFilename);
+                const img = {
+                    name: file.originalname,
+                    url: __basedir + "/public/img/" + file.originalname
+                };
+
+                await imageService.create(img)
+
+            req.body.images.push(filename);
         })
     );
 
     next();
 };
 
-const getResult = async (req, res) => {
-
-    const images = req.body.images
-        .map(image => "" + image + "")
-        .join("");
-
-    return res.send(`Images were uploaded:${images}`);
-};
-
 module.exports = {
     uploadImages: uploadImages,
-    resizeImages: resizeImages,
-    getResult: getResult
+    resizeAndInsertImages: resizeAndInsertImages,
 };
