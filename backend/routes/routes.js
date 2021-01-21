@@ -5,10 +5,8 @@ var accountController = require('../authentication/users.controller');
 
 var userRoutes = require('../routes/user.routes');
 var swaggerRoutes = require('../routes/swagger.routes');
-var stoffRoutes = require('../routes/stoff.routes');
 var materialRoutes = require('../routes/material.routes');
-const imageController = require('../controllers/image.controller');
-const upload = require("../services/image.service");
+var imagesRoutes = require('../routes/images.routes');
 
 module.exports = function (app) {
 
@@ -31,11 +29,10 @@ module.exports = function (app) {
     apiRoutes.use('/v1/users', userRoutes);
 
     // Material routes
-    apiRoutes.use('/v1/stoffe', stoffRoutes);
     apiRoutes.use('/v1/material', materialRoutes);
 
     //Image routes
-    apiRoutes.post('/v1/upload', upload.any(), imageController.uploadFiles);
+    apiRoutes.use('/v1/images', imagesRoutes);
 
     //swagger ui
     apiRoutes.use('/', swaggerRoutes);

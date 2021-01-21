@@ -1,21 +1,36 @@
-const multer = require("multer");
+const db = require('../helpers/db.js');
 
-const imageFilter = (req, file, cb) => {
-    if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg') {
-        cb(null, false);
-    } else {
-        cb(new Error('Only .jpeg or .png or .jpg files are accepted'), true);
-    }
-};
+module.exports = { create, getById, getAll };
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, '/public/img/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${file.originalname}`);
-    },
-});
+async function create(newImage) {
+    const image = new db.Image(newImage);
 
-var uploadFile = multer({ storage: storage, fileFilter: imageFilter });
-module.exports = uploadFile;
+    await image.save();
+    //return image;
+}
+
+async function getAll() {
+    const images = await db.Image.findAll();
+
+    return images.map(x => basicDetails(x));
+}
+
+async function getById(id) {
+    const image = await getImage(id);
+    return basicDetails(image);
+}
+
+async function getImage(id) {
+    const image = await db.Image.findByPk(id);
+    if (!image) throw 'Image is not found';
+    return image;
+}
+
+function basicDetails(image) { /* db.Material */
+    return {
+        id: image.id,
+        name: image.name,
+        url: image.url,
+        createdAt: image.createdAt,
+    };
+}
