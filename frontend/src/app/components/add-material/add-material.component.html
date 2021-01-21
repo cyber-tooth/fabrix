@@ -17,11 +17,26 @@
                  id="inputName" />
         </div>
 
-      <div class="form-group col">
-        <label for="inputMaterialComposition" class="control-label">Material Composition</label>
-          <input type="text" class="form-control" formControlName="MaterialCompositionControl"
-                 id="inputMaterialComposition" />
-      </div>
+        <div class="form-group col">
+          <div class="col-auto">
+            <label for="materialComposition">Material Composition</label>
+            <select id="materialComposition" formControlName="MaterialCompositionControl" class="form-control custom-select">
+              <option selected>{{ selectedOMaterialComposition }}</option>
+              <option *ngFor="let op of optionMaterialComposition">{{op}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group col">
+          <div class="col-auto">
+            <label for="naturalMaterial">Natural Material</label>
+            <select id="naturalMaterial" formControlName="naturalMaterialControl" class="form-control custom-select">
+              <option selected>{{ selectedONaturalMaterial }}</option>
+              <option *ngFor="let op of optionNaturalMaterial">{{op}}</option>
+            </select>
+          </div>
+        </div>
+
 
       <div class="form-group col">
         <div class="col-auto">

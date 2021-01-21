@@ -21,6 +21,8 @@ export class AddMaterialComponent implements OnInit, OnChanges {
   selectedOProductGroup: string;
   optionMaterialComposition: string[];
   selectedOMaterialComposition: string;
+  optionNaturalMaterial: string[];
+  selectedONaturalMaterial: string;
 
   constructor(
     private cs: MaterialService,
@@ -48,6 +50,7 @@ export class AddMaterialComponent implements OnInit, OnChanges {
 
   ngOnInit(): void{
     this.getOptionProductGroup();
+    this.getOptionMaterialComposition();
   }
 
   onSubmit(): void {
@@ -55,8 +58,8 @@ export class AddMaterialComponent implements OnInit, OnChanges {
     const values = this.form.value;
     this.material.name = values.nameControl;
     this.material.categories[0][3][0] = values.materialCompositionControl;
-    this.material.categories = values.productGroupControl;
     this.material.categories[0][7] = values.weigthtControl;
+    this.material.categories[0][8] = values.productGroupControl;
     // wie sollen wir hier die material-daten aufrufen am besten? mit array[] zu kompliziert geht es einfacher?
    // this.material.surfaceLook = values.surfaceLookControl;
    // this.material.thickness = values.thicknessControl;
@@ -81,14 +84,13 @@ export class AddMaterialComponent implements OnInit, OnChanges {
       'Sportswear',
       'Underwear'
     ];
-    this.selectedOProductGroup = this.optionProductGroup[0];
   }
   getOptionMaterialComposition() {
     this.optionMaterialComposition = [
       'Natural Material',
       'Synthetic fibre',
+      'Other'
     ];
-    this.selectedOMaterialComposition = this.optionMaterialComposition[0];
     if (this.selectedOMaterialComposition === this.optionMaterialComposition[0]){
       this.getNaturalMaterial();
     }
@@ -97,7 +99,25 @@ export class AddMaterialComponent implements OnInit, OnChanges {
     }
   }
   getNaturalMaterial(){
-
+    this.optionNaturalMaterial = [
+      'Alpaca',
+      'Casein',
+      'Cashmere',
+      'Cotton',
+      'Fur',
+      'Hemp',
+      'Jute',
+      'Leather',
+      'Linen',
+      'Lyocell',
+      'Modal',
+      'Mohair',
+      'Ramie',
+      'Silk',
+      'Soy',
+      'Viscose',
+      'Wool (sheep)'
+    ];
   }
   getSyntheticFibre(){
 
