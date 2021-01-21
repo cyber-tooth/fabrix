@@ -6,12 +6,12 @@ module.exports = {
     getById,
     create,
     update,
-    delete: _delete
+    delete: _delete,
+    getCategoryTreeById
 };
 
 async function getAll() {
     const material = await db.Material.findAll();
-
     return material.map(x => basicDetails(x));
 }
 
@@ -25,7 +25,6 @@ async function update(id, params) {
 
     // copy params to material and save
     Object.assign(material, params);
-
     await material.save();
 
     return basicDetails(material);
@@ -45,17 +44,17 @@ async function getMaterial(id) {
 
 
 
-async function create(paypload) {
-    const material = await db.Material.create({name: paypload.name});
+async function create(payload) { //Material creation
+    const material = await db.Material.create({name: payload.name}); //creates the Material in DB and returns the object incl ID
 
-    for (const consistsOf of paypload.consistsOf) { /* for example { category_id: 8, degree: "80" } */
+    for (const consistsOf of payload.consistsOf) { // loop over the array and populate each consistsOf,eg { category_id: 8, degree: "80" }
         consistsOf.material_id = material.id;
-    await db.ConsistsOf.create(consistsOf);
+        await db.ConsistsOf.create(consistsOf);
     }
 
-    for (const image of paypload.image) {
+    for (const image of payload.images) { // send info for param: url and name
         image.material_id = material.id;
-    await db.Picture.create(picture);
+        await db.Picture.create(image);
     }
 
     return basicDetails(material);
@@ -63,16 +62,18 @@ async function create(paypload) {
 
 function basicDetails(material) { /* db.Material */
     const data = {
-        //id: material.id,
+        id: material.id,
         name: material.name,
-        categories: [],
+        categories: [], //send only the last category chosen
         images: [],
     };
 
-    material.consistsOf.forEach( consistsOf => { /* db.ConsistsOf */
+    material.consistsOf.forEach( consistsOf => { /* res object db.ConsistsOf */
         data.categories.push({
+            category_id: consistsOf.category_id,
             category: consistsOf.category.name,
-            degree: consistsOf.degree
+            degree: consistsOf.degree,
+            parent_id: consistsOf.category.parent_category,
         });
     });
 
@@ -83,4 +84,46 @@ function basicDetails(material) { /* db.Material */
         });
     });
     return data;
+}
+
+async function getCategoryTreeById(id) { //returns the whole category tree for material id
+    const material = await getMaterial(id);
+    const categoryTree = {};
+    const categories = {};
+
+    if (!material) {
+        return ;
+    }
+
+    for (const consistsOf of material.consistsOf) {
+        addCategoryToTree(material.consistsOf.category, material.consistsOf.degree);
+    }
+
+    function addCategoryToTree(category, degree = null) {
+        const data = {
+            id: category.id,
+            name: category.category_name,
+        };
+        if (category.children !== undefined) {
+            data.children = category.children;
+        }
+        if (degree !== null) {
+            data.degree = degree;
+        }
+        // Add category.id => data to the array categories
+        categories[category.id] = data;
+        const parent = category.parent_category;
+        if (!parent) { // If category.parent_category is null, add category to categoryTree, return
+            categoryTree[category.id] = data;
+        } else { // If category.parent_category is not null
+            if (categories[parent.id] !== undefined) { // If category.parent_category exists in categories, then add category data to its children, return
+                categories[parent.id].children[category.id] = data;
+            } else { // Else add category to parent_category's children and call addCategoryToTree for parent_category
+                parent.children = {};
+                parent.children[category.id] = data;
+                addCategoryToTree(parent);
+            }
+        }
+    }
+    return categoryTree;
 }

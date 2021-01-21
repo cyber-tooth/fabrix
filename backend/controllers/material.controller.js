@@ -53,3 +53,13 @@ exports.delete = function (req, res, next) {
             })
         });
 };
+
+exports.getCategoryTreeById = function (req, res, next) {
+    materialService.getCategoryTreeById(req.params.id)
+        .then(categories => categories ? res.json(categories) : res.sendStatus(404))
+        .catch(next => {
+        return res.status(400).json({
+            error: next
+        })
+    });
+};
