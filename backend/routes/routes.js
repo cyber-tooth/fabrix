@@ -25,7 +25,6 @@ module.exports = function (app) {
     authRoutes.post('/validate-reset-token', accountController.validateResetTokenSchema, accountController.validateResetToken);
     authRoutes.post('/reset-password', accountController.resetPasswordSchema, accountController.resetPassword);
     authRoutes.put('/update-user/:id', accountController.update, accountController.updateSchema);
-
     // User routes
     apiRoutes.use('/v1/users', userRoutes);
 

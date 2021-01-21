@@ -17,11 +17,38 @@
                  id="inputName" />
         </div>
 
+        <div class="form-group col">
+          <div class="col-auto">
+            <label for="materialComposition">Material Composition</label>
+            <select id="materialComposition" formControlName="MaterialCompositionControl" class="form-control custom-select">
+              <option selected>{{ selectedOMaterialComposition }}</option>
+              <option *ngFor="let op of optionMaterialComposition">{{op}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group col">
+          <div class="col-auto">
+            <label for="naturalMaterial">Natural Material</label>
+            <select id="naturalMaterial" formControlName="naturalMaterialControl" class="form-control custom-select">
+              <option selected>{{ selectedONaturalMaterial }}</option>
+              <option *ngFor="let op of optionNaturalMaterial">{{op}}</option>
+            </select>
+          </div>
+        </div>
+
+
       <div class="form-group col">
-        <label for="inputMaterialComposition" class="control-label">Material Composition</label>
-          <input type="text" class="form-control" formControlName="MaterialCompositionControl"
-                 id="inputMaterialComposition" />
+        <div class="col-auto">
+            <label for="productGroup">Product Group</label>
+             <select id="productGroup" formControlName="productGroupControl" class="form-control custom-select mr-sm-2">
+             <option selected>{{ selectedOProductGroup }}</option>
+            <option *ngFor="let op of optionProductGroup">{{op}}</option>
+          </select>
+        </div>
       </div>
+
+
       <div class="form-group col">
         <label for="inputProductGroup" class="control-label">Product Group</label>
           <input type="text" class="form-control" formControlName="ProductGroupControl"
@@ -52,12 +79,10 @@
                  id="inputCommercialFabricName" />
       </div>
 
-
         <div class="form-group row">
-          <img *ngFor="let url of urls" [src]="url" width="100" height="100" alt="">
-          <input type="file" (change)="selectFiles($event)" multiple />
+          <img *ngFor="let url of urls" [src]="url" width="100" height="100" alt="" >
+          <input  type="file" class="form-control" formControlName="urlsControl" (change)="selectFiles($event)" multiple />
         </div>
-
 
         <div class="form-group row">
           <div class="col">
@@ -72,5 +97,5 @@
   </div>
 </div>
 
-
+<!-- für input-urls -> (change)="selectFiles($event)"-->
 
