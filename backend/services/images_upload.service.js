@@ -41,7 +41,7 @@ const resizeAndInsertImages = async (req, res, next) => {
     req.body.images = [];
     await Promise.all(
         req.files.map(async file => {
-            const filename = file.originalname;
+            const filename = `${Date.now()}-${file.originalname}`;
 
             await sharp(file.buffer)
                 .resize(640, 320)
@@ -50,8 +50,8 @@ const resizeAndInsertImages = async (req, res, next) => {
                 .toFile(`public/img/${filename}`);
 
                 const img = {
-                    name: file.originalname,
-                    url: __basedir + "/public/img/" + file.originalname
+                    name: filename,
+                    url: __basedir + "/public/img/" + filename
                 };
 
                 await imageService.create(img)
@@ -63,7 +63,16 @@ const resizeAndInsertImages = async (req, res, next) => {
     next();
 };
 
+const getResult = async (req, res) => {
+    const images = req.body.images
+        .map(image => "" + image + "")
+        .join("");
+
+    return res.send(`Images uploaded:${images}`);
+};
+
 module.exports = {
     uploadImages: uploadImages,
     resizeAndInsertImages: resizeAndInsertImages,
+    getResult: getResult
 };

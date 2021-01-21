@@ -7,6 +7,6 @@ const router = express.Router();
 // Images Routes
 router.get('/', imagesController.getAll);
 router.get('/:id', imagesController.getById);
-router.post('/', uploadImagesService.uploadImages, uploadImagesService.resizeAndInsertImages);
+router.post('/', uploadImagesService.uploadImages, uploadImagesService.resizeAndInsertImages, uploadImagesService.getResult);
 
 module.exports = router;

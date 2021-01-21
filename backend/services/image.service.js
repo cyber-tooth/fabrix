@@ -6,7 +6,7 @@ async function create(newImage) {
     const image = new db.Image(newImage);
 
     await image.save();
-    return image;
+    //return image;
 }
 
 async function getAll() {
