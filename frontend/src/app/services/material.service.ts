@@ -15,8 +15,7 @@ export class MaterialService {
     return this.http.get<any>(`${environment.apiUrl}/v1/material`).pipe(map(response => response));
   }
 
-  create(material: { surfaceLook: string; commercialFabricName: string; productGroup: string; thickness: string;
-           name: string; MATERIAL_COMPOSITION_NAME: string; weight: string; id: string }): any {
+  create(material): any {
     return this.http.post<any>(`${environment.apiUrl}/v1/auth/material`, material).pipe(map(response => response));
   }
 
