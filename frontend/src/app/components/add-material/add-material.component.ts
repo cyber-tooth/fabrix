@@ -5,8 +5,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Material} from '../../models';
 import {MaterialService} from '../../services/material.service';
 import {HttpClient} from '@angular/common/http';
-import {getUrlScheme} from "@angular/compiler";
-import {url} from "inspector";
 
 @Component({
   selector: 'app-add-material',
@@ -16,6 +14,7 @@ import {url} from "inspector";
 export class AddMaterialComponent implements OnInit, OnChanges {
   material: Material;
   form: FormGroup;
+  formData: FormData = new FormData();
   urls = [];
   optionProductGroup: string[];
   selectedOProductGroup: string;
@@ -65,6 +64,7 @@ export class AddMaterialComponent implements OnInit, OnChanges {
    // this.material.thickness = values.thicknessControl;
    // this.material.commercialFabricName = values.commercialFabricNameControl;
    // this.material.urls = values.urlsControl;
+    const formData = this.formData.append('Image')
 
     console.log("aktuell Material" + this.material);
     this.cs.create(this.material);
@@ -133,7 +133,7 @@ export class AddMaterialComponent implements OnInit, OnChanges {
         // tslint:disable-next-line:no-shadowed-variable
         reader.onload = (event: any) => {
           this.urls.push(event.target.result);
-          console.log(this.urls)
+          console.log("hier das url" + this.urls);
         };
       }
     }
