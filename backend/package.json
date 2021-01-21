@@ -40,6 +40,7 @@
     "nodemailer": "^6.4.11",
     "rootpath": "^0.1.2",
     "sequelize": "^6.3.4",
+    "sharp": "^0.27.0",
     "swagger-ui-express": "^4.1.4",
     "yamljs": "^0.3.0"
   },

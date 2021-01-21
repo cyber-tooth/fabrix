@@ -48,13 +48,13 @@ async function getMaterial(id) {
 async function create(paypload) {
     const material = await db.Material.create({name: paypload.name});
 
-    for (const consistsOf of paypload.consistsOf) { /* { category_id: 8, degree: "80" } */
+    for (const consistsOf of paypload.consistsOf) { /* for example { category_id: 8, degree: "80" } */
         consistsOf.material_id = material.id;
     await db.ConsistsOf.create(consistsOf);
     }
 
-    for (const picture of paypload.pictures) {
-        picture.material_id = material.id;
+    for (const image of paypload.image) {
+        image.material_id = material.id;
     await db.Picture.create(picture);
     }
 
@@ -63,10 +63,10 @@ async function create(paypload) {
 
 function basicDetails(material) { /* db.Material */
     const data = {
-        id: material.id,
+        //id: material.id,
         name: material.name,
         categories: [],
-        pictures: [],
+        images: [],
     };
 
     material.consistsOf.forEach( consistsOf => { /* db.ConsistsOf */
@@ -76,10 +76,10 @@ function basicDetails(material) { /* db.Material */
         });
     });
 
-    material.pictures.forEach( picture => {
-        data.pictures.push({
-            url: picture.url,
-            title: picture.title
+    material.image.forEach( image => { /* db.Image */
+        data.images.push({
+            url: image.url,
+            name: image.name
         });
     });
     return data;

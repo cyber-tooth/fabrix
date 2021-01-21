@@ -9,5 +9,10 @@ function model(sequelize) {
         url: {type: DataTypes.STRING}
     }
 
+    const options = {
+        // sets timestamp for createdAt and updatedAt
+        timestamps: true
+    };
+
     return sequelize.define('image', attributes);
 }

@@ -1,8 +1,10 @@
 const materialService = require('../services/material.service');
 
 exports.getAll = function (req, res, next) {
-    materialService.getAll()
-        .then(stoffe => res.json(stoffe))
+    materialService.getAll({
+        order: sequelize.literal("createdAt DESC") //sends ALL materials in descending order of creation
+    })
+        .then(material => res.json(material))
         .catch(next => {
             return res.status(400).json({
                 error: next
@@ -12,7 +14,7 @@ exports.getAll = function (req, res, next) {
 
 exports.getById = function (req, res, next) {
     materialService.getById(req.params.id)
-        .then(stoff => stoff ? res.json(stoff) : res.sendStatus(404))
+        .then(material => material ? res.json(material) : res.sendStatus(404))
         .catch(next => {
             return res.status(400).json({
                 error: next
@@ -22,7 +24,7 @@ exports.getById = function (req, res, next) {
 
 exports.create = function (req, res, next) {
     materialService.create(req.body)
-        .then(stoff => res.json(stoff))
+        .then(material => res.json(material))
         .catch(next => {
             return res.status(400).json({
                 error: next
@@ -32,7 +34,7 @@ exports.create = function (req, res, next) {
 
 exports.update = function (req, res, next) {
     materialService.update(req.params.id, req.body)
-        .then(stoff => res.json(stoff))
+        .then(material => res.json(material))
         .catch(next => {
             return res.status(400).json({
                 error: next
@@ -43,7 +45,7 @@ exports.update = function (req, res, next) {
 exports.delete = function (req, res, next) {
     materialService.delete(req.params.id)
         .then(() => res.json({
-            message: 'Fabric deleted successfully'
+            message: 'Material deleted successfully'
         }))
         .catch(next => {
             return res.status(400).json({
