@@ -5,7 +5,10 @@ module.exports = model;
 function model(sequelize) {
     const attributes = {
         id: {type: DataTypes.INTEGER, allowNull: false, unique: true, autoIncrement: true, primaryKey: true},
-        //FK zu MainCategories, SubCategory, additionalInfos
+        weave: {type: DataTypes.STRING, allowNull: true},
+        knit: {type: DataTypes.STRING, allowNull: true},
+        nonWoven: {type: DataTypes.STRING, allowNull: true},
+        //FK von Material
     };
 
     const options = {
@@ -13,5 +16,5 @@ function model(sequelize) {
         timestamps: true
     };
 
-    return sequelize.define('category', attributes, options);
+    return sequelize.define('surfacelook', attributes, options);
 }

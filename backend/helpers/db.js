@@ -35,10 +35,17 @@ async function initialize() {
     db.User = require('../authentication/users.model')(sequelize);
     db.RefreshToken = require('../authentication/refresh-token.model')(sequelize);
     db.Category = require('../models/category.model')(sequelize);
-    db.ConsistsOf = require('../models/consistsOf.model')(sequelize);
     db.Material = require('../models/material.model')(sequelize);
-    //db.Composition = require('../models/materialComposition.model')(sequelize);
+    db.Composition = require('../models/materialComposition.model')(sequelize);
     db.Image = require('../models/image.model')(sequelize);
+    db.AdditionalInfo = require('../models/additionalInfo.model')(sequelize);
+    db.Elasticity = require('../models/elasticity.model')(sequelize);
+    db.Elongation = require('../models/elongation.model')(sequelize);
+    db.MaterialMainCategory = require('../models/materialMainCategory.model')(sequelize);
+    db.MaterialSubCategory = require('../models/materialSubCategory.model')(sequelize);
+    db.NrStitches = require('../models/NrStitches.model')(sequelize);
+    db.NrThreads = require('../models/NrThreads.model')(sequelize);
+    db.Surfacelook = require('../models/surfacelook.model')(sequelize);
 
     // Section to define relationships
     db.User.hasMany(db.RefreshToken, {
@@ -46,46 +53,119 @@ async function initialize() {
     });
     db.RefreshToken.belongsTo(db.User);
 
-    // self-referencing category belongs to only one parent category, 1 to N
-    db.Category.belongsTo(db.Category,{
-        foreignKey:'parent_category',
+    //Category belongsTo MainCategories, SubCategories, AdditionalInfos
+    db.Category.belongsTo(db.MaterialMainCategory, {
         onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+        foreignKey: 'MainCategory',
+        through: 'materialMainCategory'
     });
-    db.Category.hasMany(db.Category, {
+    db.Category.belongsTo(db.MaterialSubCategory, {
         onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+        foreignKey: 'SubCategory',
+        through: 'materialSubCategory'
+    });
+    db.Category.belongsTo(db.AdditionalInfo, {
+        onDelete: 'CASCADE',
+        foreignKey: 'AdditionalInfo',
+        through: 'AdditionalInfo'
+    });
+    db.Category.belongsTo(db.Material, {
+        onDelete: 'CASCADE',
+        through: 'material',
+    })
+
+    //MainCategory belongs to Composition, surfaceLook, Material
+    db.MaterialMainCategory.belongsTo(db.Composition, {
+        onDelete: 'CASCADE',
+        foreignKey: 'MaterialCompositionID',
+        through: 'materialComposition',
+    })
+
+    db.MaterialMainCategory.belongsTo(db.Surfacelook, {
+        onDelete: 'CASCADE',
+        foreignKey: 'SurfacelookID',
+        through: 'surfacelook',
+    })
+
+    db.MaterialMainCategory.belongsTo(db.Material, {
+        onDelete: 'CASCADE',
+        through: 'material',
+    })
+    db.Material.hasMany(db.MaterialMainCategory, {
+        onDelete: 'CASCADE'
     });
 
-    // consists_of composite pair of 2 PK-FK, N to M relationship with material and composition
-    db.Material.belongsToMany(db.Category, {
-        foreignKey: 'material_id',
-        through: 'consistsOf',
+    //SubCategory belongs to Elasticity, Elongation, Material
+    db.MaterialSubCategory.belongsTo(db.Elasticity, {
         onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-    });
-    db.Category.belongsToMany(db.Material, {
-        foreignKey: 'category_id',
-        through: 'consistsOf',
+        foreignKey: 'ElasticityID',
+        through: 'elasticity',
+    })
+    db.MaterialSubCategory.belongsTo(db.Elongation, {
         onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+        foreignKey: 'ElongationID',
+        through: 'elongation',
+    })
+    db.MaterialSubCategory.belongsTo(db.Material, {
+        onDelete: 'CASCADE',
+        through: 'material',
+    })
+    db.Material.hasMany(db.MaterialSubCategory, {
+        onDelete: 'CASCADE'
     });
 
-    // material composition N to 1 relationship with category
-    /** db.Composition.belongsTo(db.Category, {foreignKey:'category_id'},
-        {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
-    db.Category.hasMany(db.Composition,
-        {onDelete: 'CASCADE', onUpdate: 'CASCADE'}); **/
+    //AdditionalInfos belongs to numberOfThreadsPerUnitLength, numberOfStitchesPerUnitLength, material
+    db.AdditionalInfo.belongsTo(db.NrThreads, {
+        onDelete: 'CASCADE',
+        foreignKey: 'NrThreadsID',
+        through: 'NrThreads',
+    })
+    db.AdditionalInfo.belongsTo(db.NrStitches, {
+        onDelete: 'CASCADE',
+        foreignKey: 'NrStitchesID',
+        through: 'NrStitches',
+    })
+    db.AdditionalInfo.belongsTo(db.Material, {
+        onDelete: 'CASCADE',
+        through: 'material',
+    })
+    db.Material.hasMany(db.AdditionalInfo, {
+        onDelete: 'CASCADE'
+    });
+
+    //nrThreads, NrStitches, surfacelook, elasticity, elongation, materialComposition belongsTo material
+    db.NrThreads.belongsTo(db.Material, {
+        onDelete: 'CASCADE',
+        through: 'material',
+    })
+    db.NrStitches.belongsTo(db.Material, {
+        onDelete: 'CASCADE',
+        through: 'material',
+    })
+    db.Surfacelook.belongsTo(db.Material, {
+        onDelete: 'CASCADE',
+        through: 'material',
+    })
+    db.Elasticity.belongsTo(db.Material, {
+        onDelete: 'CASCADE',
+        through: 'material',
+    })
+    db.Elongation.belongsTo(db.Material, {
+        onDelete: 'CASCADE',
+        through: 'material',
+    })
+    db.Composition.belongsTo(db.Material, {
+        onDelete: 'CASCADE',
+        through: 'material',
+    })
 
     // pictures N to 1 relationship with material
     db.Image.belongsTo(db.Material, {
         foreignKey:'material_id',
         onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
     });
     db.Material.hasMany(db.Image, {
         onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
     });
 
     // sync all models with database

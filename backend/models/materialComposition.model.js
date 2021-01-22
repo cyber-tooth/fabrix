@@ -5,7 +5,11 @@ module.exports = model;
 function model(sequelize) {
     const attributes = {
         id: {type: DataTypes.INTEGER, allowNull: false, unique: true, autoIncrement: true, primaryKey: true},
-        name: {type: DataTypes.STRING(250), allowNull: false}
+        materialCompositionName: {type: DataTypes.STRING, allowNull: true},
+        naturalMaterial: {type: DataTypes.STRING, allowNull: false},
+        syntheticFibre: {type: DataTypes.STRING, allowNull: false},
+        other: {type: DataTypes.BOOLEAN, STRING: false},
+        //FK von material
     };
 
     const options = {

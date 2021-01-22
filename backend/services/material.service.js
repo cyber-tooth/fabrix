@@ -66,20 +66,22 @@ function basicDetails(material) { /* db.Material */
         id: material.id,
         name: material.name,
         categories: [],
-        pictures: [],
+        images: [],
     };
 
-    material.consistsOf.forEach( consistsOf => { /* db.ConsistsOf */
+    material.Category.forEach( Category => { /* db.Categorie */
         data.categories.push({
-            category: consistsOf.category.name,
-            degree: consistsOf.degree
+            Category: Category.id,
+            MainCategory: Category.MainCategory,
+            SubCategory: Category.SubCategory,
+            AdditionalInfo: Category.AdditionalInfo,
         });
     });
 
-    material.pictures.forEach( picture => {
-        data.pictures.push({
-            url: picture.url,
-            title: picture.title
+    material.images.forEach( image => {
+        data.images.push({
+            url: image.url,
+            title: image.title
         });
     });
     return data;
