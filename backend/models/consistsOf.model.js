@@ -4,7 +4,7 @@ module.exports = model;
 
 function model(sequelize) {
     const attributes = {
-        degree: {type: DataTypes.INTEGER, allowNull: true}
+        degree: {type: DataTypes.STRING, allowNull: true}
     };
 
     const options = {
