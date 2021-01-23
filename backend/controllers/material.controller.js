@@ -63,3 +63,14 @@ exports.getCategoryTreeById = function (req, res, next) {
         })
     });
 };
+
+exports.filterMaterials = function (req, res, next) { // function input: filters = { catId: degree, catId: degree }
+    materialService.filterMaterials(req.params.id, req.params.degree)
+        sequilize.query({type: sequelize.QueryTypes.SELECT})
+        .then(materials => materials ? res.json(materials) : res.sendStatus(404))
+.catch(next => {
+        return res.status(400).json({
+            error: next
+        })
+    });
+};

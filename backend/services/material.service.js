@@ -4,13 +4,15 @@ const { Op } = require('sequelize');
 module.exports = {
     getAll,
     getById,
-    create,
     update,
     delete: _delete,
-    getCategoryTreeById
+    getMaterial,
+    create,
+    getCategoryTreeById,
+    filterMaterials
 };
 
-async function getAll() {
+async function getAll() { //should be used for the list of materials page we will get the infos based on basicDetails, which is id, names, end categories and images
     const material = await db.Material.findAll();
     return material.map(x => basicDetails(x));
 }
@@ -20,12 +22,27 @@ async function getById(id) {
     return basicDetails(material);
 }
 
-async function update(id, params) {
+async function update(id, payload) { // update material infos
     const material = await getMaterial(id);
+    material.name = payload.name;
 
-    // copy params to material and save
-    Object.assign(material, params);
-    await material.save();
+    for (const constistOf of material.consistsOf) { //delete all existing categories for the material
+        consistsOf.destroy()
+    }
+
+    for (const image of material.images) { //delete all existing images for the material
+        image.destroy()
+    }
+
+    for (const consistsOf of payload.consistsOf) { //creating the new categories for the material
+        consistsOf.material_id = material.id;
+        await db.ConsistsOf.create(consistsOf);
+    }
+
+    for (const image of payload.images) { //creating the new images for the material
+        image.material_id = material.id;
+        await db.Picture.create(image);
+    }
 
     return basicDetails(material);
 }
@@ -126,4 +143,88 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
         }
     }
     return categoryTree;
+}
+
+// Return all materials for filters
+async function filterMaterials(filters) { // function input: filters = { catId: degree, catId: degree }, eg { 3: null, weight: 2 }
+    const joins = [];
+    const wheres = ['1'];
+
+    let index = 0;
+
+    for( const [catId, degree] in filters.entries() ) {
+        const category = db.Category.find(catId),
+            endCatIds = getAllEndCategories(category),
+            alias = 'c' + index;
+
+        joins.push(`inner join consistsOf as ${alias} on ${alias}.material_id = m.id`);
+
+        // For sanitization, check prepared queries in sequelize 'where table1.column2 = :val1', setParam('val1', 35)
+        if (endCatIds.length === 1) { // We have only one end category, we will use = in where condition
+            const where: { ${alias}.category_id: endCatIds[0]} // sanitize
+            // add degree check only if degree is not null
+            if (degree !== null) {
+                where: { [Op.and]: [{alias}.degree = ${degree}]} // make it SQL injection safe (sanitize)
+            }
+        } else { // where in
+            const ids = endCatIds.join(","); // comma separate the ids 1,2,3
+            const where: {{alias}.category_id IN ([ids])} // sanitize - sanitization of comma separated is tricky - don't let it end up like ("1,2,3") and not like ("1","2","3")
+        }
+        wheres.push(where);
+
+        index++;
+    }
+
+
+    function getAllEndCategories(category) {
+        let endCatIds = [];
+
+        const children = db.Category.find
+        where
+        parent_category = category.id;
+
+        if (!children){
+            return [category.id];
+        }else {
+            for (child of children) {
+                const childEndCatIds = getAllEndCategories(child);
+                endCatIds = [...endCatIds, ...childEndCatIds];
+            }
+        }
+
+        return endCatIds;
+    }
+
+
+    // Figure out a way to add `joins` and `wheres` using sequelize query builder
+    const { Op } = require("sequelize");
+    const query = [material m, ${joins.join("\n")}];
+    query.findAll({
+        where: {
+            [wheres.join("\nand ")]
+        }
+    });
+        = `select
+        m.*
+    from
+        material m
+        ${joins.join("\n")}
+    where
+        ${wheres.join("\nand ")}
+    `;
+
+    /** Example for Cotton, weight, elasticity - 3 filter selected
+    m.*
+from
+    material m
+    inner join consistsOf c1 on m.id = c1.material_id
+    inner join consistsOf c2 on m.id = c1.material_id
+    inner join consistsOf c3 on m.id = c1.material_id
+where
+    c1.category_id = [cotton] and c1.degree = [cotton_degree]
+    c2.category_id = [weight] and c2.degree = [weight_degree]
+    c3.category_id = [elasticity] and c3.degree = [elasticity_degree]
+; **/
+    // execute the query and return materials
+    return db.querySomething(query);
 }
