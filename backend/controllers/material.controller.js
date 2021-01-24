@@ -1,9 +1,7 @@
-const materialService = require('../services/material.service');
+const materialService = require("../services/material.service");
 
 exports.getAll = function (req, res, next) {
-    materialService.getAll({
-        order: sequelize.literal("createdAt DESC") //sends ALL materials in descending order of creation
-    })
+    materialService.getAll()
         .then(material => res.json(material))
         .catch(next => {
             return res.status(400).json({
