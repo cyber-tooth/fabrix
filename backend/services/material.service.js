@@ -9,7 +9,7 @@ module.exports = {
     getMaterial,
     create,
     getCategoryTreeById,
-    filterMaterials
+    //filterMaterials
 };
 
 async function getAll() { //should be used for the list of materials page we will get the infos based on basicDetails, which is id, names, end categories and images
@@ -146,6 +146,7 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
 }
 
 // Return all materials for filters
+/**
 async function filterMaterials(filters) { // function input: filters = { catId: degree, catId: degree }, eg { 3: null, weight: 2 }
     const joins = [];
     const wheres = ['1'];
@@ -161,10 +162,10 @@ async function filterMaterials(filters) { // function input: filters = { catId: 
 
         // For sanitization, check prepared queries in sequelize 'where table1.column2 = :val1', setParam('val1', 35)
         if (endCatIds.length === 1) { // We have only one end category, we will use = in where condition
-            const where: { ${alias}.category_id: endCatIds[0]} // sanitize
+            const where[`${alias}.category_id`] = endCatIds[0] // sanitize
             // add degree check only if degree is not null
             if (degree !== null) {
-                where: { [Op.and]: [{alias}.degree = ${degree}]} // make it SQL injection safe (sanitize)
+                where[`${alias}.degree`] += degree // make it SQL injection safe (sanitize)
             }
         } else { // where in
             const ids = endCatIds.join(","); // comma separate the ids 1,2,3
@@ -224,7 +225,8 @@ where
     c1.category_id = [cotton] and c1.degree = [cotton_degree]
     c2.category_id = [weight] and c2.degree = [weight_degree]
     c3.category_id = [elasticity] and c3.degree = [elasticity_degree]
-; **/
+;
     // execute the query and return materials
     return db.querySomething(query);
 }
+**/

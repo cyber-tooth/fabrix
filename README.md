@@ -58,3 +58,11 @@ cd frontend
 npm i 
 npm start
 ```
+# Populating the DB with all the categories
+Steps to execute the file with all categories for category model:
+1. Update in the dbData.js file in /backend/helpers folder, your user, pass and DB Name
+2. Start the server in backend in terminal with command: npm start
+3. Open another terminal window and cd /backend/helpers 
+4. In that new terminal, execute with node the file via the following code:
+node dbData.js
+5. Go to your DB (in IntelliJ on top right) and click on the Refresh icon above your DB tables. You can click on table icon for category table and you can see all the data there.
