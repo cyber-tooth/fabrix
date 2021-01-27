@@ -189,7 +189,6 @@ function filterMaterials(filters, limit = 10, offset = 0) {
     // change const materialIds to let materialIds
     materialIds = materialIds.map(material => material.material_id);
     // <If materialIds are like [{material_id: 1},{material_id: 2},{material_id: 3}] then
-
 /*
     function getAllEndCategories(category) {
         let endCatIds = [];
@@ -207,7 +206,6 @@ function filterMaterials(filters, limit = 10, offset = 0) {
         return endCatIds;
     }
 */
-
 
     // Get materials by ids
     const materials = db.Material.findAll({

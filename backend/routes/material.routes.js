@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', materialController.getAll);
 router.get('/:id', materialController.getById);
 router.get('/:id/category_tree', materialController.getCategoryTreeById);
-router.post('/', authorize(Role.admin, Role.superAdmin), materialController.create);
+router.post('/',  materialController.create); //authorize(Role.admin, Role.superAdmin),
 router.put('/:id',authorize(Role.superAdmin, Role.admin), materialController.update);
 router.delete('/:id',authorize(Role.superAdmin), materialController.delete);
 
