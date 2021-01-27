@@ -1,46 +1,12 @@
 <div class="card-deck">
-  <div class="card">
+  <!--*ngFor="let material of materials"-->
+  <!-- alle Materialien in der Datenbank aufgelistet, bei Klick, öffnet sich eine id oder object muss weitergegeben werden-->
+  <div class="card" *ngFor="let item of [1,2,3,4]" routerLink="/materialcard-list/materialCard">
     <img class="card-img-top" src="./assets/img/bootstrap-solid.png" alt="Card image cap">
     <div class="card-body">
-      <h5 class="card-title">Card title</h5>
+      <h5 class="card-title">Material A <!--{{material.name}}--></h5>
       <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
       <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
     </div>
   </div>
-  <div class="card">
-    <img class="card-img-top" src="./assets/img/bootstrap-solid.png" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-  <div class="card">
-    <img class="card-img-top" src="./assets/img/bootstrap-solid.png" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
 </div>
-
-
-<!-- TODO to be romoved and use Layout card above -->
-<!--
-<div class="row">
-  <div class="col-sm-12 col-lg-4 col-md-4 mb-4" *ngFor="let item of [1,2,3,4]">
-    &lt;!&ndash;*ngFor="let material of materials"&ndash;&gt;
-    &lt;!&ndash; alle Materialien in der Datenbank aufgelistet, bei Klick, öffnet sich eine id oder object muss weitergegeben werden&ndash;&gt;
-    <div class="card h-100" routerLink="/materialcard-list/materialCard">
-      <a href="#"><img class="card-img-top" src="./assets/img/bootstrap-solid.png"></a>
-      <div class="card-body">
-        <h5 class="card-title">
-          <a style="color: black;" href="#">Material A &lt;!&ndash;{{material.name}}&ndash;&gt;</a>
-        </h5>
-      </div>
-    </div>
-  </div>
-</div>
--->
-
