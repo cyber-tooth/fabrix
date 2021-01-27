@@ -1,5 +1,5 @@
 const db = require('../helpers/db.js');
-const { Op } = require('sequelize');
+const { Op, Sequelize } = require('sequelize');
 
 module.exports = {
     getAll,
@@ -9,7 +9,7 @@ module.exports = {
     getMaterial,
     create,
     getCategoryTreeById,
-    //filterMaterials
+    filterMaterials
 };
 
 async function getAll() { //should be used for the list of materials page we will get the infos based on basicDetails, which is id, names, end categories and images
@@ -145,49 +145,59 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
     return categoryTree;
 }
 
-// Return all materials for filters
-/**
-async function filterMaterials(filters) { // function input: filters = { catId: degree, catId: degree }, eg { 3: null, weight: 2 }
-    const joins = [];
-    const wheres = ['1'];
-
-    let index = 0;
+// Return all materials
+// function input: filters = { catId: degree, catId: degree } eg { 3: null, weight: 2 }
+function filterMaterials(filters, limit = 10, offset = 0) {
+    const wheres = [];
 
     for( const [catId, degree] in filters.entries() ) {
         const category = db.Category.find(catId),
-            endCatIds = getAllEndCategories(category),
-            alias = 'c' + index;
-
-        joins.push(`inner join consistsOf as ${alias} on ${alias}.material_id = m.id`);
+            endCatIds = getAllEndCategories(category);
+        let where;
 
         // For sanitization, check prepared queries in sequelize 'where table1.column2 = :val1', setParam('val1', 35)
-        if (endCatIds.length === 1) { // We have only one end category, we will use = in where condition
-            const where[`${alias}.category_id`] = endCatIds[0] // sanitize
+        if (endCatIds.length === 1) { // If we have only one end category, we will use = in where condition
+            where = { category_id: endCatIds[0] };
             // add degree check only if degree is not null
             if (degree !== null) {
-                where[`${alias}.degree`] += degree // make it SQL injection safe (sanitize)
+                where.degree = degree;
             }
-        } else { // where in
-            const ids = endCatIds.join(","); // comma separate the ids 1,2,3
-            const where: {{alias}.category_id IN ([ids])} // sanitize - sanitization of comma separated is tricky - don't let it end up like ("1,2,3") and not like ("1","2","3")
+        } else { // for more categories, we use where in
+            where = { category_id: endCatIds };
         }
         wheres.push(where);
-
-        index++;
     }
 
+    // [1,2,3,4] or [{material_id: 1},{material_id: 2},{material_id: 3}]
+    const materialIds = db.ConsistsOf.findAll({
+        where: {
+            [Op.or]: wheres
+        },
+        attributes: [
+            // specify an array where the first element is the SQL function and the second is the alias
+            [Sequelize.fn('DISTINCT', Sequelize.col('material_id')) ,'material_id'],
+        ],
+        'limit': limit, // limit is shorthand for 'limit': limit, like offset
+        offset,
+    }).then(function (list) {
+        res.status(200).json(list);
+    });
+
+    console.log('materialIds', materialIds);
+
+    // If materialIds are like [{material_id: 1},{material_id: 2},{material_id: 3}] then >
+    // change const materialIds to let materialIds
+    materialIds = materialIds.map(material => material.material_id);
+    // <If materialIds are like [{material_id: 1},{material_id: 2},{material_id: 3}] then
 
     function getAllEndCategories(category) {
         let endCatIds = [];
 
-        const children = db.Category.find
-        where
-        parent_category = category.id;
-
-        if (!children){
-            return [category.id];
-        }else {
-            for (child of children) {
+        const children = db.Category.find where parent_category = category.id
+        if not children
+        return [category.id]
+    else {
+            for child of children {
                 const childEndCatIds = getAllEndCategories(child);
                 endCatIds = [...endCatIds, ...childEndCatIds];
             }
@@ -197,22 +207,15 @@ async function filterMaterials(filters) { // function input: filters = { catId: 
     }
 
 
-    // Figure out a way to add `joins` and `wheres` using sequelize query builder
-    const { Op } = require("sequelize");
-    const query = [material m, ${joins.join("\n")}];
-    query.findAll({
+    // Get materials by ids
+    const materials = db.Material.findAll({
         where: {
-            [wheres.join("\nand ")]
+            id: materialIds
         }
     });
-        = `select
-        m.*
-    from
-        material m
-        ${joins.join("\n")}
-    where
-        ${wheres.join("\nand ")}
-    `;
+
+    return materials.map(materiaal => basicDetails);
+}
 
     /** Example for Cotton, weight, elasticity - 3 filter selected
     m.*
@@ -226,7 +229,7 @@ where
     c2.category_id = [weight] and c2.degree = [weight_degree]
     c3.category_id = [elasticity] and c3.degree = [elasticity_degree]
 ;
-    // execute the query and return materials
+    // execute the query and return m   aterials
     return db.querySomething(query);
 }
 **/
