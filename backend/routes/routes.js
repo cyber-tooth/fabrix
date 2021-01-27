@@ -7,6 +7,7 @@ var userRoutes = require('../routes/user.routes');
 var swaggerRoutes = require('../routes/swagger.routes');
 var materialRoutes = require('../routes/material.routes');
 var imagesRoutes = require('../routes/images.routes');
+var categoriesRoutes = require('../routes/categories.routes');
 
 module.exports = function (app) {
 
@@ -33,6 +34,9 @@ module.exports = function (app) {
 
     //Image routes
     apiRoutes.use('/v1/images', imagesRoutes);
+
+    //Categories routes
+    apiRoutes.use('/v1/categories', categoriesRoutes);
 
     //swagger ui
     apiRoutes.use('/', swaggerRoutes);

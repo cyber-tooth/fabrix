@@ -5,7 +5,7 @@ var mysql = require('mysql');
 var con = mysql.createConnection({
     host: "localhost",    // ip address of server running mysql
     user: "root",    // user name to your mysql database
-    password: "pass", // corresponding mysql password
+    password: "fabrix", // corresponding mysql password
     database: "fabrix" // use the specified database name
 });
 
