@@ -27,7 +27,8 @@ export class Material {
       elasticity: {
         gesamtDehnungMittelwert: string
       }
-    ];
+    }
+  ];
   subCategory: [
       CATEGORY_ID: string,
       categoryName: string,
@@ -37,11 +38,10 @@ export class Material {
       }
     ];
 
-  constructor( ) {
-
-  }
+  constructor() {}
 }
 
+// tslint:disable-next-line:no-namespace
 export namespace Material {
 }
 

@@ -56,15 +56,12 @@ export class AddMaterialComponent implements OnInit, OnChanges {
     console.warn(this.form.value);
     const values = this.form.value;
     this.material.name = values.nameControl;
-    this.material.categories[0][3][0] = values.materialCompositionControl;
-    this.material.categories[0][7] = values.weigthtControl;
-    this.material.categories[0][8] = values.productGroupControl;
+
     // wie sollen wir hier die material-daten aufrufen am besten? mit array[] zu kompliziert geht es einfacher?
    // this.material.surfaceLook = values.surfaceLookControl;
    // this.material.thickness = values.thicknessControl;
    // this.material.commercialFabricName = values.commercialFabricNameControl;
    // this.material.urls = values.urlsControl;
-    const formData = this.formData.append('Image')
 
     console.log("aktuell Material" + this.material);
     this.cs.create(this.material);
