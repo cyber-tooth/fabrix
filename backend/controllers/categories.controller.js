@@ -10,3 +10,13 @@ exports.getMainCategories = function (req, res) {
         });
 };
 
+exports.getChildCategories= function (req, res) {
+    // TODO
+    /*categoriesService.getChildCategories()
+        .then(categories => res.json(categories))
+        .catch(next => {
+            return res.status(400).json({
+                error: next
+            })
+        });*/
+};
