@@ -7,7 +7,6 @@ module.exports = {
 
 async function getMainCategories() {
     const category = await db.Category.findAll( { where: { parent_category : null } });
-    console.log(category);
     return category.map(x => basicDetails(x));
 }
 
