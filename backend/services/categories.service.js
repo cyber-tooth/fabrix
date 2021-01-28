@@ -20,7 +20,7 @@ function basicDetails(category) {
         categoryName: category.category_name,
         hasDegree: category.has_degree,
         degreeType: category.degree_type,
-        degreeTitle: category.title
+        degreeTitle: category.degreeTitle
     };
     return data;
 }

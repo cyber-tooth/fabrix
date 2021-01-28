@@ -12,7 +12,9 @@ module.exports = {
     filterMaterials
 };
 
-async function getAll() { //should be used for the list of materials page we will get the infos based on basicDetails, which is id, names, end categories and images
+//should be used for the list of materials page we will get the infos based on basicDetails,
+// which is id, names, end categories and images
+async function getAll() {
     const material = await db.Material.findAll();
     return material.map(x => basicDetails(x));
 }
@@ -62,42 +64,55 @@ async function getMaterial(id) {
 
 
 async function create(payload) { //Material creation
-    const material = await db.Material.create({name: payload.name}); //creates the Material in DB and returns the object incl ID
-
+    const material = await db.Material.create({name: payload.name, created_by: payload.created_by}); //creates the Material in DB and returns the object incl ID
     for (const consistsOf of payload.consistsOf) { // loop over the array and populate each consistsOf,eg { category_id: 8, degree: "80" }
         consistsOf.material_id = material.id;
         await db.ConsistsOf.create(consistsOf);
     }
 
+    //console.log('image details', payload.images);
     for (const image of payload.images) { // send info for param: url and name
         image.material_id = material.id;
-        await db.Picture.create(image);
+        await db.Image.create(image);
     }
 
     return basicDetails(material);
+    //const details = basicDetails(material); // because we want to console log it
+    //console.log('basic details', details);
+    //return details;
 }
 
-function basicDetails(material) { /* db.Material */
+async function basicDetails(material) { /* db.Material */
     const data = {
         id: material.id,
         name: material.name,
+        created_by: material.created_by,
         categories: [], //send only the last category chosen
         images: [],
     };
 
-    material.consistsOf.forEach( consistsOf => { /* res object db.ConsistsOf */
-        data.categories.push({
-            category_id: consistsOf.category_id,
-            category: consistsOf.category.name,
-            degree: consistsOf.degree,
-            parent_id: consistsOf.category.parent_category,
-        });
+    const consistsOfs = await db.ConsistsOf.findAll({
+        where: {
+            material_id: material.id
+        },
+        include: db.Category,
+    });
+    //console.log('material consistsOf', consistsOfs);
+    consistsOfs.forEach( consistsOf => { /* res object db.ConsistsOf */
+            data.categories.push({
+                category_id: consistsOf.category_id,
+                category: consistsOf.category.name,
+                degree: consistsOf.degree,
+                parent_id: consistsOf.category.parent_category,
+            });
     });
 
-    material.image.forEach( image => { /* db.Image */
+    const images = await material.getImages();
+    //console.log('images', images);
+    images.forEach( image => { /* db.Image */
         data.images.push({
             url: image.url,
-            name: image.name
+            name: image.name,
         });
     });
     return data;

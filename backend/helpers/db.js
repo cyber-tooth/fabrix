@@ -61,14 +61,18 @@ async function initialize() {
     db.Material.belongsToMany(db.Category, {
         foreignKey: 'material_id',
         through: 'consistsOf',
-        onDelete: 'CASCADE',
+        onDelete: 'SET NULL',
         onUpdate: 'CASCADE'
     });
     db.Category.belongsToMany(db.Material, {
         foreignKey: 'category_id',
         through: 'consistsOf',
-        onDelete: 'CASCADE',
+        onDelete: 'SET NULL',
         onUpdate: 'CASCADE'
+    });
+
+    db.ConsistsOf.belongsTo(db.Category, {
+        foreignKey: 'category_id'
     });
 
     // material composition N to 1 relationship with category
@@ -84,6 +88,7 @@ async function initialize() {
         onUpdate: 'CASCADE'
     });
     db.Material.hasMany(db.Image, {
+        foreignKey:'material_id',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
     });

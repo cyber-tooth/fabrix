@@ -22,8 +22,13 @@ exports.getById = function (req, res, next) {
 
 exports.create = function (req, res, next) {
     materialService.create(req.body)
-        .then(material => res.json(material))
+        //.then(material => res.json(material))
+        .then(material => {
+        console.log('returning response', material);
+            res.json(material);
+        })
         .catch(next => {
+            //console.log('caught error', next);
             return res.status(400).json({
                 error: next
             })
