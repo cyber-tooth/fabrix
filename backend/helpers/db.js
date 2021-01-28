@@ -53,6 +53,7 @@ async function initialize() {
         onUpdate: 'CASCADE'
     });
     db.Category.hasMany(db.Category, {
+        foreignKey:'parent_category',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
     });
@@ -61,13 +62,13 @@ async function initialize() {
     db.Material.belongsToMany(db.Category, {
         foreignKey: 'material_id',
         through: 'consistsOf',
-        onDelete: 'SET NULL',
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
     });
     db.Category.belongsToMany(db.Material, {
         foreignKey: 'category_id',
         through: 'consistsOf',
-        onDelete: 'SET NULL',
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
     });
 
