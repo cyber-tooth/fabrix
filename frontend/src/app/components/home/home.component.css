@@ -1,4 +1,6 @@
-
+body{
+  font-family: Verdana;
+}
 .home{
   margin-right: 5%;
   margin-left: 5%;
@@ -50,6 +52,4 @@
   background-color: #76B900;
 }
 
-  .firstCarouselTitle{
 
-  }

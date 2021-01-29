@@ -1,6 +1,4 @@
-.carousel{
 
-}
 .img-fluid {
   max-width: 100%;
   height: auto;
@@ -14,14 +12,23 @@
   color: black;
 }
 .card-header{
-  background-color: rgb(245 247 246);
+  background-color: white;
 }
-.card-body{
-  background-color: rgb(245 247 246);
+.shadow {
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.1), 0 4px 10px 0 rgba(0, 0, 0, 0.10);
+}
+.card-body {
+  background-color: white;
 }
 .btn-link{
   color: black;
 }
 body{
   font-family: Verdana;
+}
+h5, h6 {
+  font-family: bold;
+}
+p {
+  font-size: 13px;
 }

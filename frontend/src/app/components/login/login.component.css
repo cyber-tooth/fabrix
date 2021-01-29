@@ -8,3 +8,6 @@ input.ng-touched.ng-invalid {
 .validator-message{
   color: red;
 }
+body{
+  font-family: Verdana;
+}

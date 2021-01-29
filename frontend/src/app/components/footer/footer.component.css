@@ -1,6 +1,10 @@
 a{
-  color:black;
+ /* color: rgb(85 149 27);*/
+  color: white;
 }
 body{
-  font-family: Verdana;
+  font-family: solid Verdana;
+}
+footer{
+
 }
