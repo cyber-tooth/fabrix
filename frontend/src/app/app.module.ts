@@ -12,7 +12,13 @@ import {
   BsDropdownModule,
 } from 'ngx-bootstrap/dropdown';
 import {MultiselectDropdownModule} from 'angular-2-dropdown-multiselect';
-import {AuthenticationService, AuthorisationService, MaterialService, UserService} from './services/index';
+import {
+  AuthenticationService,
+  AuthorisationService,
+  CategoriesServices,
+  MaterialService,
+  UserService
+} from './services/index';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtModule} from '@auth0/angular-jwt';
 import { HomeComponent } from './components/home/home.component';
@@ -115,6 +121,7 @@ export function tokenGetter() {
     AuthGuardUser,
     UserService,
     MaterialService,
+    CategoriesServices,
     NgbDropdown,
     NgbAlertConfig
   ],

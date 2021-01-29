@@ -80,8 +80,10 @@
       </div>
 
         <div class="form-group row">
+          <form action="/multiple-upload" method="POST" enctype="multipart/form-data">
           <img *ngFor="let url of urls" [src]="url" width="100" height="100" alt="" >
           <input  type="file" class="form-control" formControlName="urlsControl" (change)="selectFiles($event)" multiple />
+          </form>
         </div>
 
         <div class="form-group row">

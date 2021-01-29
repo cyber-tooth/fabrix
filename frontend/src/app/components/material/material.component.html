@@ -1,239 +1,78 @@
 <div class="container d-flex flex-column sticky-footer-wrapper min-vh-100">
   <div class="row">
     <!-- start filter section-->
-    <div class="col-sm-12 col-md-3 col-lg-3">
-      <div>
-        <u>
-          <li class="mb-1">
-            <div class="col">
-              <ss-multiselect-dropdown [options]="myOptions1" [texts]="textSetting1" [settings]="mySettings" [(ngModel)]="optionsModel1"></ss-multiselect-dropdown>
-            </div>
-          </li>
-          <li class="mb-1">
-            <div class="col">
-              <ss-multiselect-dropdown [options]="myOptions2" [texts]="textSetting2" [settings]="mySettings" [(ngModel)]="optionsModel2"></ss-multiselect-dropdown>
-            </div>
-          </li>
-          <li class="mb-1">
-            <div class="col">
-              <ss-multiselect-dropdown [options]="myOptions3" [texts]="textSetting3" [settings]="mySettings" [(ngModel)]="optionsModel3"></ss-multiselect-dropdown>
-            </div>
-          </li>
-          <li class="mb-1">
-            <div class="col">
-              <ss-multiselect-dropdown [options]="myOptions4" [texts]="textSetting4" [settings]="mySettings" [(ngModel)]="optionsModel4"></ss-multiselect-dropdown>
-            </div>
-          </li>
-          <li class="mb-1">
-            <div class="col">
-              <ss-multiselect-dropdown [options]="myOptions5" [texts]="textSetting5" [settings]="mySettings" [(ngModel)]="optionsModel5"></ss-multiselect-dropdown>
-            </div>
-          </li>
-        </u>
-      </div>
-
-      <div class="mt-4 ml-lg-3 ml-md-3">
-          <div id="accordion">
-            <div class="card-css card mb-1">
-              <div class="card-header" id="headingOne">
-                <h5 class="mb-0">
-                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                    Weight
-                  </button>
-                </h5>
-              </div>
-
-              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body">
-                  <div class="col">
-                    <small>
-                      <h5> Weight </h5>
-                      <ngx-slider [(value)]="WeightValue" [(highValue)]="WeightHighValue" [options]="Weightoptions"></ngx-slider>
-
-                      <div class="row">
-                        <div class="col">
-                          <label for="WeightValue">From (g/m2)</label>
-                          <input [value]="WeightValue" [(ngModel)]="WeightValue" type="text" placeholder="WeightValue"
-                                 name="WeightValue" id="WeightValue" class="form-control"
-                                 aria-required="true" >
-                        </div>
-                        <div class="col-1">
-                          <span>-</span>
-                        </div>
-                        <div class="col">
-                          <label for="WeightHighValue">To (g/m2)</label>
-                          <input [value]="WeightHighValue" [(ngModel)]="WeightHighValue" type="text" placeholder="WeightHighValue"
-                                 name="WeightHighValue" id="WeightHighValue" class="form-control"
-                                 aria-required="true">
-                        </div>
-                      </div>
-                    </small>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-            <div class="card-css card mb-1">
-              <div class="card-header" id="headingTwo">
-                <h5 class="mb-0">
-                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Thickness
-                  </button>
-                </h5>
-              </div>
-              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                <div class="card-body">
-                  <div class="col">
-                    <small>
-                    <h5> Thickness </h5>
-                    <ngx-slider [(value)]="ThicknessValue" [(highValue)]="ThicknessHighValue" [options]="Thicknessoptions"></ngx-slider>
-
-                    <div class="row">
-                      <div class="col">
-                        <label for="ThicknessValue">From (mm)</label>
-                        <input [value]="ThicknessValue" [(ngModel)]="ThicknessValue" type="text" placeholder="ThicknessValue"
-                               name="ThicknessValue" id="ThicknessValue" class="form-control"
-                               aria-required="true" >
-                      </div>
-                      <div class="col-1">
-                        <span>-</span>
-                      </div>
-                      <div class="col">
-                        <label for ="ThicknessHighValue">To <br />(mm)</label>
-                        <input [value]="ThicknessHighValue" [(ngModel)]="ThicknessHighValue" type="text" placeholder="ThicknessHighValue"
-                               name="ThicknessHighValue" id="ThicknessHighValue" class="form-control"
-                               aria-required="true">
-                      </div>
-                     </div>
-                    </small>
-                  </div>
-                </div>
-             </div>
-          </div>
-
-            <div class="card-css card mb-1">
-              <div class="card-header" id="headingThree">
-                <h5 class="mb-0">
-                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Drape-Coefficient
-                  </button>
-                </h5>
-              </div>
-
-              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                <div class="card-body">
-                  <div class="col">
-                    <small>
-                    <h5> Drape-Coefficient </h5>
-                    <ngx-slider [(value)]="DrapeCoefficientValue" [(highValue)]="DrapeCoefficientHighValue" [options]="DrapeCoefficientoptions"></ngx-slider>
-                      <div class="row">
-                        <div class="col">
-                          <label for="DrapeCoefficientValue">Stiff (%)</label>
-                          <input [value]="DrapeCoefficientValue" [(ngModel)]="DrapeCoefficientValue" type="text" placeholder="DrapeCoefficientValue"
-                               name="DrapeCoefficientValue" id="DrapeCoefficientValue" class="form-control"
-                               aria-required="true" >
-                        </div>
-                      <div class="col-1">
-                        <span>-</span>
-                      </div>
-                      <div class="col">
-                        <label for="DrapeCoefficientHighValue">Soft (%)</label>
-                        <input [value]="DrapeCoefficientHighValue" [(ngModel)]="DrapeCoefficientHighValue" type="text" placeholder="DrapeCoefficientHighValue"
-                               name="DrapeCoefficientHighValue" id="DrapeCoefficientHighValue" class="form-control"
-                               aria-required="true">
-                      </div>
-                    </div>
-                   </small>
-                </div>
-               </div>
-              </div>
-            </div>
-              <div class="card-css card mb-1">
-                <div class="card-header" id="headingFourth">
-                  <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFourth" aria-expanded="false" aria-controls="collapseFourth">
-                      Elasticity
-                    </button>
-                  </h5>
-                </div>
-
-                <div id="collapseFourth" class="collapse" aria-labelledby="headingFourth" data-parent="#accordion">
-                  <div class="card-body">
-                    <div class="col">
-                      <small>
-                      <h5> Elasticity</h5>
-                      <ngx-slider [(value)]="ElasticityValue" [(highValue)]="ElasticityHighValue" [options]="Elasticityoptions"></ngx-slider>
-                      <div class="row">
-                        <div class="col">
-                          <label for="ElasticityValue">No elasticity (%)</label>
-                          <input [value]="ElasticityValue" [(ngModel)]="ElasticityValue" type="text" placeholder="ElasticityValue"
-                                 name="ElasticityValue" id="ElasticityValue" class="form-control"
-                                 aria-required="true" >
-                        </div>
-                        <div class="col-1">
-                          <span>-</span>
-                        </div>
-                        <div class="col">
-                          <label for="ElasticityHighValue">Maximum elasticity (%)</label>
-                          <input [value]="ElasticityHighValue" [(ngModel)]="ElasticityHighValue" type="text" placeholder="ElasticityHighValue"
-                                 name="ElasticityHighValue" id="ElasticityHighValue" class="form-control"
-                                 aria-required="true">
-                        </div>
-                      </div>
-                      </small>
-                    </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-css card mb-1">
-                  <div class="card-header" id="headingFive">
-                    <h5 class="mb-0">
-                      <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                        Elongation
-                      </button>
-                    </h5>
-                  </div>
-                  <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
-                    <div class="card-body">
-                      <div class="col">
-                        <small>
-                        <h5> Elongation</h5>
-                        <ngx-slider [(value)]="ElongationValue" [(highValue)]="ElongationHighValue" [options]="Elongationoptions"></ngx-slider>
-                        <div class="row">
-                          <div class="col">
-                            <label for="ElongationValue">No elongation (%)</label>
-                            <input [value]="ElongationValue" [(ngModel)]="ElongationValue" type="text" placeholder="ElongationValue"
-                                   name="ElongationValue" id="ElongationValue" class="form-control"
-                                   aria-required="true" >
-                          </div>
-                          <div class="col-1">
-                            <span>-</span>
-                          </div>
-                          <div class="col">
-                            <label for="ElongationHighValue"><br />To <br />(%)</label>
-                            <input [value]="ElongationHighValue" [(ngModel)]="ElongationHighValue" type="text" placeholder="ElongationHighValue"
-                                   name="ElongationHighValue" id="ElongationHighValue" class="form-control"
-                                   aria-required="true">
-                          </div>
-                        </div>
-                       </small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-          </div>
-       </div>
-    </div>
     <!-- Ende accordions mit slidern-->
+    <div class="col-2" style="border-right: #777777">
+      <div class="btn-group btn-block dropdown" dropdown [autoClose]="false" container="body"
+           *ngFor="let mainCategory of mainCategories; ">
+        <button id="button-nested" dropdownToggle type="button" class="btn btn-secondary dropdown-toggle"
+                data-toggle="dropdown-grid" type="button" aria-expanded="false" aria-haspopup="true">
+          {{mainCategory.categoryName}} <span class="caret"></span>
+        </button>
+        <div id="dropdown-nested" *dropdownMenu class="dropdown-menu"
+             role="menu" aria-labelledby="button-nested">
+          <div role="menuitem">
+            <a class="dropdown-item" style="min-width: 15rem" href="#/dropdowns#nested-dropdowns">
+              Silouaty</a>
+          </div>
+          <div role="menuitem" dropdown triggers="mouseover" placement="right" container="body">
+            <a style="min-width: 15rem" dropdownToggle class="dropdown-item dropdown-toggle" (click)="false">
+              <span>Hover me for nested dropdown</span>
+            </a>
+            <div *dropdownMenu class="dropdown-menu ml-1" role="dropdown-menu  ml-1 row">
+              <div class="col-auto" role="menuitem">
+                <a class="dropdown-item" style="min-width: 15rem" href="#/dropdowns#nested-dropdowns">
+                  Lorom ipsum
+                </a>
+              </div>
+              <div class="col-auto" role="menuitem">
+                <a class="dropdown-item" style="min-width: 15rem" href="#/dropdowns#nested-dropdowns">
+                  Badnuay
+                </a>
+              </div>
+              <div class="col-auto">
+                <ngx-slider [(value)]="WeightValue" [(highValue)]="WeightHighValue"
+                            [options]="Weightoptions"></ngx-slider>
+              </div>
+            </div>
+          </div>
 
+          <div role="menuitem" style="min-width: 15rem" dropdown triggers="mouseover" placement="right"
+               container="body">
+            <a dropdownToggle class="dropdown-item dropdown-toggle"
+               (click)="false"> <span>Hover me for nested dropdown</span></a>
+            <div *dropdownMenu class="dropdown-menu  ml-1" role="menu">
+              <div role="menuitem">
+                <a  style="min-width: 15rem" class="dropdown-item" href="#/dropdowns#nested-dropdowns">
+                  Action</a>
+              </div>
+              <div role="menuitem" style="min-width: 15rem">
+                <a  style="min-width: 15rem" class="dropdown-item" href="#/dropdowns#nested-dropdowns">
+                  Action1
+                </a>
+              </div>
+              <div role="menuitem">
+                <a style="min-width: 15rem" class="dropdown-item"  href="#/dropdowns#nested-dropdowns">
+                  Action2
+                </a>
+              </div>
+            </div>
+          </div>
+          <div role="menuitem">
+            <a style="min-width: 15rem" class="dropdown-item" href="#/dropdowns#nested-dropdowns">Something
+            else here</a>
+          </div>
+          <div class="divider dropdown-divider"></div>
+          <div role="menuitem" style="min-width: 15rem"><a class="dropdown-item" href="#/dropdowns#nested-dropdowns">Separated
+            link</a></div>
+        </div>
+      </div>
+    </div>
     <!-- hier erstmal alle Materialien aufgelistet.
     Wir müssen Liste der materialien an die Kindcomponente "materialcard-list" weitergeben an der
      Stelle und je nach Suche material/ien angezeigt bekommen-->
-   <div class="col-1">
-   </div>
-    <div class="col-sm-12 col-md-8 col-lg-8">
-        <app-materialcard-list></app-materialcard-list>
+    <div class="col-sm-12 col-md-10 col-lg-10">
+      <app-materialcard-list></app-materialcard-list>
     </div>
   </div>
 </div>   <!-- end filter content-->
