@@ -9,10 +9,10 @@ u{
   color: black;
 }
 .card-header{
-  background-color: rgb(245 247 246);
+
 }
 .card-body {
-  background-color: rgb(245 247 246);
+
 }
 .btn-link{
   color: black;
@@ -24,5 +24,4 @@ body{
   display:flex;
 }
 .card{
-  background-color: rgb(245 247 246);
 }

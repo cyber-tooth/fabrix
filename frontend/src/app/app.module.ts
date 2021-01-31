@@ -5,7 +5,7 @@ import {NgbModule, NgbDropdownModule, NgbDropdown, NgbAlertConfig} from '@ng-boo
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {
-  HeaderComponent, ListeComponent, DashboardComponent, AboutComponent, TasksComponent,
+  HeaderComponent, ListeComponent, AboutComponent, TasksComponent,
   RegisterComponent, FooterComponent, LoginComponent, ForgotComponent, ResetComponent, ConfirmationComponent
 } from './components/index';
 import {
@@ -57,7 +57,6 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     ListeComponent,
-    DashboardComponent,
     AboutComponent,
     TasksComponent,
     HeaderComponent,

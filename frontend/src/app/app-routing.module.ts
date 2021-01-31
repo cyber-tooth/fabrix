@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
 import {
-  DashboardComponent,
   AboutComponent,
   RegisterComponent,
   ConfirmationComponent,
@@ -26,14 +25,12 @@ import {MaterialcardListComponent} from './components/materialcard-list/material
 import {RoleDropdownComponent} from "./components/role-dropdown/role-dropdown.component";
 
 
-
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
   {path: 'about', component: AboutComponent},
   {path: 'impressum', component: ImpressumComponent},
   {path: 'contact', component: ContactComponent},
-  {path: 'dashboard', component: DashboardComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'verify-email/:token', component: ConfirmationComponent},

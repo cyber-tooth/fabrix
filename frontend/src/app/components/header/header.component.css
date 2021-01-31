@@ -1,23 +1,17 @@
 /*
  * Navbar
  */
-
 .navbar-brand {
-  padding-top: .75rem;
-  padding-bottom: .75rem;
-  font-size: 1rem;
-  background-color: rgba(158, 162, 162, 0.1);
-}
-.bg{
-  background-color: rgba(158, 162, 162, 0.1);
-}
 
+}
+.navbar-toggler-icon {
+  margin-top: 3rem;
+}
 .navbar .form-control {
   padding: .75rem 1rem;
   border-width: 0;
   border-radius: 0;
 }
-
 .form-control-dark {
   color: #fff;
   background-color: rgba(158, 162, 162, 0.1);
