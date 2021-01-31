@@ -3,6 +3,7 @@ const { Op } = require('sequelize');
 
 module.exports = {
     getMainCategories,
+    getChildCategories
 };
 
 async function getMainCategories() {
@@ -10,17 +11,25 @@ async function getMainCategories() {
     return category.map(x => basicDetails(x));
 }
 
-async function getChildCategories() {
-   // TODO
+async function getChildCategories(id) {
+    return await db.Category.findAll({
+        where: {
+            parent_category: id
+        },
+        include: {
+            model: db.Category,
+            as: 'children',
+            required: false
+        }
+    });
 }
 
 function basicDetails(category) {
-    const data = {
+    return {
         id: category.id,
         categoryName: category.category_name,
         hasDegree: category.has_degree,
         degreeType: category.degree_type,
         degreeTitle: category.degreeTitle
     };
-    return data;
 }
