@@ -1,43 +1,13 @@
+import {Category} from './category';
+
 export class Material {
   id: string;
   name: string;
-  CREATED_BY: string;
-  mainCategory: [
-    CATEGORY_ID: string,
-    categoryName: string,
-    degree: string,
-    child: {
-      materialComposition: {
-        materialCompositionName: string,
-        child: {
-          naturalMaterial: {
-            cotton: string,
-            cashmere: string,
-            wool: string
-          },
-          syntheticFibre: string,
-          other: {
-            transparent: string;
-            semiTrans: string;
-            opaque: string;
-          }
-        }
-      },
-      weight: string,
-      elasticity: {
-        gesamtDehnungMittelwert: string
-      }
-    }
-  ];
-  subCategory: [
-      CATEGORY_ID: string,
-      categoryName: string,
-      degree: string,
-      child: {
-        opacity: string
-      }
-    ];
-
+  properties: [
+    {
+      category: Category,
+      degree: number
+    }];
   constructor() {}
 }
 
@@ -45,3 +15,12 @@ export class Material {
 export namespace Material {
 }
 
+/*
+loop material in materials
+   print material.id
+   print material.name
+   loop properties in material.properties
+      print prop.category.categoryName
+           if (prop.category.categoryName === 'addational')
+              extra behaviour
+      print prop.degree*/
