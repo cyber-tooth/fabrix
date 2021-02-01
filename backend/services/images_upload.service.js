@@ -51,7 +51,8 @@ const resizeAndInsertImages = async (req, res, next) => {
 
                 const img = {
                     name: filename,
-                    url: __basedir + "/public/img/" + filename
+                    url: "/public/img/" + filename,
+                    material_id: req.body.material_id
                 };
 
                 await imageService.create(img)
