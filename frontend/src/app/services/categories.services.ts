@@ -14,4 +14,8 @@ export class CategoriesServices {
     return this.http.get<any>(`${environment.apiUrl}/v1/categories/main`).pipe(map(response => response));
   }
 
+  getChildCategories(id: string): any {
+    return this.http.get<any>(`${environment.apiUrl}/v1/categories/` + id).pipe(map(response => response));
+  }
+
 }

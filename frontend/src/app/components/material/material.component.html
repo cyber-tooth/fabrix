@@ -1,82 +1,60 @@
 <div class="container d-flex flex-column sticky-footer-wrapper min-vh-100">
   <div class="row">
-    <!-- start filter section-->
-    <!-- Ende accordions mit slidern-->
-    <div class="col-2" style="border-right: #777777">
-      <div class="btn-group btn-block dropdown" dropdown [autoClose]="false" container="body"
-           *ngFor="let mainCategory of mainCategories; ">
+    <div class="col-2" style="border-right: #777777" *ngIf="categoriesAreFetched">
+      <div class="btn-group btn-block dropdown" dropdown container="body" [insideClick]="true"
+           *ngFor="let mainCategory of mainCategories">
         <button id="button-nested" dropdownToggle type="button" class="btn btn-secondary dropdown-toggle"
                 data-toggle="dropdown-grid" type="button" aria-expanded="false" aria-haspopup="true">
           {{mainCategory.categoryName}} <span class="caret"></span>
         </button>
         <div id="dropdown-nested" *dropdownMenu class="dropdown-menu"
              role="menu" aria-labelledby="button-nested">
-          <div role="menuitem">
-            <a class="dropdown-item" style="min-width: 15rem" href="#/dropdowns#nested-dropdowns">
-              Silouaty</a>
-          </div>
-          <div role="menuitem" dropdown triggers="mouseover" placement="right" container="body">
-            <a style="min-width: 15rem" dropdownToggle class="dropdown-item dropdown-toggle" (click)="false">
-              <span>Hover me for nested dropdown</span>
-            </a>
-            <div *dropdownMenu class="dropdown-menu ml-1" role="dropdown-menu  ml-1 row">
-              <div class="col-auto" role="menuitem">
-                <a class="dropdown-item" style="min-width: 15rem" href="#/dropdowns#nested-dropdowns">
-                  Lorom ipsum
-                </a>
-              </div>
-              <div class="col-auto" role="menuitem">
-                <a class="dropdown-item" style="min-width: 15rem" href="#/dropdowns#nested-dropdowns">
-                  Badnuay
-                </a>
-              </div>
-              <div class="col-auto">
-                <ngx-slider [(value)]="WeightValue" [(highValue)]="WeightHighValue"
-                            [options]="Weightoptions"></ngx-slider>
-              </div>
-            </div>
-          </div>
+          <span *ngIf="mainCategory.children as list ">
+              <ng-template #recursiveList let-list>
+                <div role="menuitem" style="min-width: 15rem" dropdown [autoClose]="true" [insideClick]="true"
+                     triggers="mouseover" placement="right"
+                     container="body" *ngFor="let item of list; let index = index">
+                      <div *ngIf="index!=0" class="dropdown-divider"></div>
 
-          <div role="menuitem" style="min-width: 15rem" dropdown triggers="mouseover" placement="right"
-               container="body">
-            <a dropdownToggle class="dropdown-item dropdown-toggle"
-               (click)="false"> <span>Hover me for nested dropdown</span></a>
-            <div *dropdownMenu class="dropdown-menu  ml-1" role="menu">
-              <div role="menuitem">
-                <a  style="min-width: 15rem" class="dropdown-item" href="#/dropdowns#nested-dropdowns">
-                  Action</a>
-              </div>
-              <div role="menuitem" style="min-width: 15rem">
-                <a  style="min-width: 15rem" class="dropdown-item" href="#/dropdowns#nested-dropdowns">
-                  Action1
-                </a>
-              </div>
-              <div role="menuitem">
-                <a style="min-width: 15rem" class="dropdown-item"  href="#/dropdowns#nested-dropdowns">
-                  Action2
-                </a>
-              </div>
-            </div>
-          </div>
-          <div role="menuitem">
-            <a style="min-width: 15rem" class="dropdown-item" href="#/dropdowns#nested-dropdowns">Something
-            else here</a>
-          </div>
-          <div class="divider dropdown-divider"></div>
-          <div role="menuitem" style="min-width: 15rem"><a class="dropdown-item" href="#/dropdowns#nested-dropdowns">Separated
-            link</a></div>
+                      <a *ngIf="item.children.length > 0 else filter" dropdownToggle
+                         class="dropdown-item dropdown-toggle"
+                         (click)="false"> <span>{{item.categoryName}}</span></a>
+                     <ng-template #filter>
+                       <a *ngIf="!item.hasDegree else dgreeFilter"
+                          [ngClass]="item.selected?  'active' : ''" (click)="select(item)"
+                          style="min-width: 25rem;" class="dropdown-item">
+                           {{item.categoryName}}
+                        </a>
+                     </ng-template>
+                     <ng-template #dgreeFilter>
+                        <labe style="min-width: 25rem" class="dropdown-item">
+                           {{item.categoryName}}
+                        </labe>
+                       <div class="p-2">
+                         <ngx-slider [(value)]="item.minDegree" [(highValue)]="item.maxDegree"
+                                     [options]="Weightoptions"></ngx-slider>
+                       </div>
+                     </ng-template>
+                      <span *ngIf="item.children.length > 0">
+                        <div *dropdownMenu class="dropdown-menu  ml-1" role="menu">
+                          <div role="menuitem">
+                             <ng-container
+                               *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
+                          </div>
+                        </div>
+                      </span>
+                    </div>
+          </ng-template>
+          <ng-container *ngTemplateOutlet="recursiveList; context: { $implicit: mainCategory.children }"></ng-container>
+          </span>
         </div>
       </div>
     </div>
-    <!-- hier erstmal alle Materialien aufgelistet.
-    Wir müssen Liste der materialien an die Kindcomponente "materialcard-list" weitergeben an der
-     Stelle und je nach Suche material/ien angezeigt bekommen-->
     <div class="col-sm-12 col-md-10 col-lg-10">
       <app-materialcard-list></app-materialcard-list>
     </div>
   </div>
-</div>   <!-- end filter content-->
-
+</div>
 
 
 

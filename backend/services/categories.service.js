@@ -12,16 +12,17 @@ async function getMainCategories() {
 }
 
 async function getChildCategories(id) {
-    return await db.Category.findAll({
+    const category =  await db.Category.findAll({
         where: {
             parent_category: id
         },
         include: {
-            model: db.Category,
+            model:  db.Category,
             as: 'children',
             required: false
         }
     });
+    return category.map(x => basicDetails(x));
 }
 
 function basicDetails(category) {
@@ -30,6 +31,7 @@ function basicDetails(category) {
         categoryName: category.category_name,
         hasDegree: category.has_degree,
         degreeType: category.degree_type,
-        degreeTitle: category.degreeTitle
+        degreeTitle: category.degreeTitle,
+        children: category.children ? category.children.map(x => basicDetails(x)) : []
     };
 }
