@@ -72,4 +72,8 @@ export class MaterialComponent implements OnInit {
     category.selected = !category.selected;
   }
 
+  setValues(item: Category) {
+    console.log('item min degree  changed', item.minDegree);
+    console.log('item max degree  changed', item.maxDegree);
+  }
 }

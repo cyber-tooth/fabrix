@@ -31,7 +31,7 @@
                            {{item.categoryName}}
                         </labe>
                        <div class="p-2">
-                         <ngx-slider [(value)]="item.minDegree" [(highValue)]="item.maxDegree"
+                         <ngx-slider [(value)]="item.minDegree" [(highValue)]="item.maxDegree" (valueChange)="setValues(item)"
                                      [options]="Weightoptions"></ngx-slider>
                        </div>
                      </ng-template>
