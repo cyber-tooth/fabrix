@@ -54,6 +54,7 @@ async function initialize() {
     });
     db.Category.hasMany(db.Category, {
         foreignKey:'parent_category',
+        as: 'children',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
     });

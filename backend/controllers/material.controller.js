@@ -61,12 +61,15 @@ exports.getCategoryTreeById = function (req, res, next) {
     materialService.getCategoryTreeById(req.params.id)
         .then(categories => categories ? res.json(categories) : res.sendStatus(404))
         .catch(next => {
+            console.log("error", next)
             return res.status(400).json({
                 error: next
             })
         });
 };
 
+//TODO Should be adapted Input [{ catId: 5, maxDegree: 80, minDegree:60 }, {catId: 5}]
+//TODO Querry and Result => Material: {id, name, properties: [ {category: Category, degree: 70 }]}
 exports.filterMaterials = function (req, res, next) { // function input: filters = { catId: degree, catId: degree }
     materialService.filterMaterials(req.params.id, req.params.degree)
         sequilize.query({type: sequelize.QueryTypes.SELECT})

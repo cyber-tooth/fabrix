@@ -10,13 +10,13 @@ exports.getMainCategories = function (req, res) {
         });
 };
 
-exports.getChildCategories= function (req, res) {
-    // TODO
-    /*categoriesService.getChildCategories()
+exports.getChildCategories = function (req, res) {
+    categoriesService.getChildCategories(req.params.id)
         .then(categories => res.json(categories))
         .catch(next => {
             return res.status(400).json({
                 error: next
             })
-        });*/
+        });
 };
+

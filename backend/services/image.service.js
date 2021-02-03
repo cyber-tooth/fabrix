@@ -32,5 +32,6 @@ function basicDetails(image) { /* db.Material */
         name: image.name,
         url: image.url,
         createdAt: image.createdAt,
+        material_id: image.material_id
     };
 }

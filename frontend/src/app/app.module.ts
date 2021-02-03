@@ -84,7 +84,7 @@ export function tokenGetter() {
     FilterCardComponent,
     RoleDropdownComponent,
     SearchPipe,
-    CreateCategoryModalComponent
+    CreateCategoryModalComponent,
   ],
   imports: [
     BrowserModule,

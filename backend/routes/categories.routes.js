@@ -6,5 +6,5 @@ const router = express.Router();
 
 // Material Routes
 router.get('/main', categoriesController.getMainCategories);
-//router.get('/:id', categoriesController.getChildCategories);
+router.get('/:id', categoriesController.getChildCategories);
 module.exports = router;
