@@ -67,6 +67,8 @@ exports.getCategoryTreeById = function (req, res, next) {
         });
 };
 
+//TODO Should be adapted Input [{ catId: 5, maxDegree: 80, minDegree:60 }, {catId: 5}]
+//TODO Querry and Result => Material: {id, name, properties: [ {category: Category, degree: 70 }]}
 exports.filterMaterials = function (req, res, next) { // function input: filters = { catId: degree, catId: degree }
     materialService.filterMaterials(req.params.id, req.params.degree)
         sequilize.query({type: sequelize.QueryTypes.SELECT})

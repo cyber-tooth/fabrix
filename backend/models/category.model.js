@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = model;
-
+//TODO add maxDegree and minDegree (Souhld be intialized with range values in thescript Create db data e.g 0,100 )
 function model(sequelize) {
     const attributes = {
         id: {type: DataTypes.INTEGER, allowNull: false, unique: true, autoIncrement: true, primaryKey: true},
