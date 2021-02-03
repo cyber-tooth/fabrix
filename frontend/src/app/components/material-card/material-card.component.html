@@ -3,19 +3,15 @@
    <div class="row">
     <div class="col-sm-12 col-md-4 col-lg-5">
 
-      <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+      <div id="carouselExampleIndicators" *ngFor="let im of selectedMaterial.images; let i=index; let lastCall=last" class="carousel slide my-4" data-ride="carousel">
         <ol class="carousel-indicators">
-          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="{{i}}" class="active"></li>
+         <!-- <li data-target="#carouselExampleIndicators" data-slide-to=""></li> -->
         </ol>
         <div class="carousel-inner" role="listbox">
           <div class="fill carousel-item active">
-            <img class="d-block img-fluid" src="assets/img/bootstrap-solid.png" alt="First slide">
+            <img class="d-block img-fluid" src="{{im}}" alt="{{i}}Slide">
           </div>
-          <div class="fill carousel-item">
-            <img class="d-block img-fluid" src="assets/img/bootstrap-solid.svg" alt="Second slide">
-          </div>
-        </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
@@ -29,17 +25,18 @@
 
      <div class="col-sm-12 col-md-6 col-lg-6 mr-lg-2 mt-lg-2">
         <div class="card-body shadow">
+          <div *ngFor="let prop of selectedMaterial.consistsOf">
           <h5 class="card-title mb-3">
             Materialname <span>{{selectedMaterial.name}}</span>
           </h5>
           <h6 class="mb-3" >Main information</h6>
-          <p>Material Composition: <span>{{ selectedMaterial }}</span></p>
-          <p class="card-text">Product Group: <span>{{ selectedMaterial }}</span></p>
-          <p class="card-text">Weight/m2: <span>{{ selectedMaterial}}</span></p>
-          <p class="card-text">Surface Look: <span>{{ selectedMaterial }}</span></p>
-          <p class="card-text">Thickness in mm: <span>{{ selectedMaterial }}</span></p>
-          <p class="card-text">Opacity: <span>{{ selectedMaterial }}</span></p>
-          <p class="card-text">Drape-Coefficient: <span>{{ selectedMaterial }}</span></p>
+          <p>Material Composition: <span>{{ prop.category.categoryName }}</span></p>
+          <p class="card-text" *ngIf="prop.category.id === '17'">Product Group: <span>{{prop.category.categoryName}}</span></p>
+          <p class="card-text" *ngIf="prop.category.id === '5'">Weight/m2: <span>{{ selectedMaterial}}</span></p>
+          <p class="card-text" *ngIf="prop.category.id === '22'">Surface Look: <span>{{ selectedMaterial }}</span></p>
+          <p class="card-text" *ngIf="prop.category.categoryName === 'thickness'">Thickness in mm: <span>{{ selectedMaterial }}</span></p>
+          <p class="card-text" *ngIf="prop.category.categoryName === 'opacity'">Opacity: <span>{{ selectedMaterial }}</span></p>
+          <p class="card-text" *ngIf="prop.category.id === '20'">Drape-Coefficient: <span>{{ selectedMaterial }}</span></p>
           <p class="card-text">Commercial Fabric Name: <span>{{ selectedMaterial }}</span></p>
           <p class="card-text">Elasticity: <span>{{ selectedMaterial }}</span></p>
 
@@ -68,6 +65,7 @@
               </div>
             </div>
           </div>
+         </div>
         </div>
      </div>
    </div>

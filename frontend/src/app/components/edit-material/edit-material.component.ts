@@ -67,7 +67,7 @@ export class EditMaterialComponent implements OnInit {
   }
   // hier noch material.name nach hinzugefügte person ändern..
   adminAdded(material: Material): boolean {
-    if (material.name === 'RoleEnum.admin')
+    if (material.createdBy === 'RoleEnum.admin')
     {
       return true;
     }

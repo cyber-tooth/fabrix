@@ -9,6 +9,7 @@ import {MaterialService} from "../../services";
   styleUrls: ['./material-card.component.css']
 })
 export class MaterialCardComponent implements OnInit {
+  materials: Material[];
   selectedMaterial: Material;
   selectedId: string;
 

@@ -1,14 +1,24 @@
 import {Category} from './category';
+import {Image} from './image';
 
 export class Material {
   id: string;
   name: string;
-  properties: [
+  createdBy: string;
+  consistsOf: [
     {
       category: Category,
       degree: number
     }];
-  constructor() {}
+  images: Image;
+
+  constructor(id: string, name: string, createdBy: string, consistOf: [{category: Category, degree: number}], images: Image) {
+    this.id = id;
+    this.name = name;
+    this.createdBy = createdBy;
+    this.consistsOf = consistOf;
+    this.images = images;
+  }
 }
 
 // tslint:disable-next-line:no-namespace

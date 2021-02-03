@@ -1,9 +1,10 @@
 <nav class="navbar navbar-expand-md">
   <a class="navbar-brand" routerLink="/home"><h2 class="logo">FilFabs</h2></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon">hel</span>
+    <span class="navbar-toggler-icon"><fa-icon [icon]="faBarsIcon"></fa-icon></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarsExample04">
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" *ngIf="hasAccess(['user','superAdmin','admin'])" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
@@ -13,13 +14,13 @@
         </div>
       </li>
     </ul>
-    <span [hidden]="!isLoggedIn()">
+    <span class="" [hidden]="!isLoggedIn()">
       <span>Hello, {{getFirstName()}}</span>
     </span>
     <span *ngIf="!isLoggedIn()">
           <a class="p-2 text-dark" routerLink="/login"><fa-icon [icon]="faUserIcon"></fa-icon> </a>
     </span>
-    <span [hidden]="!isLoggedIn()">
+    <span class="" [hidden]="!isLoggedIn()">
       <button class="btn btn-outline" (click)="logout()"><fa-icon [icon]="faSignOutAltIcon"></fa-icon></button>
   </span>
   </div>

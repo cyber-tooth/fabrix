@@ -1,13 +1,22 @@
 body{
   font-family: Verdana;
 }
+.fb{
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+img{
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.carousel-caption{
+  display: block;
+  background-color: rgba(175 175 175 0.3);
+}
 .home{
   margin-right: 5%;
   margin-left: 5%;
-}
-.jumbotron{
-  background-color: #0082D1;
-  color: white;
 }
 .button{
   text-align: center;
@@ -22,10 +31,9 @@ body{
   border-color: rgb(255 173 0);
 }
 
-
 /* Carousel base class */
 .carousel {
-  margin-bottom: 4rem;
+  margin: 1rem;
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
@@ -46,10 +54,11 @@ body{
 }
 
 .firstCarousel,.thirdCarousel{
-  background-color: #0082D1;
+  background-color: rgb(175 175 175);
+  color: black;
 }
 .secondCarousel,.fourthCarousel{
-  background-color: #76B900;
+  background-color: rgb(175 175 175);
+  color: black;
 }
-
 

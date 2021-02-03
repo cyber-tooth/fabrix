@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService, AuthorisationService} from "../../services";
-import {faSearch, faSignInAlt, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
+import {faBars, faSearch, faSignInAlt, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
 import {Router} from "@angular/router";
 
 
@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   faSearchIcon = faSearch;
   faSignOutAltIcon = faSignOutAlt;
   faSignInAltIcon = faSignInAlt;
+  faBarsIcon = faBars;
 
   constructor(private authenticationService: AuthenticationService,
               private authorisationService: AuthorisationService,
