@@ -61,6 +61,7 @@ exports.getCategoryTreeById = function (req, res, next) {
     materialService.getCategoryTreeById(req.params.id)
         .then(categories => categories ? res.json(categories) : res.sendStatus(404))
         .catch(next => {
+            console.log("error", next)
             return res.status(400).json({
                 error: next
             })

@@ -19,7 +19,7 @@ async function getAll() {
     return material.map(x => basicDetails(x));
 }
 
-async function getById(id) {
+async function getById(id) { //returns only the end category but not rest of the categories, use getCategoryTreeById for this
     const material = await getMaterial(id);
     return basicDetails(material);
 }
@@ -123,28 +123,37 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
     const categoryTree = {};
     const categories = {};
 
+
     if (!material) {
         return ;
     }
 
-    for (const consistsOf of material.consistsOf) {
-        addCategoryToTree(material.consistsOf.category, material.consistsOf.degree);
+    const consistsOfs = await db.ConsistsOf.findAll({
+        where: {
+            material_id: material.id
+        },
+        include: db.Category,
+    });
+
+    for (const consistsOf of consistsOfs) {
+        await addCategoryToTree(consistsOf.category, consistsOf.degree);
     }
 
-    function addCategoryToTree(category, degree = null) {
+    async function addCategoryToTree(category, degree = null) {
         const data = {
             id: category.id,
             name: category.category_name,
         };
-        if (category.children !== undefined) {
-            data.children = category.children;
+        if (category.children !== undefined) { // in case there are children of it
+            data.children = category.children; // save the children here
         }
-        if (degree !== null) {
+        if (degree !== null) { // if category has degree, save it in data
             data.degree = degree;
         }
         // Add category.id => data to the array categories
         categories[category.id] = data;
-        const parent = category.parent_category;
+        console.log(category);
+        const parent = await category.getCategory();
         if (!parent) { // If category.parent_category is null, add category to categoryTree, return
             categoryTree[category.id] = data;
         } else { // If category.parent_category is not null
@@ -153,7 +162,7 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
             } else { // Else add category to parent_category's children and call addCategoryToTree for parent_category
                 parent.children = {};
                 parent.children[category.id] = data;
-                addCategoryToTree(parent);
+                await addCategoryToTree(parent);
             }
         }
     }
@@ -161,9 +170,9 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
 }
 
 // Return all materials
-// function input: filters = { catId: degree, catId: degree } eg { 3: null, weight: 2 }
-function filterMaterials(filters, limit = 10, offset = 0) {
-    const wheres = [];
+// function input: filters = { catId: degree, catId: degree } eg { "3": null, "8": 2 }
+function filterMaterials(filters, limit = 10, offset = 0) { //Limit is how many to return and offset is how many to skip
+    const wheres = ['1'];
 
     for( const [catId, degree] in filters.entries() ) {
         const category = db.Category.find(catId),
