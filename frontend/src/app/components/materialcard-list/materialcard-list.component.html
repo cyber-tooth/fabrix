@@ -4,8 +4,10 @@
   <div class="card-deck" routerLink="/materialCard/:material.id">
     <div class="card w-20">
       <img class="card-img-top" src="{{ material }}" alt="Card image cap">
-      <div class="card-body">
+      <div class="card-body" *ngFor="let category of material.consistsOf">
         <h5 class="card-title"> {{material.name}} titel</h5>
+        <h3> hier categoryname: {{category.category.categoryName}}</h3>
+        <h3> hier degree title: {{category.category.degreeTitle}}</h3>
         <p class="card-text"><small class="text-muted"></small></p>
       </div>
     </div>
