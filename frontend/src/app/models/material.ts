@@ -10,14 +10,14 @@ export class Material {
       category: Category,
       degree: number
     }];
-  images: Image;
+ // image: Image;
 
-  constructor(id: string, name: string, createdBy: string, consistOf: [{category: Category, degree: number}], images: Image) {
+  constructor(id: string, name: string, createdBy: string, consistsOf: [{category: Category, degree: number}], images: Image) {
     this.id = id;
     this.name = name;
     this.createdBy = createdBy;
-    this.consistsOf = consistOf;
-    this.images = images;
+    this.consistsOf = consistsOf;
+  //  this.images = images;
   }
 }
 

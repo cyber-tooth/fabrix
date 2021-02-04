@@ -11,8 +11,7 @@ img{
   object-fit: cover;
 }
 .carousel-caption{
-  display: block;
-  background-color: rgba(175 175 175 0.3);
+  background-color: rgb(255 173 0);
 }
 .home{
   margin-right: 5%;

@@ -2,8 +2,8 @@
 
 <ng-container *ngFor="let material of materials">
   <div class="card-deck" routerLink="/materialCard/material.id">
-    <div class="card">
-      <img class="card-img-top" src="{{ material.images.url }}" alt="Card image cap">
+    <div class="card w-20">
+      <img class="card-img-top" src="{{ material }}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title"> {{material.name}} titel</h5>
         <p class="card-text"><small class="text-muted"></small></p>

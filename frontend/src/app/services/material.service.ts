@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Material} from '../models/index';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {map} from "rxjs/operators";
+import {Material} from "../models";
 
 
 @Injectable()
@@ -15,7 +15,7 @@ export class MaterialService {
     return this.http.get<any>(`${environment.apiUrl}/v1/material`).pipe(map(response => response));
   }
 
-  create(material): any {
+  create(material: Material): any {
     return this.http.post<any>(`${environment.apiUrl}/v1/auth/material`, material).pipe(map(response => response));
   }
 
