@@ -1,9 +1,9 @@
 <div class="container">
   <h1>Hallo wir testen ob Materialdaten funktionieren</h1>
-  <ng-container *ngFor="let category of categoryTree">
-    <ng-container *ngFor="let childCategory of category.children">
+  <ng-container *ngFor="let consis of selectedMaterial.consistsOf">
+    <ng-container *ngFor="let childCategory of consis.category">
       <p>hier kommt materialname: {{selectedMaterial.name}}</p>
-      <p>hier kommt categoryname: {{category.categoryName}}</p>
+      <p>hier kommt childcategory: {{ childCategory}}</p>
 
     </ng-container>
   </ng-container>
