@@ -1,3 +1,15 @@
+<div class="container">
+  <h1>Hallo wir testen ob Materialdaten funktionieren</h1>
+  <ng-container *ngFor="let category of categoryTree">
+    <ng-container *ngFor="let childCategory of category.children">
+      <p>hier kommt materialname: {{selectedMaterial.name}}</p>
+      <p>hier kommt categoryname: {{category.categoryName}}</p>
+
+    </ng-container>
+  </ng-container>
+</div>
+
+
 <div class="container d-flex flex-column sticky-footer-wrapper min-vh-100">
   <div class="btn btn-outline text-left" routerLink="/material">< back </div>
    <div class="row">
@@ -22,6 +34,8 @@
         </a>
      </div> -->
     </div>
+
+
 
      <div class="col-sm-12 col-md-6 col-lg-6 mr-lg-2 mt-lg-2">
         <div class="card-body shadow">
