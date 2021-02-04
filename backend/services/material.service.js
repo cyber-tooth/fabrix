@@ -16,7 +16,12 @@ module.exports = {
 // which is id, names, end categories and images
 async function getAll() {
     const material = await db.Material.findAll();
-    return material.map(x => basicDetails(x));
+    //console.log("material", material);
+    //return material.map(x => basicDetails(x));
+    const data = Promise.all(material.map(x => basicDetails(x)));
+    //const data = material.map(async (x) => await basicDetails(x));
+    //console.log('get all response', data);
+    return data;
 }
 
 async function getById(id) { //returns only the end category but not rest of the categories, use getCategoryTreeById for this
@@ -27,8 +32,10 @@ async function getById(id) { //returns only the end category but not rest of the
 async function update(id, payload) { // update material infos
     const material = await getMaterial(id);
     material.name = payload.name;
+    material.created_by = payload.created_by;
+    //console.log('material details', material);
 
-    for (const constistOf of material.consistsOf) { //delete all existing categories for the material
+    for (const constistOf of material.consistsOfs) { //delete all existing categories for the material
         consistsOf.destroy()
     }
 
@@ -36,6 +43,7 @@ async function update(id, payload) { // update material infos
         image.destroy()
     }
 
+    console.log('consistOf details', payload.consistsOf);
     for (const consistsOf of payload.consistsOf) { //creating the new categories for the material
         consistsOf.material_id = material.id;
         await db.ConsistsOf.create(consistsOf);
@@ -43,7 +51,7 @@ async function update(id, payload) { // update material infos
 
     for (const image of payload.images) { //creating the new images for the material
         image.material_id = material.id;
-        await db.Picture.create(image);
+        await db.Image.create(image);
     }
 
     return basicDetails(material);
@@ -168,6 +176,7 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
     }
     return categoryTree;
 }
+
 
 // Return all materials
 // function input: filters = { catId: degree, catId: degree } eg { "3": null, "8": 2 }
