@@ -1,7 +1,7 @@
 <!-- alle Materialien in der Datenbank aufgelistet, bei Klick, öffnet sich eine id oder object muss weitergegeben werden-->
 
 <ng-container *ngFor="let material of materials">
-  <div class="card-deck" routerLink="/materialCard/material.id">
+  <div class="card-deck" routerLink="/materialCard/:material.id">
     <div class="card w-20">
       <img class="card-img-top" src="{{ material }}" alt="Card image cap">
       <div class="card-body">

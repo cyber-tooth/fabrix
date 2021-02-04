@@ -10,7 +10,7 @@ export class ImagesService {
 
   constructor(private http: HttpClient) {
   }
-
+  /*
   getAll(): any {
     return this.http.get<any>(`${environment.apiUrl}/v1/image`).pipe(map(response => response));
   }
@@ -25,4 +25,5 @@ export class ImagesService {
   getImageById(id: string): any {
     return this.http.get(`${environment.apiUrl}/v1/image/` + id).pipe(map(response => response));
   }
+  */
 }

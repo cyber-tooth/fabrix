@@ -20,15 +20,15 @@
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
         </a>
-      </div>
+     </div> -->
     </div>
--->
+
      <div class="col-sm-12 col-md-6 col-lg-6 mr-lg-2 mt-lg-2">
         <div class="card-body shadow">
-          <div *ngFor="let category of categoryTree">
+          <ng-container *ngFor="let category of categoryTree">
             <ng-container *ngFor="let childCategory of category.children">
           <h5 class="card-title mb-3">
-            Materialname <span>{{selectedMaterial.name}}</span>
+            Materialname:  <span>{{selectedMaterial.name}}</span>
           </h5>
           <h6 class="mb-3" >Main information</h6>
           <p>Material Composition: <span>{{ category.categoryName }}</span></p>
@@ -67,8 +67,8 @@
               </div>
             </div>
           </div>
-            </ng-container>
-         </div>
+          </ng-container>
+          </ng-container>
         </div>
      </div>
    </div>
