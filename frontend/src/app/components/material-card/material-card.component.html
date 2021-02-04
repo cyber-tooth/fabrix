@@ -2,11 +2,11 @@
   <div class="btn btn-outline text-left" routerLink="/material">< back </div>
    <div class="row">
     <div class="col-sm-12 col-md-4 col-lg-5">
-
+<!--
       <div id="carouselExampleIndicators" *ngFor="let im of selectedMaterial.images; let i=index; let lastCall=last" class="carousel slide my-4" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#carouselExampleIndicators" data-slide-to="{{i}}" class="active"></li>
-         <!-- <li data-target="#carouselExampleIndicators" data-slide-to=""></li> -->
+          <li data-target="#carouselExampleIndicators" data-slide-to=""></li>
         </ol>
         <div class="carousel-inner" role="listbox">
           <div class="fill carousel-item active">
@@ -22,16 +22,18 @@
         </a>
       </div>
     </div>
-
+-->
      <div class="col-sm-12 col-md-6 col-lg-6 mr-lg-2 mt-lg-2">
         <div class="card-body shadow">
-          <div *ngFor="let prop of selectedMaterial.consistsOf">
+          <div *ngFor="let mainCategory of mainCategoryForSelectedMaterial">
+            <ng-container *ngFor="let childCategory of childCategoryForSelectedMaterial">
           <h5 class="card-title mb-3">
             Materialname <span>{{selectedMaterial.name}}</span>
           </h5>
           <h6 class="mb-3" >Main information</h6>
-          <p>Material Composition: <span>{{ prop.category.categoryName }}</span></p>
-          <p class="card-text" *ngIf="prop.category.id === '17'">Product Group: <span>{{prop.category.categoryName}}</span></p>
+          <p>Material Composition: <span>{{ mainCategory.categoryName }}</span></p>
+          <p class="card-text" *ngIf="childCategory.id === '17'">Product Group: <span>{{childCategory.categoryName}}</span></p>
+           <!--
           <p class="card-text" *ngIf="prop.category.id === '5'">Weight/m2: <span>{{ selectedMaterial}}</span></p>
           <p class="card-text" *ngIf="prop.category.id === '22'">Surface Look: <span>{{ selectedMaterial }}</span></p>
           <p class="card-text" *ngIf="prop.category.categoryName === 'thickness'">Thickness in mm: <span>{{ selectedMaterial }}</span></p>
@@ -39,7 +41,7 @@
           <p class="card-text" *ngIf="prop.category.id === '20'">Drape-Coefficient: <span>{{ selectedMaterial }}</span></p>
           <p class="card-text">Commercial Fabric Name: <span>{{ selectedMaterial }}</span></p>
           <p class="card-text">Elasticity: <span>{{ selectedMaterial }}</span></p>
-
+          -->
           <div id="accordion">
             <div class="card">
               <div class="card-header" id="headingOne">
@@ -65,6 +67,7 @@
               </div>
             </div>
           </div>
+            </ng-container>
          </div>
         </div>
      </div>

@@ -25,4 +25,7 @@ export class MaterialService {
   getDataById(id: string): any {
     return this.http.get(`${environment.apiUrl}/v1/material/` + id).pipe(map(response => response));
   }
+  getCategoryTreeById(id): any {
+    return this.http.get<any>(`${environment.apiUrl}/v1/material/` + id).pipe(map(response => response));
+  }
 }
