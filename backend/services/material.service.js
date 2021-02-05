@@ -172,12 +172,13 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
 
 // Return all materials
 // function input: filters = { catId: degree, catId: degree } eg { "3": null, "8": 2 }
-function filterMaterials(filters, limit = 10, offset = 0) { //Limit is how many to return and offset is how many to skip
-    const wheres = ['1'];
+async function filterMaterials(filters, limit = 10, offset = 0) { //Limit is how many to return and offset is how many to skip
+    const wheres = [];
 
-    for( const [catId, degree] in filters.entries() ) {
-        const category = db.Category.find(catId),
-            endCatIds = getAllEndCategories(category);
+    for( const catId in filters) {
+        const degree = filters[catId];
+        const category = await db.Category.findByPk(catId),
+            endCatIds = await getAllEndCategories(category);
         let where;
 
         // For sanitization, check prepared queries in sequelize 'where table1.column2 = :val1', setParam('val1', 35)
@@ -185,7 +186,11 @@ function filterMaterials(filters, limit = 10, offset = 0) { //Limit is how many 
             where = { category_id: endCatIds[0] };
             // add degree check only if degree is not null
             if (degree !== null) {
-                where.degree = degree;
+                if (typeof degree === "array"){
+                    where.degree = { [Op.between]: degree }
+                }else{
+                    where.degree = degree;
+                }
             }
         } else { // for more categories, we use where in
             where = { category_id: endCatIds };
@@ -194,7 +199,7 @@ function filterMaterials(filters, limit = 10, offset = 0) { //Limit is how many 
     }
 
     // [1,2,3,4] or [{material_id: 1},{material_id: 2},{material_id: 3}]
-    const materialIds = db.ConsistsOf.findAll({
+    let materialIds = await db.ConsistsOf.findAll({
         where: {
             [Op.or]: wheres
         },
@@ -204,42 +209,41 @@ function filterMaterials(filters, limit = 10, offset = 0) { //Limit is how many 
         ],
         'limit': limit, // limit is shorthand for 'limit': limit, like offset
         offset,
-    }).then(function (list) {
-        res.status(200).json(list);
     });
-
-    console.log('materialIds', materialIds);
 
     // If materialIds are like [{material_id: 1},{material_id: 2},{material_id: 3}] then >
     // change const materialIds to let materialIds
     materialIds = materialIds.map(material => material.material_id);
-    // <If materialIds are like [{material_id: 1},{material_id: 2},{material_id: 3}] then
-/*
-    function getAllEndCategories(category) {
+
+    console.log('materialIds', materialIds);
+    async function getAllEndCategories(category) { //in case FE sends category that is not endcat
         let endCatIds = [];
 
-        const children = db.Category.find where parent_category = category.id
-        if not children
-        return [category.id]
-    else {
-            for child of children {
-                const childEndCatIds = getAllEndCategories(child);
+        const children = await db.Category.findAll({ where: { parent_category: category.id } });
+        if (!children.length) { // in case there are no children or its empty array
+            endCatIds = [category.id];
+        }
+        else {
+            for(const child of children) {
+                const childEndCatIds = await getAllEndCategories(child);
                 endCatIds = [...endCatIds, ...childEndCatIds];
             }
         }
 
         return endCatIds;
     }
-*/
 
     // Get materials by ids
-    const materials = db.Material.findAll({
+    const materials = await db.Material.findAll({
         where: {
             id: materialIds
         }
     });
+    //console.log('material', materials);
 
-    return materials.map(materiaal => basicDetails);
+    const response = Promise.all(materials.map(x => basicDetails(x)));
+    console.log('response is:', response);
+    return response;
 }
 
     /** Example for Cotton, weight, elasticity - 3 filter selected

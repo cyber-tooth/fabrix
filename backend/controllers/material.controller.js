@@ -69,13 +69,19 @@ exports.getCategoryTreeById = function (req, res, next) {
         });
 };
 
-//TODO Should be adapted Input [{ catId: 5, maxDegree: 80, minDegree:60 }, {catId: 5}]
-//TODO Querry and Result => Material: {id, name, properties: [ {category: Category, degree: 70 }]}
-exports.filterMaterials = function (req, res, next) { // function input: filters = { catId: degree, catId: degree }
-    materialService.filterMaterials(req.params.id, req.params.degree)
-        sequilize.query({type: sequelize.QueryTypes.SELECT})
+
+// whatever filters are sent, they are OR => returns materials that satisfy any of the filters
+// send the filters like {“8”: [60, 80], “7": null} you can send the degrees in an array and null for no degree
+exports.filterMaterials = function (req, res, next) { //function input: filters = { catId: degree, catId: degree }
+    const filters = JSON.parse(req.query.filters),
+        limit = parseInt(req.query.limit), //convert from string to int
+        offset = parseInt(req.query.offset);
+    //console.log('type of filters', typeof filters);
+    materialService.filterMaterials(filters, limit, offset)
+        //sequilize.query({type: sequelize.QueryTypes.SELECT})
         .then(materials => materials ? res.json(materials) : res.sendStatus(404))
         .catch(next => {
+            console.log('next', next);
             return res.status(400).json({
                 error: next
              })
