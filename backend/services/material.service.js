@@ -1,4 +1,5 @@
 const db = require('../helpers/db.js');
+const {where} = require("sequelize");
 const { Op, Sequelize } = require('sequelize');
 
 module.exports = {
@@ -30,27 +31,18 @@ async function getById(id) { //returns only the end category but not rest of the
 }
 
 async function update(id, payload) { // update material infos
-    const material = await getMaterial(id);
-    material.name = payload.name;
-    material.created_by = payload.created_by;
-    //console.log('material details', material);
+    let material = await getMaterial(id);
 
-    for (const constistOf of material.consistsOfs) { //delete all existing categories for the material
-        consistsOf.destroy()
-    }
+    material.destroy();
 
-    for (const image of material.images) { //delete all existing images for the material
-        image.destroy()
-    }
-
-    console.log('consistOf details', payload.consistsOf);
-    for (const consistsOf of payload.consistsOf) { //creating the new categories for the material
+    material = await db.Material.create({name: payload.name, created_by: payload.created_by});
+    for (const consistsOf of payload.consistsOf) {
         consistsOf.material_id = material.id;
         await db.ConsistsOf.create(consistsOf);
     }
 
-    for (const image of payload.images) { //creating the new images for the material
-        image.material_id = material.id;
+    for (const image of payload.images) {
+        image.material_id = material.id
         await db.Image.create(image);
     }
 
