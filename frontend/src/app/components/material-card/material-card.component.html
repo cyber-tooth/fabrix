@@ -1,12 +1,14 @@
 <div class="container">
   <h1>Hallo wir testen ob Materialdaten funktionieren</h1>
-  <ng-container *ngFor="let consis of selectedMaterial.consistsOf">
-    <ng-container *ngFor="let childCategory of consis.category">
+  <!-- <ng-container *ngFor="let consis of selectedMaterial.consistsOf">
+    <ng-container *ngFor="let childCategory of consis.category"> -->
       <p>hier kommt materialname: {{selectedMaterial.name}}</p>
-      <p>hier kommt childcategory: {{ childCategory}}</p>
-
-    </ng-container>
-  </ng-container>
+      <p>hier kommt materialID: {{ selectedMaterial.id }}</p>
+      <div *ngFor="let prop of selectedMaterial.consistsOf">
+        <p>hier kommt .. : {{prop.category.categoryName}}</p>
+      </div>
+    <!-- </ng-container>
+  </ng-container> -->
 </div>
 
 
