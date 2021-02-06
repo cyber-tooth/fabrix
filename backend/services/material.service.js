@@ -1,4 +1,5 @@
 const db = require('../helpers/db.js');
+const {where} = require("sequelize");
 const { Op, Sequelize } = require('sequelize');
 
 module.exports = {
@@ -30,27 +31,18 @@ async function getById(id) { //returns only the end category but not rest of the
 }
 
 async function update(id, payload) { // update material infos
-    const material = await getMaterial(id);
-    material.name = payload.name;
-    material.created_by = payload.created_by;
-    //console.log('material details', material);
+    let material = await getMaterial(id);
 
-    for (const constistOf of material.consistsOfs) { //delete all existing categories for the material
-        consistsOf.destroy()
-    }
+    material.destroy();
 
-    for (const image of material.images) { //delete all existing images for the material
-        image.destroy()
-    }
-
-    console.log('consistOf details', payload.consistsOf);
-    for (const consistsOf of payload.consistsOf) { //creating the new categories for the material
+    material = await db.Material.create({name: payload.name, created_by: payload.created_by});
+    for (const consistsOf of payload.consistsOf) {
         consistsOf.material_id = material.id;
         await db.ConsistsOf.create(consistsOf);
     }
 
-    for (const image of payload.images) { //creating the new images for the material
-        image.material_id = material.id;
+    for (const image of payload.images) {
+        image.material_id = material.id
         await db.Image.create(image);
     }
 
@@ -180,12 +172,13 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
 
 // Return all materials
 // function input: filters = { catId: degree, catId: degree } eg { "3": null, "8": 2 }
-function filterMaterials(filters, limit = 10, offset = 0) { //Limit is how many to return and offset is how many to skip
-    const wheres = ['1'];
+async function filterMaterials(filters, limit = 10, offset = 0) { //Limit is how many to return and offset is how many to skip
+    const wheres = [];
 
-    for( const [catId, degree] in filters.entries() ) {
-        const category = db.Category.find(catId),
-            endCatIds = getAllEndCategories(category);
+    for( const catId in filters) {
+        const degree = filters[catId];
+        const category = await db.Category.findByPk(catId),
+            endCatIds = await getAllEndCategories(category);
         let where;
 
         // For sanitization, check prepared queries in sequelize 'where table1.column2 = :val1', setParam('val1', 35)
@@ -193,7 +186,11 @@ function filterMaterials(filters, limit = 10, offset = 0) { //Limit is how many 
             where = { category_id: endCatIds[0] };
             // add degree check only if degree is not null
             if (degree !== null) {
-                where.degree = degree;
+                if (typeof degree === "array"){
+                    where.degree = { [Op.between]: degree }
+                }else{
+                    where.degree = degree;
+                }
             }
         } else { // for more categories, we use where in
             where = { category_id: endCatIds };
@@ -202,7 +199,7 @@ function filterMaterials(filters, limit = 10, offset = 0) { //Limit is how many 
     }
 
     // [1,2,3,4] or [{material_id: 1},{material_id: 2},{material_id: 3}]
-    const materialIds = db.ConsistsOf.findAll({
+    let materialIds = await db.ConsistsOf.findAll({
         where: {
             [Op.or]: wheres
         },
@@ -212,42 +209,41 @@ function filterMaterials(filters, limit = 10, offset = 0) { //Limit is how many 
         ],
         'limit': limit, // limit is shorthand for 'limit': limit, like offset
         offset,
-    }).then(function (list) {
-        res.status(200).json(list);
     });
-
-    console.log('materialIds', materialIds);
 
     // If materialIds are like [{material_id: 1},{material_id: 2},{material_id: 3}] then >
     // change const materialIds to let materialIds
     materialIds = materialIds.map(material => material.material_id);
-    // <If materialIds are like [{material_id: 1},{material_id: 2},{material_id: 3}] then
-/*
-    function getAllEndCategories(category) {
+
+    console.log('materialIds', materialIds);
+    async function getAllEndCategories(category) { //in case FE sends category that is not endcat
         let endCatIds = [];
 
-        const children = db.Category.find where parent_category = category.id
-        if not children
-        return [category.id]
-    else {
-            for child of children {
-                const childEndCatIds = getAllEndCategories(child);
+        const children = await db.Category.findAll({ where: { parent_category: category.id } });
+        if (!children.length) { // in case there are no children or its empty array
+            endCatIds = [category.id];
+        }
+        else {
+            for(const child of children) {
+                const childEndCatIds = await getAllEndCategories(child);
                 endCatIds = [...endCatIds, ...childEndCatIds];
             }
         }
 
         return endCatIds;
     }
-*/
 
     // Get materials by ids
-    const materials = db.Material.findAll({
+    const materials = await db.Material.findAll({
         where: {
             id: materialIds
         }
     });
+    //console.log('material', materials);
 
-    return materials.map(materiaal => basicDetails);
+    const response = Promise.all(materials.map(x => basicDetails(x)));
+    console.log('response is:', response);
+    return response;
 }
 
     /** Example for Cotton, weight, elasticity - 3 filter selected
