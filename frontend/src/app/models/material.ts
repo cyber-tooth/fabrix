@@ -4,20 +4,27 @@ import {Image} from './image';
 export class Material {
   id: string;
   name: string;
-  createdBy: string;
+  // tslint:disable-next-line:variable-name
+  created_by: string;
   consistsOf: [
     {
       category: Category,
       degree: number
     }];
- // image: Image;
+  images: [
+    {
+      url: string;
+      name: string;
+    }
+  ];
 
-  constructor(id: string, name: string, createdBy: string, consistsOf: [{category: Category, degree: number}], images: Image) {
+  // tslint:disable-next-line:variable-name
+  constructor(id: string, name: string, created_by: string, consistsOf: [{category: Category, degree: number}], images: [{url: string, name: string}]) {
     this.id = id;
     this.name = name;
-    this.createdBy = createdBy;
+    this.created_by = created_by;
     this.consistsOf = consistsOf;
-  //  this.images = images;
+    this.images = images;
   }
 }
 
@@ -29,7 +36,7 @@ export namespace Material {
 loop material in materials
    print material.id
    print material.name
-   loop properties in material.properties
+   loop consistsOf in material.consistsOf
       print prop.category.categoryName
            if (prop.category.categoryName === 'addational')
               extra behaviour

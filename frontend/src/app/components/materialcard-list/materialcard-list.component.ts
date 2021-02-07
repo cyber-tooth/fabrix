@@ -8,7 +8,7 @@ import {MaterialService} from "../../services";
   styleUrls: ['./materialcard-list.component.css']
 })
 export class MaterialcardListComponent implements OnInit {
-  materials: Material[];
+  materials: Material[] = [];
   constructor(private mS: MaterialService) { }
 
   ngOnInit(): void {
@@ -18,6 +18,7 @@ export class MaterialcardListComponent implements OnInit {
   getMaterials() {
     this.mS.getAll().subscribe(u => {
       this.materials = u as Material[];
+      console.log(this.materials);
     });
   }
 }

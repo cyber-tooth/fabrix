@@ -2,10 +2,9 @@
   <h1>Hallo wir testen ob Materialdaten funktionieren</h1>
   <!-- <ng-container *ngFor="let consis of selectedMaterial.consistsOf">
     <ng-container *ngFor="let childCategory of consis.category"> -->
-      <p>hier kommt materialname: {{selectedMaterial.name}}</p>
       <p>hier kommt materialID: {{ selectedMaterial.id }}</p>
-      <div *ngFor="let prop of selectedMaterial.consistsOf">
-        <p>hier kommt .. : {{prop.category.categoryName}}</p>
+      <div >
+        <p>hier kommt .. : {{categoryTree.name}} </p>
       </div>
     <!-- </ng-container>
   </ng-container> -->
@@ -41,23 +40,23 @@
 
      <div class="col-sm-12 col-md-6 col-lg-6 mr-lg-2 mt-lg-2">
         <div class="card-body shadow">
-          <ng-container *ngFor="let category of categoryTree">
-            <ng-container *ngFor="let childCategory of category.children">
+          <ng-container *ngFor="let properties of selectedMaterial.properties">
+            <ng-container >
           <h5 class="card-title mb-3">
             Materialname:  <span>{{selectedMaterial.name}}</span>
           </h5>
           <h6 class="mb-3" >Main information</h6>
-          <p>Material Composition: <span>{{ category.categoryName }}</span></p>
-          <p class="card-text" *ngIf="childCategory.id === '17'">Product Group: <span>{{childCategory.categoryName}}</span></p>
-           <!--
-          <p class="card-text" *ngIf="prop.category.id === '5'">Weight/m2: <span>{{ selectedMaterial}}</span></p>
-          <p class="card-text" *ngIf="prop.category.id === '22'">Surface Look: <span>{{ selectedMaterial }}</span></p>
-          <p class="card-text" *ngIf="prop.category.categoryName === 'thickness'">Thickness in mm: <span>{{ selectedMaterial }}</span></p>
-          <p class="card-text" *ngIf="prop.category.categoryName === 'opacity'">Opacity: <span>{{ selectedMaterial }}</span></p>
-          <p class="card-text" *ngIf="prop.category.id === '20'">Drape-Coefficient: <span>{{ selectedMaterial }}</span></p>
-          <p class="card-text">Commercial Fabric Name: <span>{{ selectedMaterial }}</span></p>
-          <p class="card-text">Elasticity: <span>{{ selectedMaterial }}</span></p>
-          -->
+          <p>Material Composition: <span>{{ properties.category.categoryName }}</span></p>
+              <!--    <p class="card-text"  *ngIf="childCategory.id === '17'">Product Group: <span>{{childCategory.categoryName}}</span></p>
+
+                  <p class="card-text" *ngIf="prop.category.id === '5'">Weight/m2: <span>{{ selectedMaterial}}</span></p>
+                  <p class="card-text" *ngIf="prop.category.id === '22'">Surface Look: <span>{{ selectedMaterial }}</span></p>
+                  <p class="card-text" *ngIf="prop.category.categoryName === 'thickness'">Thickness in mm: <span>{{ selectedMaterial }}</span></p>
+                  <p class="card-text" *ngIf="prop.category.categoryName === 'opacity'">Opacity: <span>{{ selectedMaterial }}</span></p>
+                  <p class="card-text" *ngIf="prop.category.id === '20'">Drape-Coefficient: <span>{{ selectedMaterial }}</span></p>
+                  <p class="card-text">Commercial Fabric Name: <span>{{ selectedMaterial }}</span></p>
+                  <p class="card-text">Elasticity: <span>{{ selectedMaterial }}</span></p>
+                  -->
           <div id="accordion">
             <div class="card">
               <div class="card-header" id="headingOne">

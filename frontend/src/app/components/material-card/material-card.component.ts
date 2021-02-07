@@ -16,7 +16,7 @@ export class MaterialCardComponent implements OnInit {
  // imagesForSelectedMaterial: Image;
  // mainCategoryForSelectedMaterial: Category[];
  // childCategoryForSelectedMaterial: Category[];
-  categoryTree: Category[];
+  categoryTree: Material;
 
   constructor(private route: ActivatedRoute, private sS: MaterialService, private categoryService: CategoriesServices) { }
 
@@ -24,6 +24,7 @@ export class MaterialCardComponent implements OnInit {
     this.selectedId = String(this.route.snapshot.paramMap.get('id'));
     this.readOneMaterial(this.selectedId);
     this.readCategoryTree(this.selectedMaterial.id);
+    this.readCategoryTree(this.selectedId);
   }
 
   readOneMaterial(id: string): void {
@@ -44,10 +45,8 @@ export class MaterialCardComponent implements OnInit {
   */
   readCategoryTree(id: string){
     this.sS.getCategoryTreeById(id).subscribe(
-      data => {
-        this.categoryTree = data;
-      });
-    console.log("hier catgeroyTree: " + this.categoryTree);
+      (response: Material) => this.categoryTree = response);
+    console.log("hier catgeroyTree: " + this.categoryTree.id);
   }
   readOneImage(id: string){
   //  this.imagesService.getImageById(id); // hier folgt noch das object image
