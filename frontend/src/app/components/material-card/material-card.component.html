@@ -1,13 +1,18 @@
 <div class="container">
   <h1>Hallo wir testen ob Materialdaten funktionieren</h1>
-  <ng-container *ngFor="let consis of selectedMaterial.consistsOf">
-    <ng-container *ngFor="let childCategory of consis.category">
-      <p>hier kommt materialname: {{selectedMaterial.name}}</p>
-      <p>hier kommt childcategory: {{ childCategory}}</p>
-
-    </ng-container>
-  </ng-container>
 </div>
+
+<ul>
+  <ng-template #recursiveList let-list>
+    <li *ngFor="let item of list">
+      {{item.title}}
+      <ul *ngIf="item.children.length > 0">
+        <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
+      </ul>
+    </li>
+  </ng-template>
+  <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: list }"></ng-container>
+</ul>
 
 
 <div class="container d-flex flex-column sticky-footer-wrapper min-vh-100">

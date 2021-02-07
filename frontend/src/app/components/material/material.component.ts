@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {IMultiSelectSettings, IMultiSelectTexts, IMultiSelectOption} from 'angular-2-dropdown-multiselect';
 
 import {Options} from '@angular-slider/ngx-slider';
-import {CategoriesServices} from '../../services';
+import {CategoriesServices, MaterialService} from '../../services';
 import {Category} from '../../models/category';
-import {BsDropdownConfig} from "ngx-bootstrap/dropdown";
+import {BsDropdownConfig} from 'ngx-bootstrap/dropdown';
+import {Material} from '../../models';
 
 // https://github.com/angular-slider/ngx-slider
 
@@ -13,7 +13,7 @@ import {BsDropdownConfig} from "ngx-bootstrap/dropdown";
   templateUrl: './material.component.html',
   styleUrls: ['./material.component.css'],
   encapsulation: ViewEncapsulation.None,
-  providers: [{ provide: BsDropdownConfig, useValue: { autoClose: false } }],
+  providers: [{provide: BsDropdownConfig, useValue: {autoClose: false}}],
   styles: [`
     .card.disabled {
       opacity: 0.5;
@@ -32,15 +32,26 @@ export class MaterialComponent implements OnInit {
     ceil: 100
   };
 
-  constructor(private categoriesServices: CategoriesServices) {
+  filters = {};
+  limit = 12;
+  offset = 0;
+  materials: Material[] = [];
+  total: any;
+
+  constructor(private categoriesServices: CategoriesServices,
+              private materialService: MaterialService) {
   }
 
   ngOnInit(): void {
+    this.getMaterials();
+    this.getCategories();
+  }
+
+  getCategories() {
     this.categoriesServices.getMainCategories().subscribe(
       data => {
         this.mainCategories = data;
         this.mainCategories.forEach((element, index, array) => {
-
           this.categoriesServices.getChildCategories(element.id).subscribe(
             childern => {
               element.children = childern;
@@ -55,7 +66,6 @@ export class MaterialComponent implements OnInit {
             });
           if (index === (array.length - 1)) {
             this.categoriesAreFetched = true;
-            console.log( this.mainCategories);
           }
         });
       },
@@ -65,15 +75,43 @@ export class MaterialComponent implements OnInit {
   }
 
   getMaterials() {
+    const params = {
+      limit: this.limit,
+      offset: this.offset,
+      filters: this.filters
+    };
+    console.log('filters', this.filters);
 
+    this.materialService.getAll(params).subscribe(
+      response => {
+        const {materials, total} = response;
+        this.materials = materials;
+        this.total = total;
+        this.materials = [];
+        console.log('materials',  response);
+      }, error => {
+        console.log('error', error);
+      });
   }
 
   select(category: Category) {
     category.selected = !category.selected;
+    if (category.selected) {
+      this.filters[category.id] = null;
+    } else if (!category.selected) {
+      delete this.filters[category.id];
+    }
+    this.getMaterials();
   }
 
-  setValues(item: Category) {
-    console.log('item min degree  changed', item.minDegree);
-    console.log('item max degree  changed', item.maxDegree);
+  setValues(category: Category) {
+    this.filters[category.id] = [category.minDegree, category.maxDegree];
+    this.getMaterials();
   }
+
+  handlePageChange(event) {
+    this.offset = event;
+    this.getMaterials();
+  }
+
 }

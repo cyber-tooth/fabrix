@@ -6,7 +6,6 @@ const router = express.Router();
 
 // Material Routes
 router.get('/', materialController.getAll);
-router.get('/filter', materialController.filterMaterials);
 router.get('/:id', materialController.getById);
 router.get('/:id/category_tree', materialController.getCategoryTreeById);
 router.post('/',  materialController.create); //authorize(Role.admin, Role.superAdmin),

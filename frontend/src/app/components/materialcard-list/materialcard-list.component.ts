@@ -12,12 +12,12 @@ export class MaterialcardListComponent implements OnInit {
   constructor(private mS: MaterialService) { }
 
   ngOnInit(): void {
-    this.getMaterials();
+  // this.getMaterials();
   }
 
-  getMaterials() {
+ /* getMaterials() {
     this.mS.getAll().subscribe(u => {
       this.materials = u as Material[];
     });
-  }
+  }*/
 }
