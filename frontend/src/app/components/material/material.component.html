@@ -50,9 +50,26 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-12 col-md-10 col-lg-10">
-      <app-materialcard-list></app-materialcard-list>
+    <div class="col-sm-12 col-md-10 col-lg-10"
+         *ngFor="let material of materials | paginate:{itemsPerPage: limit,currentPage: offset,totalItems: total}; let i=index">
+      <div class="card-deck" routerLink="/materialCard/:${material.id}">
+        <div class="card w-20">
+          <img class="card-img-top" src="{{ material }}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title"> {{material.name}} titel</h5>
+            <p class="card-text"><small class="text-muted"></small></p>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="row mt-2 justify-content-between align-items-center">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      responsive="true"
+      (pageChange)="handlePageChange($event)"
+    ></pagination-controls>
   </div>
 </div>
 

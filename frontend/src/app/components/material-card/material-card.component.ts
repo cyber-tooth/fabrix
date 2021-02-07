@@ -18,37 +18,104 @@ export class MaterialCardComponent implements OnInit {
  // childCategoryForSelectedMaterial: Category[];
   categoryTree: Material;
 
-  constructor(private route: ActivatedRoute, private sS: MaterialService, private categoryService: CategoriesServices) { }
+  // its just list data from here down
+  public list = [
+    {
+      title: 'childless',
+      children: []
+    },
+    {
+      title: 'great grandparent',
+      children: [
+        {
+          title: 'childless grandsibiling',
+          children: []
+        },
+        {
+          title: 'grandparent',
+          children: [
+            {
+              title: 'childless sibiling',
+              children: []
+            },
+            {
+              title: 'another childless sibiling',
+              children: []
+            },
+            {
+              title: 'parent',
+              children: [
+                {
+                  title: 'child',
+                  children: []
+                },
+                {
+                  title: 'another child',
+                  children: []
+                },
+              ]
+            },
+            {
+              title: 'another parent',
+              children: [
+                {
+                  title: 'child',
+                  children: []
+                },
+              ]
+            },
+          ]
+        },
+        {
+          title: 'another grandparent',
+          children: [
+            {
+              title: 'parent',
+              children: [
+                {
+                  title: 'child',
+                  children: []
+                },
+                {
+                  title: 'another child',
+                  children: []
+                },
+                {
+                  title: 'a third child',
+                  children: []
+                },
+                {
+                  title: 'teen mother',
+                  children: [
+                    {
+                      title: 'accident',
+                      children: []
+                    },
+                  ]
+                },
+              ]
+            },
+          ]
+        },
+      ]
+    },
+  ];
+
+  constructor(private route: ActivatedRoute, private materialService: MaterialService, private categoryService: CategoriesServices) { }
 
   ngOnInit(): void {
     this.selectedId = String(this.route.snapshot.paramMap.get('id'));
     this.readOneMaterial(this.selectedId);
-    this.readCategoryTree(this.selectedMaterial.id);
-    this.readCategoryTree(this.selectedId);
   }
 
   readOneMaterial(id: string): void {
-    this.sS.getDataById(id).subscribe(
-      (response: Material) => this.selectedMaterial = response,
+    this.materialService.getDataById(id).subscribe(
+      material => {
+        console.log("-> readOneMaterial --> material", material);
+        this.selectedMaterial = material;
+      },
       error => console.log(error)
     );
     console.log("hier das material: "+ this.selectedMaterial);
-  }
-  /*
-  readMainCategories(id: string){
-    this.categoryService.getMainCategories().subscribe(
-      data => {
-        this.mainCategoryForSelectedMaterial = data;
-      });
-    console.log("hier mainCategory: "+ this.mainCategoryForSelectedMaterial);
-  }
-  */
-  readCategoryTree(id: string){
-    this.sS.getCategoryTreeById(id).subscribe(
-      (response: Material) => this.categoryTree = response);
-    console.log("hier catgeroyTree: " + this.categoryTree.id);
-  }
-  readOneImage(id: string){
-  //  this.imagesService.getImageById(id); // hier folgt noch das object image
   }
 }

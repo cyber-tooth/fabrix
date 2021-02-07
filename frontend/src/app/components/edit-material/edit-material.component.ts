@@ -55,7 +55,7 @@ export class EditMaterialComponent implements OnInit {
     this.getMaterialData();
   }
   getMaterialData(): void {
-    this.materialService.getAll().subscribe((res) => {
+    this.materialService.getAll({}).subscribe((res) => {
       this.materialList = res as Material[];
       // TODO this line should be deleted just for debugging
        console.log(this.materialList);
@@ -97,7 +97,7 @@ export class EditMaterialComponent implements OnInit {
     });
   }
   private setMaterials(): void {
-    this.materialService.getAll().subscribe(m => {
+    this.materialService.getAll({}).subscribe(m => {
       this.materialList = m;
     });
   }

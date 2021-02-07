@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {map} from "rxjs/operators";
 import {Material} from "../models";
@@ -11,8 +11,13 @@ export class MaterialService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(): any {
-    return this.http.get<any>(`${environment.apiUrl}/v1/material`).pipe(map(response => response));
+  getAll(params): any {
+
+    const options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      params: new HttpParams().set('offset', params.offset).set('limit', params.limit)
+    };
+    return this.http.get<any>(`${environment.apiUrl}/v1/material?filters=${JSON.stringify(params.filters)}`, options).pipe(map(response => response));
   }
 
   create(material: Material): any {
@@ -22,9 +27,11 @@ export class MaterialService {
   delete(id: string): any {
     return this.http.delete(`${environment.apiUrl}/v1/material/` + id).pipe(map(response => response));
   }
+
   getDataById(id: string): any {
-    return this.http.get(`${environment.apiUrl}/v1/material/` + id).pipe(map(response => response));
+    return this.http.get(`${environment.apiUrl}/v1/material/` + id + '/category_tree').pipe(map(response => response));
   }
+
   getCategoryTreeById(id): any {
     return this.http.get<any>(`${environment.apiUrl}/v1/material/` + id).pipe(map(response => response));
   }

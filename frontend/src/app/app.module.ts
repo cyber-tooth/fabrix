@@ -48,7 +48,7 @@ import { FilterCardComponent } from './components/filter-card/filter-card.compon
 import { RoleDropdownComponent } from './components/role-dropdown/role-dropdown.component';
 import { SearchPipe} from './components/search.pipe';
 import { CreateCategoryModalComponent } from './components/create-category-modal/create-category-modal.component';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
@@ -95,6 +95,7 @@ export function tokenGetter() {
     HttpClientModule,
     NgxBootstrapSliderModule,
     NgxSliderModule,
+    NgxPaginationModule,
     JwtModule.forRoot({
       config: {
         tokenGetter,
