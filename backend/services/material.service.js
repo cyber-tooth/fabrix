@@ -1,5 +1,4 @@
 const db = require('../helpers/db.js');
-const {where} = require("sequelize");
 const { Op, Sequelize } = require('sequelize');
 
 module.exports = {
@@ -7,7 +6,6 @@ module.exports = {
     getById,
     update,
     delete: _delete,
-    getMaterial,
     create,
     getCategoryTreeById,
     filterMaterials
@@ -15,8 +13,9 @@ module.exports = {
 
 //should be used for the list of materials page we will get the infos based on basicDetails,
 // which is id, names, end categories and images
+//wird nicht verwendet für controller
 async function getAll() {
-    const material = await db.Material.findAll();
+    const material = await db.Material.findAll( );
     //console.log("material", material);
     //return material.map(x => basicDetails(x));
     const data = Promise.all(material.map(x => basicDetails(x)));
@@ -260,7 +259,7 @@ where
     c2.category_id = [weight] and c2.degree = [weight_degree]
     c3.category_id = [elasticity] and c3.degree = [elasticity_degree]
 ;
-    // execute the query and return m   aterials
+    // execute the query and return materials
     return db.querySomething(query);
 }
 **/

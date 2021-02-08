@@ -305,30 +305,30 @@ async function sendPasswordResetEmail(user, origin) {
     if (origin) {
         const resetUrl = `${origin}/reset-password/${user.resetToken}`;
         message = `<p>Hi ${user.firstName},</p>
-                    <p>You recently requested to reset your password for your Filfab account. Click the button below to reset it. </p>
+                    <p>You recently requested to reset your password for your Filfabs account. Click the button below to reset it. </p>
                    <p style="text-align: center">
                    <form action="${resetUrl}">
                         <input style="height: 20px" type="submit" value="Reset Password" />
                    </form>
                    <p>If you did not requested a password reset, please ignore this email. This email is only valid for the next 24 hours.</p>
                    <p>Thanks,</p>
-                   <p>Your Filfab Team</p>`;
+                   <p>Your Filfabs Team</p>`;
     } else {
         const resetUrl = `http://localhost:4200/reset-password/${user.resetToken}`;
         message = `<p>Hi ${user.firstName},</p>
-                    <p>You recently requested to reset your password for your Filfab account. Click the button below to reset it. </p>
+                    <p>You recently requested to reset your password for your Filfabs account. Click the button below to reset it. </p>
                    <p style="text-align: center">
                    <form action="${resetUrl}">
                         <input style="height: 20px" type="submit" value="Reset Password" />
                    </form>
                    <p>If you did not requested a password reset, please ignore this email. This email is only valid for the next 24 hours.</p>
                    <p>Thanks,</p>
-                   <p>Your Filfab Team</p>`;
+                   <p>Your Filfabs Team</p>`;
     }
 
     await sendEmail({
         to: user.email,
-        subject: 'Sign-up Verification API - Reset Password',
+        subject: 'Reset Password',
         html: `<h4>Reset Password Email</h4>
                ${message}`
     });

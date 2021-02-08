@@ -6,6 +6,7 @@ export class Material {
   name: string;
   // tslint:disable-next-line:variable-name
   created_by: string;
+  createdAt: string;
   consistsOf: [
     {
       category: Category,
