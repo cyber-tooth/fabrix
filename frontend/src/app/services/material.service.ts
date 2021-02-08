@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {map} from "rxjs/operators";
-import {Material} from "../models";
+import {map} from 'rxjs/operators';
+import {Material} from '../models';
 
 
 @Injectable()
@@ -15,7 +15,7 @@ export class MaterialService {
 
     const options = {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      params: new HttpParams().set('offset', params.offset).set('limit', params.limit)
+      params: new HttpParams().set('offset', params.offset).set('limit', params.limit).set('count', params.count)
     };
     return this.http.get<any>(`${environment.apiUrl}/v1/material?filters=${JSON.stringify(params.filters)}`, options).pipe(map(response => response));
   }

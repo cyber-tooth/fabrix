@@ -4,27 +4,14 @@ import {Image} from './image';
 export class Material {
   id: string;
   name: string;
-  // tslint:disable-next-line:variable-name
-  created_by: string;
-  createdAt: string;
-  consistsOf: [
-    {
-      category: Category,
-      degree: number
-    }];
-  images: [
-    {
-      url: string;
-      name: string;
-    }
-  ];
+  createdBy: string;
+  images: Array<Image>;
+  childern: Array<Category>;
 
-  // tslint:disable-next-line:variable-name
-  constructor(id: string, name: string, created_by: string, consistsOf: [{category: Category, degree: number}], images: [{url: string, name: string}]) {
+  constructor(id: string, name: string, createdBy: string, consistsOf: [{category: Category, degree: number}], images: Image []) {
     this.id = id;
     this.name = name;
-    this.created_by = created_by;
-    this.consistsOf = consistsOf;
+    this.createdBy = createdBy;
     this.images = images;
   }
 }

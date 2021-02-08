@@ -14,7 +14,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let material of materialList | slice: (page-1) * pageSize : page * pageSize">
+      <tr *ngFor="let material of materialList | paginate:{itemsPerPage: limit,currentPage: offset,totalItems: count}; let i=index">
         <th scope="row">{{material.id}}</th>
         <td>{{material.name}}</td>
         <td>{{material.materialComposition}}</td>
@@ -24,17 +24,21 @@
         <td>{{material.thickness}}</td>
         <td>{{material.commercialFabricName}}</td>
         <td>
-          <button class="btn btn-outline btn-sm" *ngIf="hasAccess(['admin'] && AdminAdded(material))" (click)="open(content, material.id)"><fa-icon [icon]="faUserMinusIcon"></fa-icon></button>
+          <button class="btn btn-outline btn-sm" *ngIf="hasAccess(['admin'] && adminAdded(material))" (click)="open(content, material.id)"><fa-icon [icon]="faUserMinusIcon"></fa-icon></button>
           <button class="btn btn-outline btn-sm" *ngIf="hasAccess(['superAdmin'])" (click)="open(content, material.id)"><fa-icon [icon]="faUserMinusIcon"></fa-icon></button>
         </td>
       </tr>
     </tbody>
   </table>
     <h6><small>List of Materials</small></h6>
-  <ngb-pagination class="d-flex justify-content-end"
-                  [(page)]="page"
-                  [pageSize]="pageSize"
-                  [collectionSize]="materialList.length"></ngb-pagination>
+    <div class="row mt-2 justify-content-between align-items-center">
+      <pagination-controls
+        previousLabel="Prev"
+        nextLabel="Next"
+        responsive="true"
+        (pageChange)="handlePageChange($event)"
+      ></pagination-controls>
+    </div>
 </div>
 
 
@@ -63,8 +67,6 @@
             <input id="inpFN" class="form-control" formControlName="firstNameControl" value="{{ selectedMaterial?.name }}" readonly>
           </div>
         </div>
-
-
       </form>
     </div>
     <div class="modal-footer">

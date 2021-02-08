@@ -3,9 +3,9 @@ import {AuthorisationService, MaterialService} from '../../services';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Material, User} from '../../models';
 import {faChevronCircleLeft, faPlus, faUserMinus} from '@fortawesome/free-solid-svg-icons';
-import {Router} from "@angular/router";
-import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
-import {HttpErrorResponse} from "@angular/common/http";
+import {Router} from '@angular/router';
+import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
+import {HttpErrorResponse} from '@angular/common/http';
 import RoleEnum = User.RoleEnum;
 
 @Component({
@@ -26,9 +26,9 @@ export class EditMaterialComponent implements OnInit {
   materialFormSubmitAttempt: boolean;
 
   headElements = ['Id', 'name', 'material composition', 'product group', 'weight', 'surface look', 'thickness', 'commercial fabric name', 'Actions'];
-
-  public page = 1;
-  public pageSize = 10;
+  limit = 12;
+  offset = 1;
+  count = 0;
 
   closeResult = '';
   error: HttpErrorResponse;
@@ -51,20 +51,29 @@ export class EditMaterialComponent implements OnInit {
       }
     );
   }
+
+
   ngOnInit(): void {
     this.getMaterialData();
   }
+
   getMaterialData(): void {
-    this.materialService.getAll({}).subscribe((res) => {
-      this.materialList = res as Material[];
-      // TODO this line should be deleted just for debugging
-       console.log(this.materialList);
+    const params = {
+      limit: this.limit,
+      offset: this.offset,
+      count: this.count,
+      filters: {}
+    };
+    this.materialService.getAll(params).subscribe((res) => {
+      this.materialList = res.rows as Material[];
+      this.count = res.count;
     });
   }
-  hasAccess(roles)
-  {
+
+  hasAccess(roles) {
     return this.authorisationService.hasAccess(roles);
   }
+
   // hier noch material.name nach hinzugefügte person ändern..
   adminAdded(material: Material): boolean {
     if (material.created_by === 'RoleEnum.admin')
@@ -72,19 +81,23 @@ export class EditMaterialComponent implements OnInit {
       return true;
     }
   }
+
   addMaterial(material: Material) {
     this.materialService.create(material).subscribe(u => this.setMaterials());
   }
+
   readOne(id: string): void {
     this.materialService.getDataById(id).subscribe(
       (response: Material) => this.selectedMaterial = response,
       error => this.error = error,
     );
   }
+
   deleteOne(id: string): void {
     this.materialService.delete(id);
     window.location.reload();
   }
+
   open(content, id: string): void {
     this.readOne(id);
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -96,6 +109,15 @@ export class EditMaterialComponent implements OnInit {
       }
     });
   }
+
+  handlePageChange(event) {
+    this.offset = event;
+    if ( this.offset === 1){
+      this.count = 0;
+    }
+    this.getMaterialData();
+  }
+
   private setMaterials(): void {
     this.materialService.getAll({}).subscribe(m => {
       this.materialList = m;
