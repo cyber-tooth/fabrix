@@ -31,7 +31,8 @@
                            {{item.categoryName}}
                         </labe>
                        <div class="p-2">
-                         <ngx-slider [(value)]="item.minDegree" [(highValue)]="item.maxDegree" (valueChange)="setValues(item)"
+                         <ngx-slider [(value)]="item.minDegree" [(highValue)]="item.maxDegree"
+                                     (valueChange)="setValues(item)"
                                      [options]="Weightoptions"></ngx-slider>
                        </div>
                      </ng-template>
@@ -45,25 +46,14 @@
                       </span>
                     </div>
           </ng-template>
-              <ng-container *ngTemplateOutlet="recursiveList; context: { $implicit: mainCategory.children }"></ng-container>
+              <ng-container
+                *ngTemplateOutlet="recursiveList; context: { $implicit: mainCategory.children }"></ng-container>
           </span>
         </div>
       </div>
     </div>
-    <div class="col-md-10">
-      <div class="row">
-        <div class="col-lg-3 col-md-4 mb-3" *ngFor="let material of materials | paginate:{itemsPerPage: limit,currentPage: offset,totalItems: count}; let i=index">
-            <div class="card" (click)="openModal(template, material)" style="cursor: pointer">
-            <img *ngIf="material.images[0]" class="card-img-top" [src]="api+material.images[0].url" alt="Card image cap">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">{{material.name}}</h5>
-              <p class="card-text"></p>
-              <p class="card-text"><small class="text-muted">Last updated {{material.updatedAt | date}}</small></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <ng-container *ngTemplateOutlet="materials.length>0 ? materialsExists : noMaterials;">
+    </ng-container>
   </div>
   <div class="row mt-2 justify-content-between align-items-center">
     <pagination-controls
@@ -85,7 +75,8 @@
   <div class="modal-body">
     <div class="row">
       <div class="col-md-6 border-right">
-        <div id="carouselExampleIndicators" *ngFor="let im of selectedMaterial.images; let i=index; let lastCall=last" class="carousel slide my-4" data-ride="carousel">
+        <div id="carouselExampleIndicators" *ngFor="let im of selectedMaterial.images; let i=index; let lastCall=last"
+             class="carousel slide my-4" data-ride="carousel">
           <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="{{i}}" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to=""></li>
@@ -122,5 +113,27 @@
   </div>
 </ng-template>
 
+<ng-template #materialsExists>
+  <div class="col-md-10">
+    <div class="row">
+      <div class="col-lg-3 col-md-4 mb-3"
+           *ngFor="let material of materials | paginate:{itemsPerPage: limit,currentPage: offset,totalItems: count}; let i=index">
+        <div class="card" (click)="openModal(template, material)" style="cursor: pointer">
+          <img *ngIf="material.images[0]" class="card-img-top" [src]="api+material.images[0].url" alt="Card image cap">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{material.name}}</h5>
+            <p class="card-text"></p>
+            <p class="card-text"><small class="text-muted">Last updated {{material.updatedAt | date}}</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
 
+<ng-template #noMaterials class="text-center">
+  <div class="col-md-10 text-center justify-content-center">
+      <h3>No Results found</h3>
+    </div>
+</ng-template>
 
