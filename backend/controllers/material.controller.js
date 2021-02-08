@@ -1,15 +1,39 @@
 const materialService = require("../services/material.service");
+const db = require("../helpers/db");
+
+const getPagination = (page, size) => {
+    const limit = size ? +size : 10;
+    const offset = page ? page * limit : 0;
+
+    return { limit, offset };
+};
+
+const getPagingData = (data, page, limit) => {
+    const { count: totalItems, rows: materials} = data;
+    const currentPage = page ? +page : 0;
+    const totalPages = Math.ceil(totalItems / limit);
+
+    return { totalItems, materials, totalPages, currentPage };
+};
 
 exports.getAll = function (req, res, next) {
-    materialService.getAll()
-        .then(material => res.json(material))
+    const { page, size, title } = req.query;
+    var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+
+    const { limit, offset } = getPagination(page, size);
+
+    db.Material.findAndCountAll({ where: condition, limit, offset })
+        .then(material => {
+            const response = getPagingData(material, page, limit);
+            res.send(response);
+        })
         .catch(next => {
-            console.log("error", next)
-            return res.status(400).json({
-                error: next
-            })
+                return res.status(400).send({
+                    error: next
+                })
         });
-};
+
+}
 
 exports.getById = function (req, res, next) {
     materialService.getById(req.params.id)

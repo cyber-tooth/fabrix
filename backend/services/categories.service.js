@@ -3,11 +3,18 @@ const { Op } = require('sequelize');
 
 module.exports = {
     getMainCategories,
-    getChildCategories
+    getChildCategories,
+    getMainAndSubCategories
 };
 
 async function getMainCategories() {
     const category = await db.Category.findAll( { where: { parent_category : null } });
+    return category.map(x => basicDetails(x));
+}
+
+async function getMainAndSubCategories() {
+    const category = await db.Category.findAll( { where: { category_name : ['Main Categories', 'Sub-categories']}});
+
     return category.map(x => basicDetails(x));
 }
 
