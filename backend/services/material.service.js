@@ -172,8 +172,6 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
 // Return all materials
 // function input: filters = { catId: degree, catId: degree } eg { "3": null, "8": 2 }
 async function filterMaterials(filters, limit = 10, offset = 0) { //Limit is how many to return and offset is how many to skip
-
-
     const wheres = [];
 
     for( const catId in filters) {

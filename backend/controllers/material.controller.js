@@ -16,7 +16,8 @@ const getPagingData = (data, page, limit) => {
     return { totalItems, materials, totalPages, currentPage };
 };
 
-exports.getAll = function (req, res, next) {
+// TODO FROM LAURA
+/*exports.getAll = function (req, res, next) {
     const { page, size, title } = req.query;
     var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
@@ -28,12 +29,33 @@ exports.getAll = function (req, res, next) {
             res.send(response);
         })
         .catch(next => {
-                return res.status(400).send({
-                    error: next
-                })
+            return res.status(400).send({
+                error: next
+            })
         });
 
-}
+}*/
+// whatever filters are sent, they are OR => returns materials that satisfy any of the filters
+// send the filters like {“8”: [60, 80], “7": null} you can send the degrees in an array and null for no degree
+exports.getAll = function (req, res, next) {//function input: filters = { catId: degree, catId: degree }
+    const limit = parseInt(req.query.limit); //convert from string to int
+    const offset = parseInt(req.query.offset);
+    let filters ={}
+    if (req.query.filters) {
+        filters = req.query.filters;
+        filters = JSON.parse(filters);
+    }
+    //console.log('type of filters', typeof filters);
+    materialService.filterMaterials(filters, limit, offset)
+        //sequilize.query({type: sequelize.QueryTypes.SELECT})
+        .then(materials => materials ? res.json(materials) : res.sendStatus(404))
+        .catch(next => {
+            console.log('next', next);
+            return res.status(400).json({
+                error: next
+            })
+        });
+};
 
 exports.getById = function (req, res, next) {
     materialService.getById(req.params.id)
