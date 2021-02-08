@@ -1,60 +1,59 @@
 const materialService = require("../services/material.service");
 const db = require("../helpers/db");
 
-const getPagination = (page, size) => {
-    const limit = size ? +size : 10;
-    const offset = page ? page * limit : 0;
-
-    return { limit, offset };
-};
-
-const getPagingData = (data, page, limit) => {
-    const { count: totalItems, rows: materials} = data;
-    const currentPage = page ? +page : 0;
-    const totalPages = Math.ceil(totalItems / limit);
-
-    return { totalItems, materials, totalPages, currentPage };
-};
-
-// TODO FROM LAURA
-/*exports.getAll = function (req, res, next) {
-    const { page, size, title } = req.query;
-    var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
-
-    const { limit, offset } = getPagination(page, size);
-
-    db.Material.findAndCountAll({ where: condition, limit, offset })
-        .then(material => {
-            const response = getPagingData(material, page, limit);
-            res.send(response);
-        })
-        .catch(next => {
-            return res.status(400).send({
-                error: next
-            })
-        });
-
-}*/
 // whatever filters are sent, they are OR => returns materials that satisfy any of the filters
 // send the filters like {“8”: [60, 80], “7": null} you can send the degrees in an array and null for no degree
 exports.getAll = function (req, res, next) {//function input: filters = { catId: degree, catId: degree }
+
     const limit = parseInt(req.query.limit); //convert from string to int
-    const offset = parseInt(req.query.offset);
-    let filters ={}
-    if (req.query.filters) {
+    let offset = parseInt(req.query.offset) - 1
+
+    //TODO LAURA Math.floo 2.9 --> 3
+    if (req.query.count && req.query.count != 0 && offset < Math.floor(req.query.count / limit) + 1) {
+        offset = Math.floor(offset * limit) - 1
+    }
+
+    let filters = {}
+    if (req.query.filters && Object.entries(req.query.filters).length > 2) {
         filters = req.query.filters;
         filters = JSON.parse(filters);
-    }
-    //console.log('type of filters', typeof filters);
-    materialService.filterMaterials(filters, limit, offset)
-        //sequilize.query({type: sequelize.QueryTypes.SELECT})
-        .then(materials => materials ? res.json(materials) : res.sendStatus(404))
-        .catch(next => {
-            console.log('next', next);
-            return res.status(400).json({
-                error: next
+        //console.log('type of filters', typeof filters);
+        materialService.filterMaterials(filters, limit, offset)
+            //sequilize.query({type: sequelize.QueryTypes.SELECT})
+            .then(data => {
+                if (!data) {
+                    res.sendStatus(404);
+                }
+                //TODO LAURA Math.floo 2.9 --> 3
+                data.pages = Math.floor(data.count / limit) + 1;
+                res.send(data);
             })
-        });
+            .catch(next => {
+                console.log('next', next);
+                return res.status(400).json({
+                    error: next
+                })
+            });
+    } else {
+        db.Material.findAndCountAll({
+            include: [{
+                model: db.Image,
+            }],
+            limit,
+            offset
+        })
+            .then(data => {
+                //TODO LAURA Math.floo 2.9 --> 3
+                data.pages = Math.floor(data.count / limit) + 1;
+                res.send(data);
+            })
+            .catch(next => {
+                return res.status(400).send({
+                    error: next
+                })
+            });
+    }
+
 };
 
 exports.getById = function (req, res, next) {
@@ -104,6 +103,8 @@ exports.create = function (req, res, next) {
         });
 };
 
+//TODO LAURA Childern should be given as Array, Frontend cannot visualise the childern as Object
+// see example of List of childern https://gist.github.com/arniebradfo/5cf89c362cc216df6fc1d9ca4d536b72
 exports.getCategoryTreeById = function (req, res, next) {
     materialService.getCategoryTreeById(req.params.id)
         .then(categories => categories ? res.json(categories) : res.sendStatus(404))

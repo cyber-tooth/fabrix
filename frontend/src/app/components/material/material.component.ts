@@ -1,10 +1,12 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewEncapsulation} from '@angular/core';
 
 import {Options} from '@angular-slider/ngx-slider';
 import {CategoriesServices, MaterialService} from '../../services';
 import {Category} from '../../models/category';
 import {BsDropdownConfig} from 'ngx-bootstrap/dropdown';
 import {Material} from '../../models';
+import {appConfig} from '../../app.config';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 
 // https://github.com/angular-slider/ngx-slider
 
@@ -21,9 +23,89 @@ import {Material} from '../../models';
   `]
 })
 export class MaterialComponent implements OnInit {
+  public list = [
+    {
+      title: 'childless',
+      children: []
+    },
+    {
+      title: 'great grandparent',
+      children: [
+        {
+          title: 'childless grandsibiling',
+          children: []
+        },
+        {
+          title: 'grandparent',
+          children: [
+            {
+              title: 'childless sibiling',
+              children: []
+            },
+            {
+              title: 'another childless sibiling',
+              children: []
+            },
+            {
+              title: 'parent',
+              children: [
+                {
+                  title: 'child',
+                  children: []
+                },
+                {
+                  title: 'another child',
+                  children: []
+                },
+              ]
+            },
+            {
+              title: 'another parent',
+              children: [
+                {
+                  title: 'child',
+                  children: []
+                },
+              ]
+            },
+          ]
+        },
+        {
+          title: 'another grandparent',
+          children: [
+            {
+              title: 'parent',
+              children: [
+                {
+                  title: 'child',
+                  children: []
+                },
+                {
+                  title: 'another child',
+                  children: []
+                },
+                {
+                  title: 'a third child',
+                  children: []
+                },
+                {
+                  title: 'teen mother',
+                  children: [
+                    {
+                      title: 'accident',
+                      children: []
+                    },
+                  ]
+                },
+              ]
+            },
+          ]
+        },
+      ]
+    },
+  ];
 
-  public mainCategories: Category[] = [];
-
+  mainCategories: Category[] = [];
   value = 0;
   highValue = 100;
   categoriesAreFetched = false;
@@ -33,12 +115,17 @@ export class MaterialComponent implements OnInit {
   };
 
   filters = {};
+  filtersChanged = false;
   limit = 12;
-  offset = 0;
+  offset = 1;
+  count = 0;
+  total = 0;
   materials: Material[] = [];
-  total: any;
-
+  api = appConfig.apiUrl;
+  modalRef: BsModalRef;
+  selectedMaterial: Material;
   constructor(private categoriesServices: CategoriesServices,
+              private modalService: BsModalService,
               private materialService: MaterialService) {
   }
 
@@ -75,23 +162,36 @@ export class MaterialComponent implements OnInit {
   }
 
   getMaterials() {
+    if (this.filtersChanged){
+      this.count = 0;
+      this.offset = 1;
+    }
     const params = {
       limit: this.limit,
       offset: this.offset,
+      count: this.count,
       filters: this.filters
     };
-    console.log('filters', this.filters);
-
     this.materialService.getAll(params).subscribe(
-      response => {
-        const {materials, total} = response;
-        this.materials = materials;
-        this.total = total;
-        this.materials = [];
-        console.log('materials',  response);
+      data => {
+        console.log("-> data", data);
+        const {rows, count, pages} = data;
+        this.materials = rows;
+        this.count = count;
+        this.total = pages;
+        this.filtersChanged = false;
       }, error => {
-        console.log('error', error);
       });
+  }
+
+  readOneMaterial(material): void {
+    this.selectedMaterial = material;
+    this.materialService.getDataById(material.id).subscribe(
+      childern => {
+        this.selectedMaterial.childern = childern;
+        console.log("-> this.selectedMaterial", this.selectedMaterial);
+      },
+    );
   }
 
   select(category: Category) {
@@ -101,17 +201,36 @@ export class MaterialComponent implements OnInit {
     } else if (!category.selected) {
       delete this.filters[category.id];
     }
+    this.filtersChanged = true;
     this.getMaterials();
+
   }
 
   setValues(category: Category) {
     this.filters[category.id] = [category.minDegree, category.maxDegree];
+    if (category.minDegree === 0 && category.maxDegree === 99 || category.minDegree === 0 && category.maxDegree === 100) {
+      delete this.filters[category.id];
+    }
+    this.filtersChanged = true;
     this.getMaterials();
   }
 
   handlePageChange(event) {
     this.offset = event;
+    if ( this.offset === 1){
+      this.count = 0;
+    }
     this.getMaterials();
   }
 
+  openModal(template: TemplateRef<any>, material) {
+    this.modalRef = this.modalService.show(template, {
+      class: 'modal-xl modal-dialog-centered'
+    });
+    this.readOneMaterial(material);
+  }
+
+  toArray(childern) {
+    return Object.keys(childern).map((key) => childern[key]);
+  }
 }

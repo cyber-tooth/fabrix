@@ -5,19 +5,14 @@ export class Material {
   id: string;
   name: string;
   createdBy: string;
-  consistsOf: [
-    {
-      category: Category,
-      degree: number
-    }];
- // image: Image;
+  images: Array<Image>;
+  childern: Array<Category>;
 
-  constructor(id: string, name: string, createdBy: string, consistsOf: [{category: Category, degree: number}], images: Image) {
+  constructor(id: string, name: string, createdBy: string, consistsOf: [{category: Category, degree: number}], images: Image []) {
     this.id = id;
     this.name = name;
     this.createdBy = createdBy;
-    this.consistsOf = consistsOf;
-  //  this.images = images;
+    this.images = images;
   }
 }
 

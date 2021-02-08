@@ -123,7 +123,6 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
     const categoryTree = {};
     const categories = {};
 
-
     if (!material) {
         return ;
     }
@@ -144,6 +143,7 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
             id: category.id,
             name: category.category_name,
         };
+        console.log("-> category", category);
         if (category.children !== undefined) { // in case there are children of it
             data.children = category.children; // save the children here
         }
@@ -152,7 +152,6 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
         }
         // Add category.id => data to the array categories
         categories[category.id] = data;
-        console.log(category);
         const parent = await category.getCategory();
         if (!parent) { // If category.parent_category is null, add category to categoryTree, return
             categoryTree[category.id] = data;
@@ -172,7 +171,7 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
 
 // Return all materials
 // function input: filters = { catId: degree, catId: degree } eg { "3": null, "8": 2 }
-async function filterMaterials(filters, limit = 10, offset = 0) { //Limit is how many to return and offset is how many to skip
+async function filterMaterials(filters, limit , offset) { //Limit is how many to return and offset is how many to skip
     const wheres = [];
 
     for( const catId in filters) {
@@ -199,7 +198,7 @@ async function filterMaterials(filters, limit = 10, offset = 0) { //Limit is how
     }
 
     // [1,2,3,4] or [{material_id: 1},{material_id: 2},{material_id: 3}]
-    let materialIds = await db.ConsistsOf.findAll({
+    let materialData = await db.ConsistsOf.findAndCountAll({
         where: {
             [Op.or]: wheres
         },
@@ -207,15 +206,15 @@ async function filterMaterials(filters, limit = 10, offset = 0) { //Limit is how
             // specify an array where the first element is the SQL function and the second is the alias
             [Sequelize.fn('DISTINCT', Sequelize.col('material_id')) ,'material_id'],
         ],
-        'limit': limit, // limit is shorthand for 'limit': limit, like offset
+        limit, // limit is shorthand for 'limit': limit, like offset
         offset,
     });
 
+
     // If materialIds are like [{material_id: 1},{material_id: 2},{material_id: 3}] then >
     // change const materialIds to let materialIds
-    materialIds = materialIds.map(material => material.material_id);
+    let materialIds = materialData.rows.map(material => material.material_id);
 
-    console.log('materialIds', materialIds);
     async function getAllEndCategories(category) { //in case FE sends category that is not endcat
         let endCatIds = [];
 
@@ -240,9 +239,10 @@ async function filterMaterials(filters, limit = 10, offset = 0) { //Limit is how
         }
     });
     //console.log('material', materials);
+    let response={};
+    response.count= materialData.count
+    response.rows = await Promise.all(materials.map(x => basicDetails(x)));
 
-    const response = Promise.all(materials.map(x => basicDetails(x)));
-    console.log('response is:', response);
     return response;
 }
 

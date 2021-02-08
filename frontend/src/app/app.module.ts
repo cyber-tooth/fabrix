@@ -49,6 +49,7 @@ import { RoleDropdownComponent } from './components/role-dropdown/role-dropdown.
 import { SearchPipe} from './components/search.pipe';
 import { CreateCategoryModalComponent } from './components/create-category-modal/create-category-modal.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {ModalModule} from "ngx-bootstrap/modal";
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
@@ -109,6 +110,7 @@ export function tokenGetter() {
     BsDropdownModule.forRoot(),
     NgbModule,
     NgbDropdownModule,
+    ModalModule.forRoot(),
     FormsModule
   ],
   providers: [
