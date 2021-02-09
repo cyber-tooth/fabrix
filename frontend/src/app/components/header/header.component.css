@@ -1,11 +1,21 @@
 /*
  * Navbar
  */
+.logo{
+   font-family: Verdana;
+  font-size: 40px;
+  color: black;
+/*  color: rgb(85 149 27);*/
+}
 .nav-link{
   color: darkgrey;
 }
 .navbar-brand {
-
+  position: absolute;
+  left: 50%;
+  margin-left: -50px !important;  /* 50% of your logo width */
+  display: block;
+  margin-top: 15px;
 }
 .navbar-toggler-icon {
   color: darkgrey;
@@ -18,14 +28,16 @@
 .form-control-dark {
   color: #fff;
   background-color: rgba(158, 162, 162, 0.1);
+  margin-top: 2em;
 }
 
 .form-control-dark:focus {
   border-color: transparent;
   box-shadow: 0 0 0 3px rgba(158, 162, 162, .25);
 }
-
 body{
   font-family: Verdana;
 }
-
+@media (device-width: 800px) { /* Breite entspricht genau 800 Pixel */ }
+@media (min-device-width: 800px) { /* Breite beträgt mindestens 800px */ }
+@media (max-device-width: 1024px){}
