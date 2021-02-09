@@ -41,15 +41,11 @@ import { NgxBootstrapSliderModule } from 'ngx-bootstrap-slider';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { AddMaterialComponent } from './components/add-material/add-material.component';
 import {AuthGuardAdmin, AuthGuardUser, AuthGuardSuperAdmin} from './guards';
-import { MaterialcardListComponent } from './components/materialcard-list/materialcard-list.component';
-import { MaterialcardItemComponent } from './components/materialcard-item/materialcard-item.component';
-import { MaterialCardComponent } from './components/material-card/material-card.component';
-import { FilterCardComponent } from './components/filter-card/filter-card.component';
 import { RoleDropdownComponent } from './components/role-dropdown/role-dropdown.component';
 import { SearchPipe} from './components/search.pipe';
 import { CreateCategoryModalComponent } from './components/create-category-modal/create-category-modal.component';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {ModalModule} from "ngx-bootstrap/modal";
+import {ModalModule} from 'ngx-bootstrap/modal';
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
@@ -79,10 +75,6 @@ export function tokenGetter() {
     DatenschutzComponent,
     FaqComponent,
     AddMaterialComponent,
-    MaterialcardItemComponent,
-    MaterialCardComponent,
-    MaterialcardListComponent,
-    FilterCardComponent,
     RoleDropdownComponent,
     SearchPipe,
     CreateCategoryModalComponent,

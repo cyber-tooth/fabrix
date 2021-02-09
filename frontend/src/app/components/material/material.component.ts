@@ -140,8 +140,8 @@ export class MaterialComponent implements OnInit {
         this.mainCategories = data;
         this.mainCategories.forEach((element, index, array) => {
           this.categoriesServices.getChildCategories(element.id).subscribe(
-            childern => {
-              element.children = childern;
+            children => {
+              element.children = children;
               element.children.forEach(item => {
                 if (item.hasDegree) {
                   item.minDegree = 0;
@@ -187,8 +187,8 @@ export class MaterialComponent implements OnInit {
   readOneMaterial(material): void {
     this.selectedMaterial = material;
     this.materialService.getDataById(material.id).subscribe(
-      childern => {
-        this.selectedMaterial.childern = childern;
+      children => {
+        this.selectedMaterial.children = children;
         console.log("-> this.selectedMaterial", this.selectedMaterial);
       },
     );
