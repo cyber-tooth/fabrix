@@ -9,14 +9,14 @@
         </button>
         <div id="dropdown-nested" *dropdownMenu class="dropdown-menu"
              role="menu" aria-labelledby="button-nested">
-          <span *ngIf="mainCategory.children as list ">
+          <span *ngIf="mainCategory.children as list">
               <ng-template #recursiveList let-list>
                 <div role="menuitem" style="min-width: 15rem" dropdown [autoClose]="true" [insideClick]="true"
                      triggers="mouseover" placement="right"
                      container="body" *ngFor="let item of list; let index = index">
                       <div *ngIf="index!=0" class="dropdown-divider"></div>
 
-                      <a *ngIf="item.children.length > 0 else filter" dropdownToggle
+                      <a *ngIf="item.children && item.children.length > 0 else filter" dropdownToggle
                          class="dropdown-item dropdown-toggle"
                          (click)="false"> <span>{{item.categoryName}}</span></a>
                      <ng-template #filter>
@@ -98,15 +98,17 @@
       </div>
       <div class="col-md-6">
         <ul>
-          <ng-template #recursiveList let-list>
+          <span *ngIf="selectedMaterial.children as list">
+            <ng-template #recursiveList let-list>
             <li *ngFor="let item of list">
-              {{item.title}}
-              <ul *ngIf="item.children.length > 0">
+              {{item.name}}
+              <ul *ngIf="item.children && item.children.length > 0">
                 <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
               </ul>
             </li>
           </ng-template>
           <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: list }"></ng-container>
+          </span>
         </ul>
       </div>
     </div>

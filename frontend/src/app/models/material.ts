@@ -6,7 +6,7 @@ export class Material {
   name: string;
   createdBy: string;
   images: Array<Image>;
-  childern: Array<Category>;
+  children: Array<Category>;
 
   constructor(id: string, name: string, createdBy: string, consistsOf: [{category: Category, degree: number}], images: Image []) {
     this.id = id;
