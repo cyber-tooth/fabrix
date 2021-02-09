@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import {HttpErrorResponse} from '@angular/common/http';
 import RoleEnum = User.RoleEnum;
+import {Category} from "../../models/category";
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -66,6 +67,16 @@ export class EditMaterialComponent implements OnInit {
     };
     this.materialService.getAll(params).subscribe((res) => {
       this.materialList = res.rows as Material[];
+      if (this.materialList) {
+        this.materialList.forEach((val, index) => {
+          this.materialService.getDataById(val.id).subscribe(
+            children => {
+              this.materialList[index].children =  children;
+            },
+          );
+        });
+      }
+      console.log("-> this.materialList", this.materialList);
       this.count = res.count;
     });
   }

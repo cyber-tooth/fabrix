@@ -17,11 +17,36 @@
       <tr *ngFor="let material of materialList | paginate:{itemsPerPage: limit,currentPage: offset,totalItems: count}; let i=index">
         <th scope="row">{{material.id}}</th>
         <td>{{material.name}}</td>
-        <td>{{material.materialComposition}}</td>
-        <td>{{material.productGroup}}</td>
-        <td>{{material.weigtht}}</td>
-        <td>{{material.surfaceLook}}</td>
-        <td>{{material.thickness}}</td>
+        <td>
+          <ng-container *ngIf="material.children"
+            [ngTemplateOutlet]="materialComposition"
+            [ngTemplateOutletContext]="{material:material}">
+          </ng-container>
+        </td>
+        <td>
+          <ng-container *ngIf="material.children"
+            [ngTemplateOutlet]="productGroup"
+            [ngTemplateOutletContext]="{material:material}">
+          </ng-container>
+        </td>
+        <td>
+          <ng-container *ngIf="material.children"
+            [ngTemplateOutlet]="weight"
+            [ngTemplateOutletContext]="{material:material}">
+          </ng-container>
+        </td>
+        <td>
+          <ng-container *ngIf="material.children"
+            [ngTemplateOutlet]="surfaceLook"
+            [ngTemplateOutletContext]="{material:material}">
+          </ng-container>
+        </td>
+        <td>
+          <ng-container *ngIf="material.children"
+            [ngTemplateOutlet]="thickness"
+            [ngTemplateOutletContext]="{material:material}">
+          </ng-container>
+        </td>
         <td>{{material.commercialFabricName}}</td>
         <td>
           <button class="btn btn-outline btn-sm" *ngIf="hasAccess(['admin'] && adminAdded(material))" (click)="open(content, material.id)"><fa-icon [icon]="faUserMinusIcon"></fa-icon></button>
@@ -74,3 +99,77 @@
       <button type="button" class="btn btn-primary" (click)="modal.close('delete')">Delete</button>
     </div>
   </ng-template>
+  <ng-template #materialComposition let-material="material">
+    <ul>
+          <span *ngIf="material && material.children &&
+          material.children[0].children[0].children as list">
+            <ng-template #recursiveList let-list>
+              <span *ngIf="list.length > 0">
+                <li *ngFor="let item of list">
+              {{item.name}}
+                  <ul *ngIf="item.children && item.children.length > 0">
+                <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
+              </ul>
+            </li>
+              </span>
+
+          </ng-template>
+          <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: list }"></ng-container>
+          </span>
+    </ul>
+  </ng-template>
+  <ng-template #productGroup let-material="material">
+    <ul>
+          <span *ngIf="material && material.children &&
+          material.children[0].children[1].children as list">
+            <ng-template #recursiveList let-list>
+               <li *ngFor="let item of list">
+              {{item.name}}
+                 <ul *ngIf="item.children && item.children.length > 0">
+                <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
+              </ul>
+            </li>
+          </ng-template>
+          <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: list }"></ng-container>
+          </span>
+    </ul>
+  </ng-template>
+  <ng-template #productGroup let-material="material">
+    <ul>
+          <span *ngIf="material && material.children &&
+          material.children[0].children[1].children as list">
+            <ng-template #recursiveList let-list>
+               <li *ngFor="let item of list">
+              {{item.name}}
+                 <ul *ngIf="item.children && item.children.length > 0">
+                <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
+              </ul>
+            </li>
+          </ng-template>
+          <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: list }"></ng-container>
+          </span>
+    </ul>
+  </ng-template>
+  <ng-template #weight let-material="material">
+    degree: {{ material.children[0].children[2].degree}}
+  </ng-template>
+  <ng-template #surfaceLook let-material="material">
+    <ul>
+          <span *ngIf="material && material.children &&
+          material.children[0].children[3].children as list">
+            <ng-template #recursiveList let-list>
+               <li *ngFor="let item of list">
+              {{item.name}}
+                 <ul *ngIf="item.children && item.children.length > 0">
+                <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
+              </ul>
+            </li>
+          </ng-template>
+          <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: list }"></ng-container>
+          </span>
+    </ul>
+  </ng-template>
+  <ng-template #thickness let-material="material">
+    degree: {{ material.children[0].children[4].degree}}
+  </ng-template>
+</div>
