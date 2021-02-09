@@ -119,7 +119,7 @@ async function basicDetails(material) { /* db.Material */
 
 async function getCategoryTreeById(id) { //returns the whole category tree for material id
     const material = await getMaterial(id);
-    const categoryTree = {};
+    const categoryTree = [];
     const categories = {};
 
     if (!material) {
@@ -140,26 +140,29 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
     async function addCategoryToTree(category, degree = null) {
         const data = {
             id: category.id,
-            name: category.category_name,
+            name: category.category_name
         };
-        console.log("-> category", category);
+
         if (category.children !== undefined) { // in case there are children of it
             data.children = category.children; // save the children here
         }
+
         if (degree !== null) { // if category has degree, save it in data
             data.degree = degree;
         }
+
         // Add category.id => data to the array categories
         categories[category.id] = data;
         const parent = await category.getCategory();
         if (!parent) { // If category.parent_category is null, add category to categoryTree, return
-            categoryTree[category.id] = data;
+            categoryTree.push(data);
         } else { // If category.parent_category is not null
             if (categories[parent.id] !== undefined) { // If category.parent_category exists in categories, then add category data to its children, return
-                categories[parent.id].children[category.id] = data;
-            } else { // Else add category to parent_category's children and call addCategoryToTree for parent_category
-                parent.children = {};
-                parent.children[category.id] = data;
+                categories[parent.id].children.push(data);
+            } else  { // Else add category to parent_category's children and call addCategoryToTree for parent_category
+                parent.children = [];
+                parent.children.push(data)
+ //               parent.children[category.id] = data;
                 await addCategoryToTree(parent);
             }
         }
