@@ -12,7 +12,7 @@
                  name="email" id="email" class="form-control"
                  aria-required="true" required>
           <div class="validator-message" *ngIf="forgotForm.get('email').hasError('email')">Email must be a valid email address</div>
-          <app-validation-msg [display]="isForgotFieldValid('email')" msg="Enter your email"></app-validation-msg>
+          <app-validation-msg [display]="isForgotFieldValid('email')" msg="Enter your E-Mail"></app-validation-msg>
         </div>
         <button class="btn btn-lg btn-dark btn-block" type="submit">Submit</button>
       </form>
