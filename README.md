@@ -66,3 +66,42 @@ Steps to execute the file with all categories for category model:
 4. In that new terminal, execute with node the file via the following code:
 node dbData.js
 5. Go to your DB (in IntelliJ on top right) and click on the Refresh icon above your DB tables. You can click on table icon for category table and you can see all the data there.
+
+# You can create Material with following JSON format:
+{
+    "created_by": "Aaa",
+    "name": "Jersey",
+    "consistsOf": [
+        { "category_id": 22, "degree": "5"},
+        { "category_id": 7, "degree": "33"},
+        { "category_id": 26, "degree": "62"},
+        { "category_id": 39, "degree": null},
+        { "category_id": 42, "degree": null},
+        { "category_id": 65, "degree": "24,80"},
+        { "category_id": 80, "degree": null},
+        { "category_id": 81, "degree": null},
+        { "category_id": 82, "degree": "35,6"},
+        { "category_id": 83, "degree": "142,8"},
+        { "category_id": 84, "degree": null},
+        { "category_id": 85, "degree": "2"},
+        { "category_id": 86, "degree": "17"},
+        { "category_id": 87, "degree": null},
+        { "category_id": 88, "degree": "3"},
+        { "category_id": 89, "degree": "12"},
+        { "category_id": 46, "degree": "208,74"},
+        { "category_id": 59, "degree": "0,37"},
+        { "category_id": 100, "degree": "3,5"},
+        { "category_id": 94, "degree": "50.000"},
+        { "category_id": 91, "degree": "377"},
+        { "category_id": 92, "degree": "277"},
+        { "category_id": 47, "degree": null},
+        { "category_id": 56, "degree": null},
+        { "category_id": 109, "degree": null},
+        { "category_id": 110, "degree": "363,6"},
+        { "category_id": 111, "degree": "18"},
+        { "category_id": 112, "degree": "20,2"}
+    ],
+    "images": [
+        {"name": "Hahnentritt", "url": "/public/img/Hahnentritt.jpeg"}
+    ]
+}
