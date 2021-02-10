@@ -14,6 +14,8 @@ tags:
     description: information about materials
   - name: images
     description: upload images for a material
+  - name: filter for materials
+    description: This is the API for Filtering materials
 servers:
   - url: 'http://localhost:4000'
     description: Local development server
@@ -224,7 +226,7 @@ paths:
     post:
       tags:
         - authentification
-      summary: Register a new user user and send a verification email
+      summary: Register a new user and send a verification email
       description: >-
         The first user registered in the system is assigned the `Admin` role,
         other authentication are assigned the `User` role.
@@ -1225,11 +1227,69 @@ paths:
                   message:
                     type: string
                     example: Material is not found
+  '/api/v1/material/{filter}':
+    parameters:
+      - in: query
+        name: filters
+        description: filters
+        required: true
+        example: business wear 
+        schema:
+          type: string
+    get:
+      tags:
+        - filter for materials 
+      summary: Filter for all Materials
+      description: filter Materials
+      operationId: filterMaterials
+      responses:
+          '200':
+            description: string
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: Hahnentritt
+                      categories:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 20
+                            degree:
+                              type: string
+                              example: 96
+                            parent_id:
+                              type: integer
+                              example: 3
+                      images:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type: string
+                              example: /public/img/Hahnentritt.jpeg
+                            name:
+                              type: string
+                              example: Hahnentritt.jpeg
+          '400':
+            description: Could not found a material with this filters.
   /api/v1/images/:
     post:
       tags:
         - images
-      summary: Upload images for material 
+      summary: Upload images for material
       operationId: uploadImages
       requestBody:
         required: true

@@ -101,7 +101,11 @@
           <span *ngIf="selectedMaterial.children as list">
             <ng-template #recursiveList let-list>
             <li *ngFor="let item of list">
-              {{item.name}}
+              {{item.name }} <span *ngIf="item.degree"> {{item.degree}}
+                  <span *ngIf="item.id == 46"> g/m²</span>
+                  <span *ngIf="item.id == 59"> mm</span>
+                  <span *ngIf="item.id != 59 && item.id != 46"> %</span>
+              </span>
               <ul *ngIf="item.children && item.children.length > 0">
                 <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
               </ul>
