@@ -8,18 +8,7 @@ u{
   border-color: black;
   color: black;
 }
-.card-img-top{
-  max-width: 100%;
-  height: 78%;
-  object-fit: cover;
-}
-.card {
-  width: 100%;
-  height: 140%;
-}
-.card-body {
-  height: 22%;
-}
+
 .card-title{
   padding-top: 0;
 }
@@ -41,3 +30,11 @@ body{
   height: 100%;
   object-fit: cover;
 }
+.card-material{
+  background-color: transparent;
+  border-color: transparent;
+}
+.card-img-top{
+  over-fit: cover;
+}
+
