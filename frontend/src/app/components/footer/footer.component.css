@@ -8,3 +8,8 @@ body{
 footer{
   margin-top: 20px;
 }
+@media (min-device-width: 736px) {
+  footer{
+    padding-top: 2rem;
+  }
+}

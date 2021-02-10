@@ -9,10 +9,19 @@ u{
   color: black;
 }
 .card-img-top{
-
+  max-width: 100%;
+  height: 78%;
+  object-fit: cover;
 }
 .card {
-
+  width: 100%;
+  height: 140%;
+}
+.card-body {
+  height: 22%;
+}
+.card-title{
+  padding-top: 0;
 }
 .btn-link{
   color: black;
@@ -23,5 +32,13 @@ body{
 .flex-container {
   display:flex;
 }
-.card{
+.carousel-inner .item {
+  width: 100%;
+  height: 100%;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: 99%;
+  object-fit: cover;
 }
