@@ -27,11 +27,11 @@
   </div>
 
   <div class="form-group">
-    <input formControlName="email" type="email" placeholder="Email"
+    <input formControlName="email" type="email" placeholder="E-Mail"
            name="email" id="email" class="form-control"
            aria-required="true" required>
-    <div class="validator-message" *ngIf="registerForm.get('email').hasError('email')"><small> Email must be a valid email address</small></div>
-    <app-validation-msg [display]="isRegisterFieldValid('email')" msg="Enter your email"></app-validation-msg>
+    <div class="validator-message" *ngIf="registerForm.get('email').hasError('email')"><small> E-Mail must be a valid email address</small></div>
+    <app-validation-msg [display]="isRegisterFieldValid('email')" msg="Enter your E-Mail"></app-validation-msg>
   </div>
 
   <div class="form-group">
