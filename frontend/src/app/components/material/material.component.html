@@ -1,9 +1,9 @@
 <div class="container d-flex flex-column sticky-footer-wrapper min-vh-100 ">
   <div class="row">
-    <div class="col-md-2" style="border-right: #777777" *ngIf="categoriesAreFetched">
+    <div class="col-md-3" style="border-right: #777777" *ngIf="categoriesAreFetched">
       <div class="btn-group btn-block dropdown" dropdown container="body" [insideClick]="true"
            *ngFor="let mainCategory of mainCategories">
-        <button id="button-nested" dropdownToggle type="button" class="btn btn-secondary dropdown-toggle"
+        <button id="button-nested" dropdownToggle type="button" class="btn btn- dropdown-toggle"
                 data-toggle="dropdown-grid" type="button" aria-expanded="false" aria-haspopup="true">
           {{mainCategory.categoryName}} <span class="caret"></span>
         </button>
@@ -54,14 +54,6 @@
     </div>
     <ng-container *ngTemplateOutlet="materials.length>0 ? materialsExists : noMaterials;">
     </ng-container>
-  </div>
-  <div class="row mt-2 justify-content-between align-items-center">
-    <pagination-controls
-      previousLabel="Prev"
-      nextLabel="Next"
-      responsive="true"
-      (pageChange)="handlePageChange($event)"
-    ></pagination-controls>
   </div>
 </div>
 
@@ -129,11 +121,11 @@
 </ng-template>
 
 <ng-template #materialsExists>
-  <div class="col-md-10 materials pr-8">
+  <div class="col-md-9">
     <div class="row">
-      <div class="col-lg-3 col-md-4 mb-3"
+      <div class="col-lg-3 col-md-4"
            *ngFor="let material of materials | paginate:{itemsPerPage: limit,currentPage: offset,totalItems: count}; let i=index">
-        <div class="card" (click)="openModal(template, material)" style="cursor: pointer">
+        <div class="card card-material" (click)="openModal(template, material)" style="cursor: pointer">
           <img *ngIf="material.images[0]" class="card-img-top" [src]="api+material.images[0].url" alt="Card image cap">
           <div class="card-body d-flex flex-column pt-3">
             <h6 class="card-title">{{material.name}}</h6>
@@ -151,3 +143,14 @@
     </div>
 </ng-template>
 
+
+<div class="row  mt-2 justify-content-between align-items-center">
+  <div class="col-12">
+    <pagination-controls
+      class="text-center"
+      previousLabel="Prev"
+      nextLabel="Next" responsive="true"
+      (pageChange)="handlePageChange($event)">
+    </pagination-controls>
+  </div>
+</div>
