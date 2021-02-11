@@ -30,15 +30,29 @@ async function getById(id) { //returns only the end category but not rest of the
 }
 
 async function update(id, payload) { // update material infos
-    let material = await getMaterial(id);
+    const material = await getMaterial(id);
 
-    material.destroy();
+    material.name = payload.name;
+    await material.save();
+    db.ConsistsOf.destroy({ //delete all existing consistsOfs for the material
+        where: {
+            material_id: material.id
+        }
+    })
+    //console.log('material details', material);
 
-    material = await db.Material.create({name: payload.name, created_by: payload.created_by});
-    for (const consistsOf of payload.consistsOf) {
+    for (const consistsOf of payload.consistsOf) { //creating the new categories for the material
         consistsOf.material_id = material.id;
         await db.ConsistsOf.create(consistsOf);
     }
+
+    db.Image.destroy({ //delete all existing images for the material
+        where: {
+            material_id: material.id
+        }
+    })
+
+    //console.log('consistOf details', payload.consistsOf);
 
     for (const image of payload.images) {
         image.material_id = material.id
@@ -46,37 +60,6 @@ async function update(id, payload) { // update material infos
     }
 
     return basicDetails(material);
-
-    /*material = await db.Material.create({name: payload.name, created_by: payload.created_by});
-    for (const consistsOf of payload.consistsOf) {
-            material.destroy();
-            material = await db.Material.create({name: payload.name, created_by: payload.created_by});
-
-        /*material.name = payload.name;
-        material.created_by = payload.created_by;
-        //console.log('material details', material);
-
-        for (const constistOf of material.consistsOfs) { //delete all existing categories for the material
-            consistsOf.destroy()
-        }
-
-        for (const image of material.images) { //delete all existing images for the material
-            image.destroy()
-        }
-
-        //console.log('consistOf details', payload.consistsOf);
-
-        for (const consistsOf of payload.consistsOf) { //creating the new categories for the material
-            consistsOf.material_id = material.id;
-            await db.ConsistsOf.create(consistsOf);
-        }
-
-        for (const image of payload.images) {
-            image.material_id = material.id
-            await db.Image.create(image);
-        }
-
-        return basicDetails(material);*/
 }
 
 
