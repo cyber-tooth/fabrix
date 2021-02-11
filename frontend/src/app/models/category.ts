@@ -4,7 +4,8 @@ export class Category {
   categoryName: string;
   hasDegree: boolean;
   degreeType: string;
-  degreeTitle: string;
+  // tslint:disable-next-line:variable-name
+  degree_title: string;
   parentCategory: Category;
   children: Array<Category>;
   minDegree: number;

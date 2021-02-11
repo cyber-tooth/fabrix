@@ -98,15 +98,8 @@
           <span *ngIf="selectedMaterial.children as list">
             <ng-template #recursiveList let-list>
             <li *ngFor="let item of list">
-              {{item.name }} <span *ngIf="item.degree"> {{item.degree}}
-                <span *ngIf="item.id == 46"> g/m²</span>
-                <span *ngIf="item.id == 59"> mm</span>
-                <span *ngIf="item.id == 94"> Abrasion resistance {{ item.degree}}abrasion cycles</span>
-                <span *ngIf="item.id == 92"> N</span>
-                <span *ngIf="item.id == 91"> N</span>
-                <span *ngIf="item.id == 100"> Final score after 7000 tours</span>
-                <span *ngIf="item.id != 59 && item.id != 46 && item.id != 94 && item.id != 92 && item.id != 91 && item.id != 100"> %</span>
-              </span>
+              {{item.name }}
+              <span *ngIf="item.degree"> {{item.degree}} </span> <span *ngIf="item.degree_title != null"> {{item.degree_title}}</span>
               <ul *ngIf="item.children && item.children.length > 0">
                 <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
               </ul>
