@@ -32,7 +32,7 @@ async function getById(id) { //returns only the end category but not rest of the
 async function update(id, payload) { // update material infos
     const material = await getMaterial(id);
 
-    material.name = payload.name;
+    //material.name = payload.name;
     await material.save();
     db.ConsistsOf.destroy({ //delete all existing consistsOfs for the material
         where: {
