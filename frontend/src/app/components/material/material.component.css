@@ -29,12 +29,19 @@ body{
   background-color: transparent;
   border-color: transparent;
 }
-.object-fit {
-  width: 250px;
-  height: 250px;
+.card{
+  height: 260px;
 }
-.object-fit img {
-  object-fit: cover;
+.image-container{
   width: 100%;
-  height: 100%;
+  height: 90%;
+}
+.card-img-top{
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+}
+.cardText{
+  width: 100%;
+  height: 10%;
 }
