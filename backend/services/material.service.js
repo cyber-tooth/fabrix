@@ -46,6 +46,37 @@ async function update(id, payload) { // update material infos
     }
 
     return basicDetails(material);
+
+    /*material = await db.Material.create({name: payload.name, created_by: payload.created_by});
+    for (const consistsOf of payload.consistsOf) {
+            material.destroy();
+            material = await db.Material.create({name: payload.name, created_by: payload.created_by});
+
+        /*material.name = payload.name;
+        material.created_by = payload.created_by;
+        //console.log('material details', material);
+
+        for (const constistOf of material.consistsOfs) { //delete all existing categories for the material
+            consistsOf.destroy()
+        }
+
+        for (const image of material.images) { //delete all existing images for the material
+            image.destroy()
+        }
+
+        //console.log('consistOf details', payload.consistsOf);
+
+        for (const consistsOf of payload.consistsOf) { //creating the new categories for the material
+            consistsOf.material_id = material.id;
+            await db.ConsistsOf.create(consistsOf);
+        }
+
+        for (const image of payload.images) {
+            image.material_id = material.id
+            await db.Image.create(image);
+        }
+
+        return basicDetails(material);*/
 }
 
 
@@ -133,6 +164,7 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
         include: db.Category,
     });
 
+
     for (const consistsOf of consistsOfs) {
         await addCategoryToTree(consistsOf.category, consistsOf.degree);
     }
@@ -140,7 +172,8 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
     async function addCategoryToTree(category, degree = null) {
         const data = {
             id: category.id,
-            name: category.category_name
+            name: category.category_name,
+            degree_title: category.degree_title
         };
 
         if (category.children !== undefined) { // in case there are children of it
@@ -156,15 +189,14 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
         const parent = await category.getCategory();
         if (!parent) { // If category.parent_category is null, add category to categoryTree, return
             categoryTree.push(data);
-        } else { // If category.parent_category is not null
-            if (categories[parent.id] !== undefined) { // If category.parent_category exists in categories, then add category data to its children, return
-                categories[parent.id].children.push(data);
-            } else  { // Else add category to parent_category's children and call addCategoryToTree for parent_category
-                parent.children = [];
-                parent.children.push(data)
- //               parent.children[category.id] = data;
-                await addCategoryToTree(parent);
-            }
+        } else if (categories[parent.id] !== undefined) { // If category.parent_category is not null
+            // If category.parent_category exists in categories, then add category data to its children, return
+            categories[parent.id].children.push(data);
+        }
+        else  { // Else add category to parent_category's children and call addCategoryToTree for parent_category
+            parent.children = [];
+            parent.children.push(data)
+            await addCategoryToTree(parent);
         }
     }
     return categoryTree;
