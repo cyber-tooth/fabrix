@@ -123,11 +123,13 @@
 <ng-template #materialsExists>
   <div class="col-md-9">
     <div class="row">
-      <div class="col-lg-3 col-md-4"
+      <div class="col-lg-4 col-md-4"
            *ngFor="let material of materials | paginate:{itemsPerPage: limit,currentPage: offset,totalItems: count}; let i=index">
         <div class="card card-material mt-2 mt-lg-2"   (click)="openModal(template, material)" style="cursor: pointer">
-          <img *ngIf="material.images[0]" class="card-img-top" [src]="api+material.images[0].url" alt="Card image cap">
-            <h6 class="card-text p-1">{{material.name}}</h6>
+          <div class="object-fit">
+          <img *ngIf="material.images[0]" class="card-img-top"  [src]="api+material.images[0].url" alt="Card image cap">
+          </div>
+            <h6 class="card-text p-2">{{material.name}}</h6>
            <!-- <p class="card-text"><small class="text-muted">Last updated {{material.updatedAt | date}}</small></p> -->
         </div>
       </div>
