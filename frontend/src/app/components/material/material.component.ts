@@ -108,11 +108,11 @@ export class MaterialComponent implements OnInit {
 
   mainCategories: Category[] = [];
   value = 0;
-  highValue = 100;
+  highValue = 300;
   categoriesAreFetched = false;
   Weightoptions: Options = {
     floor: 0,
-    ceil: 100
+    ceil: 300
   };
 
   filters = {};
@@ -148,7 +148,7 @@ export class MaterialComponent implements OnInit {
               element.children.forEach(item => {
                 if (item.hasDegree) {
                   item.minDegree = 0;
-                  item.maxDegree = 100;
+                  item.maxDegree = 300;
                 }
               });
             },
@@ -211,7 +211,7 @@ export class MaterialComponent implements OnInit {
 
   setValues(category: Category) {
     this.filters[category.id] = [category.minDegree, category.maxDegree];
-    if (category.minDegree === 0 && category.maxDegree === 99 || category.minDegree === 0 && category.maxDegree === 100) {
+    if (category.minDegree === 0 && category.maxDegree === 299 || category.minDegree === 0 && category.maxDegree === 300) {
       delete this.filters[category.id];
     }
     this.filtersChanged = true;
