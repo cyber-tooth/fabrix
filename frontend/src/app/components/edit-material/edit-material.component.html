@@ -1,5 +1,5 @@
 <div class="mu-body">
-  <div routerLink="/dashboard"><fa-icon [icon]="faChevronCircleLeftIcon"></fa-icon></div>
+  <div routerLink="/home"><fa-icon [icon]="faChevronCircleLeftIcon"></fa-icon></div>
   <div class="button-add">
     <button type="button" class="m-md-0 btn btn-outline-secondary" placement="bottom" ngbTooltip="add new Material" [routerLink]="['/add-material']">
       <fa-icon [icon]="faPlusIcon"></fa-icon></button>
@@ -47,7 +47,6 @@
             [ngTemplateOutletContext]="{material:material}">
           </ng-container>
         </td>
-        <td>{{material.commercialFabricName}}</td>
         <td>
           <button class="btn btn-outline btn-sm" *ngIf="hasAccess(['admin'] && adminAdded(material))" (click)="open(content, material.id)"><fa-icon [icon]="faUserMinusIcon"></fa-icon></button>
           <button class="btn btn-outline btn-sm" *ngIf="hasAccess(['superAdmin'])" (click)="open(content, material.id)"><fa-icon [icon]="faUserMinusIcon"></fa-icon></button>
@@ -83,13 +82,13 @@
         <div class="form-group">
           <label for="inpId">id</label>
           <div class="input-group">
-            <input id="inpId" class="form-control" formControlName="idControl" value="{{ selectedMaterial?.id }}" readonly>
+            <input id="inpId" class="form-control" formControlName="idControl" value="{{ selectedMaterial.id }}" readonly>
           </div>
         </div>
         <div class="form-group">
           <label for="inpFN">firstname</label>
           <div class="input-group">
-            <input id="inpFN" class="form-control" formControlName="firstNameControl" value="{{ selectedMaterial?.name }}" readonly>
+            <input id="inpFN" class="form-control" formControlName="firstNameControl" value="{{ selectedMaterial.name }}" readonly>
           </div>
         </div>
       </form>

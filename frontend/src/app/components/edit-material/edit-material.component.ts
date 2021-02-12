@@ -26,7 +26,7 @@ export class EditMaterialComponent implements OnInit {
   materialForm: FormGroup;
   materialFormSubmitAttempt: boolean;
 
-  headElements = ['Id', 'name', 'material composition', 'product group', 'weight', 'surface look', 'thickness', 'commercial fabric name', 'Actions'];
+  headElements = ['Id', 'name', 'material composition', 'product group', 'weight', 'surface look', 'thickness', 'Actions'];
   limit = 12;
   offset = 1;
   count = 0;

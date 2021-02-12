@@ -1,12 +1,13 @@
 import {Component, OnInit, TemplateRef, ViewEncapsulation} from '@angular/core';
 
 import {Options} from '@angular-slider/ngx-slider';
-import {CategoriesServices, MaterialService} from '../../services';
+import {AuthenticationService, AuthorisationService, CategoriesServices, MaterialService} from '../../services';
 import {Category} from '../../models/category';
 import {BsDropdownConfig} from 'ngx-bootstrap/dropdown';
 import {Material} from '../../models';
 import {appConfig} from '../../app.config';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
+import {NgbAlertConfig} from "@ng-bootstrap/ng-bootstrap";
 
 // https://github.com/angular-slider/ngx-slider
 
@@ -126,7 +127,9 @@ export class MaterialComponent implements OnInit {
   selectedMaterial: Material;
   constructor(private categoriesServices: CategoriesServices,
               private modalService: BsModalService,
-              private materialService: MaterialService) {
+              private materialService: MaterialService,
+              private authenticationService: AuthenticationService,
+              private authorisationService: AuthorisationService) {
   }
 
   ngOnInit(): void {
@@ -232,5 +235,9 @@ export class MaterialComponent implements OnInit {
 
   toArray(childern) {
     return Object.keys(childern).map((key) => childern[key]);
+  }
+  hasAccess(roles)
+  {
+    return this.authorisationService.hasAccess(roles);
   }
 }
