@@ -34,6 +34,15 @@
                          <ngx-slider [(value)]="item.minDegree" [(highValue)]="item.maxDegree"
                                      (valueChange)="setValues(item)"
                                      [options]="Weightoptions"></ngx-slider>
+                         <span *ngIf="item.categoryName == 'Weight'">
+                           <small class="text-right">g/m²</small>
+                         </span>
+                         <span *ngIf="item.categoryName == 'Thickness'">
+                           <small class="text-right">mm</small>
+                         </span>
+                         <span *ngIf="item.categoryName == 'Drape-Coefficient'">
+                           <small class="text-right">%</small>
+                         </span>
                        </div>
                      </ng-template>
                       <span *ngIf="item.children.length > 0">
