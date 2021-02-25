@@ -24,6 +24,7 @@ exports.getChildCategories = function (req, res) {
     categoriesService.getChildCategories(req.params.id)
         .then(categories => res.json(categories))
         .catch(next => {
+            console.log('NEXT:', next);
             return res.status(400).json({
                 error: next
             })

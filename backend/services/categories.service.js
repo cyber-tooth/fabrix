@@ -1,5 +1,7 @@
 const db = require('../helpers/db.js');
-const { Op } = require('sequelize');
+const { Op, Sequelize } = require('sequelize');
+
+
 
 module.exports = {
     getMainCategories,
@@ -23,22 +25,44 @@ async function getChildCategories(id) {
         where: {
             parent_category: id
         },
-        include: {
-            model:  db.Category,
-            as: 'children',
-            required: false
-        }
+        include: [
+            {
+                model:  db.Category,
+                as: 'children',
+                attributes: [
+                    [Sequelize.fn('COUNT', Sequelize.col('children.id')), 'count']
+                ]
+            },
+            {
+            model: db.ConsistsOf,
+            attributes: [
+                [Sequelize.fn('MIN', Sequelize.col('degree')), 'min_degree'],
+                [Sequelize.fn('MAX', Sequelize.col('degree')), 'max_degree']
+            ]
+        }],
+        group: ['category.id']
     });
-    return category.map(x => basicDetails(x));
+    return category.map(x => basicDetails(x, true));
 }
 
-function basicDetails(category) {
-    return {
+function basicDetails(category, extra=false) {
+    const details =
+     {
         id: category.id,
         categoryName: category.category_name,
         hasDegree: category.has_degree,
         degreeType: category.degree_type,
         degreeTitle: category.degreeTitle,
-        children: category.children ? category.children.map(x => basicDetails(x)) : []
+        //children: category.children ? category.children.map(x => basicDetails(x)) : []
     };
+    if (extra === true){
+        if (category.consistsOfs && category.consistsOfs.length){
+            details.min_degree = category.consistsOfs[0].dataValues.min_degree;
+            details.max_degree = category.consistsOfs[0].dataValues.max_degree;
+        }
+        if (category.children && category.children.length){ //shows if the category has children so FE needs to check if >0 then display on click
+            details.children = category.children[0].dataValues.count;
+        }
+    }
+    return details;
 }

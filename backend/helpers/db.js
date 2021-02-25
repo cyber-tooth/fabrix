@@ -23,7 +23,9 @@ async function initialize() {
         user,
         password
     });
+    await connection.query(    "SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
     await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
+
 
     // connect to db
     const sequelize = new Sequelize(database, user, password, {
@@ -76,6 +78,10 @@ async function initialize() {
     db.ConsistsOf.belongsTo(db.Category, {
         foreignKey: 'category_id'
     });
+
+    db.Category.hasMany(db.ConsistsOf, {
+        foreignKey: 'category_id'
+    })
 
     // material composition N to 1 relationship with category
     /** db.Composition.belongsTo(db.Category, {foreignKey:'category_id'},
