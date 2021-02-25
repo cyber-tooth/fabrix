@@ -30,10 +30,11 @@
                         <labe style="min-width: 25rem" class="dropdown-item">
                            {{item.categoryName}}
                         </labe>
-                       <div class="p-2">
-                         <ngx-slider [(value)]="item.minDegree" [(highValue)]="item.maxDegree"
+                       <div class="p-2" *ngIf="item.minDegree && item.maxDegree">
+                         <ngx-slider [(value)]="item.minDegree"
+                                     [(highValue)]="item.maxDegree"
                                      (valueChange)="setValues(item)"
-                                     [options]="Weightoptions"></ngx-slider>
+                                     [options]="{floor: item.minDegree, ceil: item.maxDegree}"></ngx-slider>
                          <span *ngIf="item.categoryName == 'Weight'">
                            <small class="text-right">g/m²</small>
                          </span>
@@ -45,7 +46,7 @@
                          </span>
                        </div>
                      </ng-template>
-                      <span *ngIf="item.children.length > 0">
+                      <span *ngIf="item.children && item.children.length > 0">
                         <div *dropdownMenu class="dropdown-menu  ml-1" role="menu">
                           <div role="menuitem">
                              <ng-container
@@ -78,15 +79,16 @@
       <div class="col-md-6 border-right">
         <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
           <ol class="carousel-indicators" *ngFor="let im of selectedMaterial.images; let index = index">
-            <li *ngIf="index == 0" data-target="#carouselExampleIndicators" data-slide-to="{{index}}" class="active"></li>
+            <li *ngIf="index == 0" data-target="#carouselExampleIndicators" data-slide-to="{{index}}"
+                class="active"></li>
             <li *ngIf="index != 0" data-target="#carouselExampleIndicators" data-slide-to="{{index}}"></li>
           </ol>
           <div class="carousel-inner" role="listbox">
             <ng-container
               *ngFor="let im of selectedMaterial.images; let index = index">
-            <div *ngIf="index == 0" class="carousel-item active">
-              <img class="d-block img-fluid" src="{{api+im.url}}" alt="FirstSlide">
-            </div>
+              <div *ngIf="index == 0" class="carousel-item active">
+                <img class="d-block img-fluid" src="{{api+im.url}}" alt="FirstSlide">
+              </div>
               <div *ngIf="index != 0" class="carousel-item">
                 <img class="d-block img-fluid" src="{{api+im.url}}" alt="FirstSlide">
               </div>
@@ -108,7 +110,8 @@
             <ng-template #recursiveList let-list>
             <li *ngFor="let item of list">
               {{item.name }}
-              <span *ngIf="item.degree"> {{item.degree}} </span> <span *ngIf="item.degree_title != null"> {{item.degree_title}}</span>
+              <span *ngIf="item.degree"> {{item.degree}} </span> <span
+              *ngIf="item.degree_title != null"> {{item.degree_title}}</span>
               <ul *ngIf="item.children && item.children.length > 0">
                 <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
               </ul>
@@ -127,14 +130,15 @@
     <div class="row">
       <div class="col-md-4"
            *ngFor="let material of materials | paginate:{itemsPerPage: limit,currentPage: offset,totalItems: count}; let i=index">
-        <div class="card card-material mb-4"   (click)="openModal(template, material)" style="cursor: pointer">
+        <div class="card card-material mb-4" (click)="openModal(template, material)" style="cursor: pointer">
           <div class="image-container">
-            <img *ngIf="material.images[0]" class="card-img-top"  [src]="api+material.images[0].url" alt="Card image cap">
+            <img *ngIf="material.images[0]" class="card-img-top" [src]="api+material.images[0].url"
+                 alt="Card image cap">
           </div>
           <div class="cardText">
             <h6 class="card-text p-2">{{material.name}}</h6>
           </div>
-           <!-- <p class="card-text"><small class="text-muted">Last updated {{material.updatedAt | date}}</small></p> -->
+          <!-- <p class="card-text"><small class="text-muted">Last updated {{material.updatedAt | date}}</small></p> -->
         </div>
       </div>
     </div>
@@ -143,8 +147,8 @@
 
 <ng-template #noMaterials class="text-center">
   <div class="col-md-10 text-center justify-content-center">
-      <h3>No Results found</h3>
-    </div>
+    <h3>No Results found</h3>
+  </div>
 </ng-template>
 
 
