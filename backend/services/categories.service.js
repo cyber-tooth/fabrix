@@ -36,8 +36,8 @@ async function getChildCategories(id) {
             {
             model: db.ConsistsOf,
             attributes: [
-                [Sequelize.fn('MIN', Sequelize.col('degree')), 'min_degree'],
-                [Sequelize.fn('MAX', Sequelize.col('degree')), 'max_degree']
+                [Sequelize.fn('MIN', Sequelize.col('degree')), 'minDegree'],
+                [Sequelize.fn('MAX', Sequelize.col('degree')), 'maxDegree']
             ]
         }],
         group: ['category.id']
@@ -57,8 +57,8 @@ function basicDetails(category, extra=false) {
     };
     if (extra === true){
         if (category.consistsOfs && category.consistsOfs.length){
-            details.min_degree = category.consistsOfs[0].dataValues.min_degree;
-            details.max_degree = category.consistsOfs[0].dataValues.max_degree;
+            details.minDegree = category.consistsOfs[0].dataValues.minDegree;
+            details.maxDegree = category.consistsOfs[0].dataValues.maxDegree;
         }
         if (category.children && category.children.length){ //shows if the category has children so FE needs to check if >0 then display on click
             details.children = category.children[0].dataValues.count;
