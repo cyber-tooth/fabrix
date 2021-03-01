@@ -143,3 +143,17 @@ body {
   -moz-border-radius: 6px 0 6px 6px;
   border-radius: 6px 0 6px 6px;
 }
+
+ul.category__tree {
+  padding-left: 0;
+  list-style: none;
+}
+ul.category__tree > li.category__selected > a {
+  font-weight: bold;
+}
+ul.category__tree > li > a {
+  cursor: pointer;
+}
+ul.category__tree > li > ul.category__tree {
+  padding-left: 10px;
+}

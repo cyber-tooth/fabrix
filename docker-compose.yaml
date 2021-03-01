@@ -7,6 +7,8 @@ services:
       context: backend/
     ports:
       - 4000:4000
+    volumes:
+      - ./backend:/usr/src/app
     depends_on:
       - mysql
   frontend:
@@ -15,7 +17,9 @@ services:
     build:
       context: frontend/
     ports:
-      - 80:80
+      - 8080:80
+    volumes:
+      - ./frontend:/app
     depends_on:
       - backend
   mysql:
@@ -28,3 +32,7 @@ services:
       MYSQL_ROOT_HOST: '%'
     ports:
     - 3306:3306
+    volumes:
+      - fab_db:/var/lib/mysql
+volumes:
+  fab_db:

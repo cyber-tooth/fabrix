@@ -8,9 +8,13 @@ export class Category {
   degree_title: string;
   parentCategory: Category;
   children: Array<Category>;
+  childrenCount: number;
   minDegree: number;
   maxDegree: number;
   selected: boolean;
+  minDegreeSelected: number;
+  maxDegreeSelected: number;
+  parent: number;
   constructor() {
   }
 

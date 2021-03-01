@@ -7,7 +7,7 @@ import {BsDropdownConfig} from 'ngx-bootstrap/dropdown';
 import {Material} from '../../models';
 import {appConfig} from '../../app.config';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
-import {NgbAlertConfig} from "@ng-bootstrap/ng-bootstrap";
+import {NgbAlertConfig} from '@ng-bootstrap/ng-bootstrap';
 
 // https://github.com/angular-slider/ngx-slider
 
@@ -118,6 +118,7 @@ export class MaterialComponent implements OnInit {
   api = appConfig.apiUrl;
   modalRef: BsModalRef;
   selectedMaterial: Material;
+  categories = [];
   constructor(private categoriesServices: CategoriesServices,
               private modalService: BsModalService,
               private materialService: MaterialService,
@@ -130,24 +131,28 @@ export class MaterialComponent implements OnInit {
     this.getCategories();
   }
 
-  getCategories() {
-    this.categoriesServices.getMainCategories().subscribe(
+  getCategories(category = null) {
+    const categoryId = category ? category.id : null;
+
+    this.categoriesServices.getCategories(categoryId).subscribe(
       data => {
-        this.mainCategories = data;
-        this.mainCategories.forEach((element, index, array) => {
-          this.categoriesServices.getChildCategories(element.id).subscribe(
-            children => {
-              element.children = children;
-            },
-            error => {
-            });
-          if (index === (array.length - 1)) {
-            this.categoriesAreFetched = true;
+        console.log('categories', data);
+
+        for (const cat of data) {
+          if (cat.minDegree && cat.maxDegree) {
+            cat.minDegreeSelected = cat.minDegree;
+            cat.maxDegreeSelected = cat.maxDegree;
           }
-        });
+        }
+
+        if (category) {
+          category.children = data;
+        } else {
+          this.categories = data;
+        }
       },
       error => {
-        console.log(error);
+        console.log('categories error', error);
       });
   }
 
@@ -164,7 +169,7 @@ export class MaterialComponent implements OnInit {
     };
     this.materialService.getAll(params).subscribe(
       data => {
-        console.log("-> data", data);
+        console.log('-> data', data);
         const {rows, count, pages} = data;
         this.materials = rows;
         this.count = count;
@@ -179,25 +184,31 @@ export class MaterialComponent implements OnInit {
     this.materialService.getDataById(material.id).subscribe(
       children => {
         this.selectedMaterial.children = children;
-        console.log("-> this.selectedMaterial", this.selectedMaterial);
+        console.log('-> this.selectedMaterial', this.selectedMaterial);
       },
     );
   }
 
   select(category: Category) {
-    category.selected = !category.selected;
-    if (category.selected) {
-      this.filters[category.id] = null;
-    } else if (!category.selected) {
+    if (this.filters[category.id] !== undefined) {
       delete this.filters[category.id];
+    } else {
+      this.filters[category.id] = null;
+      if (category.childrenCount && !category.children) {
+        this.getCategories(category);
+      }
+      // Unselect parent category
+      if (category.parent) {
+        delete this.filters[category.parent];
+      }
     }
     this.filtersChanged = true;
     this.getMaterials();
-
   }
 
   setValues(category: Category) {
-    this.filters[category.id] = [category.minDegree, category.maxDegree];
+    this.filters[category.id] = [category.minDegreeSelected, category.maxDegreeSelected];
+    console.log('filters changed', this.filters[category.id]);
     this.filtersChanged = true;
     this.getMaterials();
   }

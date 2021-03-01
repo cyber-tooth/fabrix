@@ -9,6 +9,8 @@ module.exports = {
     getMainAndSubCategories
 };
 
+
+// todo remove
 async function getMainCategories() {
     const category = await db.Category.findAll( { where: { parent_category : null } });
     return category.map(x => basicDetails(x));
@@ -20,7 +22,7 @@ async function getMainAndSubCategories() {
     return category.map(x => basicDetails(x));
 }
 
-async function getChildCategories(id) {
+async function getChildCategories(id = null) {
     const category =  await db.Category.findAll({
         where: {
             parent_category: id
@@ -36,8 +38,8 @@ async function getChildCategories(id) {
             {
             model: db.ConsistsOf,
             attributes: [
-                [Sequelize.fn('MIN', Sequelize.col('degree')), 'minDegree'],
-                [Sequelize.fn('MAX', Sequelize.col('degree')), 'maxDegree']
+                [Sequelize.fn('MIN', Sequelize.literal('CONVERT(degree, float)')), 'minDegree'],
+                [Sequelize.fn('MAX', Sequelize.literal('CONVERT(degree, float)')), 'maxDegree']
             ]
         }],
         group: ['category.id']
@@ -53,15 +55,21 @@ function basicDetails(category, extra=false) {
         hasDegree: category.has_degree,
         degreeType: category.degree_type,
         degreeTitle: category.degreeTitle,
+        parent: category.parent_category,
         //children: category.children ? category.children.map(x => basicDetails(x)) : []
     };
     if (extra === true){
-        if (category.consistsOfs && category.consistsOfs.length){
+        if (
+          category.has_degree
+          && (category.degree_type === 'float' || category.degree_type === 'int')
+          && category.consistsOfs
+          && category.consistsOfs.length
+        ){
             details.minDegree = category.consistsOfs[0].dataValues.minDegree;
             details.maxDegree = category.consistsOfs[0].dataValues.maxDegree;
         }
         if (category.children && category.children.length){ //shows if the category has children so FE needs to check if >0 then display on click
-            details.children = category.children[0].dataValues.count;
+            details.childrenCount = category.children[0].dataValues.count;
         }
     }
     return details;

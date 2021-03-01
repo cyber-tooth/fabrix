@@ -1,8 +1,15 @@
 <div class="container d-flex flex-column sticky-footer-wrapper min-vh-100 ">
   <div class="row">
-    <div class="col-md-3" style="border-right: #777777" *ngIf="categoriesAreFetched">
-      <div class="btn-group btn-block dropdown" dropdown container="body" [insideClick]="true"
-           *ngFor="let mainCategory of mainCategories">
+    <div class="col-md-3" style="border-right: #777777">
+      <ul *ngIf="categories.length" class="category__tree">
+        <!-- Invoke the recursive template. -->
+        <ng-template
+          ngFor
+          [ngForOf]="categories"
+          [ngForTemplate]="categoryRef">
+        </ng-template>
+      </ul>
+      <div class="btn-group btn-block dropdown" dropdown container="body" [insideClick]="true" *ngFor="let mainCategory of mainCategories">
         <button id="button-nested" dropdownToggle type="button" class="btn btn- dropdown-toggle"
                 data-toggle="dropdown-grid" type="button" aria-expanded="false" aria-haspopup="true">
           {{mainCategory.categoryName}} <span class="caret"></span>
@@ -26,26 +33,7 @@
                            {{item.categoryName}}
                         </a>
                      </ng-template>
-                     <ng-template #dgreeFilter>
-                        <labe style="min-width: 25rem" class="dropdown-item">
-                           {{item.categoryName}}
-                        </labe>
-                       <div class="p-2" *ngIf="item.minDegree && item.maxDegree">
-                         <ngx-slider [(value)]="item.minDegree"
-                                     [(highValue)]="item.maxDegree"
-                                     (valueChange)="setValues(item)"
-                                     [options]="{floor: item.minDegree, ceil: item.maxDegree}"></ngx-slider>
-                         <span *ngIf="item.categoryName == 'Weight'">
-                           <small class="text-right">g/m²</small>
-                         </span>
-                         <span *ngIf="item.categoryName == 'Thickness'">
-                           <small class="text-right">mm</small>
-                         </span>
-                         <span *ngIf="item.categoryName == 'Drape-Coefficient'">
-                           <small class="text-right">%</small>
-                         </span>
-                       </div>
-                     </ng-template>
+
                       <span *ngIf="item.children && item.children.length > 0">
                         <div *dropdownMenu class="dropdown-menu  ml-1" role="menu">
                           <div role="menuitem">
@@ -162,3 +150,31 @@
     </pagination-controls>
   </div>
 </div>
+
+<ng-template #categoryRef let-category>
+  <li class="category" [class.category__selected]="( filters[category.id] !== undefined )">
+    <a *ngIf="!category.hasDegree else dgreeFilter" (click)="select(category)" class="category__label">
+      {{ category.categoryName }}
+    </a>
+    <ng-template #dgreeFilter>
+      <label>{{category.categoryName}}</label>
+      <div class="p-2" *ngIf="category.minDegree && category.maxDegree">
+        <ngx-slider [(value)]="category.minDegreeSelected"
+                    [(highValue)]="category.maxDegreeSelected"
+                    (valueChange)="setValues(category)"
+                    [options]="{floor: category.minDegree, ceil: category.maxDegree}"></ngx-slider>
+        <span *ngIf="category.degreeTitle">
+          <small class="text-right">{{ category.degreeTitle }}</small>
+        </span>
+      </div>
+    </ng-template>
+    <ul *ngIf="category.children && category.children.length" class="category__tree">
+      <!-- Invoke the recursive template. -->
+      <ng-template
+        ngFor
+        [ngForOf]="category.children"
+        [ngForTemplate]="categoryRef">
+      </ng-template>
+    </ul>
+  </li>
+</ng-template>

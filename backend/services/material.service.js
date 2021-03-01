@@ -156,7 +156,7 @@ async function getCategoryTreeById(id) { //returns the whole category tree for m
         const data = {
             id: category.id,
             name: category.category_name,
-            degree_title: category.degree_title
+            degree_title: category.degree_title ? category.degree_title.replace('{degree}', degree) : null,
         };
 
         if (category.children !== undefined) { // in case there are children of it
@@ -202,8 +202,10 @@ async function filterMaterials(filters, limit , offset) { //Limit is how many to
             where = { category_id: endCatIds[0] };
             // add degree check only if degree is not null
             if (degree !== null) {
-                if (typeof degree === "array"){
-                    where.degree = { [Op.between]: degree }
+                if (degree instanceof Array){
+                    where.degree = {
+                        [Op.between]: degree,
+                    }
                 }else{
                     where.degree = degree;
                 }
@@ -213,6 +215,8 @@ async function filterMaterials(filters, limit , offset) { //Limit is how many to
         }
         wheres.push(where);
     }
+
+    console.log('wheres is', wheres)
 
     // [1,2,3,4] or [{material_id: 1},{material_id: 2},{material_id: 3}]
     let materialData = await db.ConsistsOf.findAndCountAll({
